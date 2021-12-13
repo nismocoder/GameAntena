@@ -4,12 +4,15 @@ import GameDetail from "../components/GameDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
 // components
-import Game from "../components/Game";
+import { Game, User } from "../components/";
+
 // styling and animation
 import styled from "styled-components";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 // import { upcomingGamesURL } from "../API";
 import { useLocation } from "react-router-dom";
+import { getLocalStorageItem } from "../utils";
+
 // import { usehistory } from "react-router-dom";
 
 const key = "23c3d5a5e3f14be399ecc29f152009c1"; // YOUR KEY GOES HERE
@@ -27,25 +30,35 @@ const Home = () => {
   const pathId = location.pathname.split("/")[2];
   // Fetch Games
   const dispatch = useDispatch();
+
+  // get that data back
+  const games = useSelector((state) => state.games);
+
   useEffect(() => {
     dispatch(loadGames());
+
+    if (typeof window !== "undefined") {
+      let accessToken = getLocalStorageItem("accessToken");
+      let email = getLocalStorageItem("email");
+
+      if (accessToken) {
+        dispatch({ type: 'UPDATE_LOGIN_STATUS', payload: { email, accessToken } })
+      }
+    }
   }, [dispatch]);
-  // get that data back
-  const { popular, newGames, upcoming, searched } = useSelector(
-    (state) => state.games
-  );
-  // console.log(games);
+
+
   return (
     <GameList>
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
           {pathId && <GameDetail pathId={pathId} />}
         </AnimatePresence>
-        {searched.length ? (
+        {games.searched.length > 0 && (
           <div className="searched">
             <h2>Searched Games</h2>
             <Games>
-              {searched.map((game) => (
+              {games.searched.map((game) => (
                 <Game
                   name={game.name}
                   released={game.released}
@@ -56,12 +69,12 @@ const Home = () => {
               ))}
             </Games>
           </div>
-        ) : (
-          ""
         )}
+        {/* TODO: Get User details from the backend */}
+        {<User />}
         <h2>UPCOMING GAMES</h2>
         <Games>
-          {upcoming.map((game) => (
+          {games.upcoming.map((game) => (
             <Game
               name={game.name}
               released={game.released}
@@ -73,7 +86,7 @@ const Home = () => {
         </Games>
         <h2>POPULAR GAMES</h2>
         <Games>
-          {popular.map((game) => (
+          {games.popular.map((game) => (
             <Game
               name={game.name}
               released={game.released}
@@ -85,7 +98,7 @@ const Home = () => {
         </Games>
         <h2>NEW GAMES</h2>
         <Games>
-          {newGames.map((game) => (
+          {games.newGames.map((game) => (
             <Game
               name={game.name}
               released={game.released}
