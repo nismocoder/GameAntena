@@ -21,9 +21,10 @@ const User = ({ details }) => {
         }),
       });
 
-      const { error, access_token, email } = await result.json();
+      const { error, message, access_token, email } = await result.json();
 
-      if (error) return alert(error.message);
+      if (error) return alert(message);
+
 
       dispatch({ type: 'LOGIN_SUCCESS', payload: { email, accessToken } });
       setLocalStorageItem('email', email, 30);
