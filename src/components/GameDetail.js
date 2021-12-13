@@ -45,7 +45,7 @@ const Gamedetail = ({ pathId }) => {
   return (
     <>
       {!isLoading && (
-        <CardShadow class="shadow" onClick={exitDetailHandler}>
+        <CardShadow className="shadow" onClick={exitDetailHandler}>
           <Detail LayoutId={pathId}>
             <Stats>
               <div className="rating">
