@@ -4,7 +4,7 @@ const initialState = {
   isLoading: true,
 };
 
-const detailReducer = (state = initialState, action) => {
+export const detailReducer = (state = initialState, action) => {
   switch (action.type) {
     case "GET_DETAIL":
       return {
@@ -22,5 +22,3 @@ const detailReducer = (state = initialState, action) => {
       return { ...state };
   }
 };
-
-export default detailReducer;
