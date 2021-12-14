@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
 // components
 import { Game, User } from "../components/";
-
 // styling and animation
 import styled from "styled-components";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 // import { upcomingGamesURL } from "../API";
 import { useLocation } from "react-router-dom";
+// utils
 import { getLocalStorageItem } from "../utils";
+import { updateUserAuthInfo } from "../actions/authAction";
 
 // import { usehistory } from "react-router-dom";
 
@@ -36,17 +37,15 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(loadGames());
-
     if (typeof window !== "undefined") {
       let accessToken = getLocalStorageItem("accessToken");
       let email = getLocalStorageItem("email");
 
-      if (accessToken) {
-        dispatch({ type: 'UPDATE_LOGIN_STATUS', payload: { email, accessToken } })
+      if (email && accessToken) {
+        dispatch(updateUserAuthInfo(email, accessToken));
       }
     }
   }, [dispatch]);
-
 
   return (
     <GameList>
