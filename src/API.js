@@ -1,6 +1,8 @@
 //Base url
 const base_url = "https://api.rawg.io/api/";
 
+const backend_url = process.env.REACT_APP_BACKEND_URL;
+
 //Getting the date
 const getCurrentMonth = () => {
   const month = new Date().getMonth() + 1;
@@ -68,3 +70,14 @@ export const gameScreenshotURL = (game_id) =>
 //Searched game
 export const searchGameURL = (game_name) =>
   `${base_url}games?search=${game_name}&page_size=9&key=${key}`;
+
+
+export const userDataURL = (userId) =>
+  `${backend_url}/users/${userId}`
+
+
+export const userTwitchVideosURL = (userId) =>
+  `${backend_url}/users/twitch-videos/${userId}`
+
+export const unlinkTwitchAccountURL = (userId) =>
+  `${backend_url}/users/unlink-twitch/${userId}`
