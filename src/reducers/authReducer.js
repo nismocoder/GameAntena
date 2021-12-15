@@ -7,6 +7,7 @@ const initialState = {
     twitch_display_name: "",
     twitch_email: "",
     twitch_display_picture: "",
+    twitch_videos: [],
   },
   isLoggedIn: false,
   accessToken: "",
@@ -38,10 +39,12 @@ export const authReducer = (state = initialState, action) => {
         twitch_display_name,
         twitch_display_picture,
         twitch_email,
+        twitch_videos,
       } = action.payload;
 
       return {
         user: {
+          ...state.user,
           id,
           email,
           role,
@@ -49,6 +52,7 @@ export const authReducer = (state = initialState, action) => {
           twitch_display_name,
           twitch_display_picture,
           twitch_email,
+          twitch_videos
         },
         isLoggedIn: true,
         accessToken: accessToken,
