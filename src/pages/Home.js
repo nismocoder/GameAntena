@@ -39,10 +39,10 @@ const Home = () => {
     dispatch(loadGames());
     if (typeof window !== "undefined") {
       let accessToken = getLocalStorageItem("accessToken");
-      let email = getLocalStorageItem("email");
+      let userId = getLocalStorageItem("userId");
 
-      if (email && accessToken) {
-        dispatch(updateUserAuthInfo(email, accessToken));
+      if (userId && accessToken) {
+        dispatch(updateUserAuthInfo(userId, accessToken));
       }
     }
   }, [dispatch]);
