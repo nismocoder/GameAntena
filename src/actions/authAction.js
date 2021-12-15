@@ -1,16 +1,32 @@
 import axios from "axios";
+import { userDataURL, userTwitchVideosURL } from "../API";
 
-export const updateUserAuthInfo = (email, accessToken) => async (dispatch) => {
-  const usersData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/users/${email}`, {
+export const loginUser = (email, accessToken) => async (dispatch) => {
+  await dispatch({ type: 'LOGIN_SUCCESS', payload: { email, accessToken } });
+}
+
+export const logoutUser = () => async (dispatch) => {
+  await dispatch({ type: "LOGOUT" });
+}
+
+export const updateUserAuthInfo = (userId, accessToken) => async (dispatch) => {
+  const userData = await axios.get(userDataURL(userId), {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`
     },
   });
 
-  dispatch({
+  const userTwitchVideos = await axios.get(userTwitchVideosURL(userId), {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`
+    },
+  });
+
+  await dispatch({
     type: 'UPDATE_USER_AUTH_INFO',
-    payload: { ...usersData.data, email }
+    payload: { ...userData.data, twitch_videos: userTwitchVideos.data, accessToken }
   });
 }
 
