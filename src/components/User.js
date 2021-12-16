@@ -82,7 +82,7 @@ const User = () => {
             {!user.twitch_user_id ? (
               <a href={twitchAuthForwardUrl({
                 clientId: process.env.REACT_APP_TWITCH_CLIENT_ID,
-                authRedirectUri: `${process.env.REACT_APP_BACKEND_URL}/login`,
+                authRedirectUri: `${process.env.REACT_APP_BACKEND_URL}/twitch-auth`,
                 scope: ['user:read:email'],
                 email: user.email
               })}>
