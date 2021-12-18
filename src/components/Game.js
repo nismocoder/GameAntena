@@ -6,18 +6,11 @@ import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { loadDetail } from "../actions/detailAction";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import { smallImage } from "../utils/";
 
 const Game = ({ name, released, image, id }) => {
   const stringPathId = id.toString();
-  //Fix scrolling
-  const history = useHistory();
-  if (history.location.pathname === "/") {
-    document.body.style.overflow = "auto";
-  } else {
-    document.body.style.overflow = "hidden";
-  }
+
   // LOAD DETAIL HANDLER
   const dispatch = useDispatch();
   const loadDetailHandler = () => {

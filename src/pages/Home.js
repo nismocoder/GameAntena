@@ -4,12 +4,12 @@ import GameDetail from "../components/GameDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
 // components
-import { Game, User } from "../components/";
+import { Game, User, Modal } from "../components/";
 // styling and animation
 import styled from "styled-components";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 // import { upcomingGamesURL } from "../API";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 // utils
 import { getLocalStorageItem } from "../utils";
 import { updateUserAuthInfo } from "../actions/authAction";
@@ -21,6 +21,7 @@ const key_url = `key=${key}`;
 // const history = useHistory();
 
 const Home = () => {
+  const history = useHistory();
   // useEffect(() => {
   //   if (history.location.pathname === "/") {
   //     return (document.body.style.overflow = "auto");
@@ -51,7 +52,7 @@ const Home = () => {
     <GameList>
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
-          {pathId && <GameDetail pathId={pathId} />}
+          <GameDetail pathId={pathId} />
         </AnimatePresence>
         {games.searched.length > 0 && (
           <div className="searched">
@@ -69,8 +70,7 @@ const Home = () => {
             </Games>
           </div>
         )}
-        {/* TODO: Get User details from the backend */}
-        {<User />}
+        <User />
         <h2>UPCOMING GAMES</h2>
         <Games>
           {games.upcoming.map((game) => (

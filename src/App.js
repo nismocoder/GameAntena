@@ -5,16 +5,16 @@ import Nav from "./components/Nav";
 //styles
 import GlobalStyles from "./components/GlobalStyles";
 //Router
-import { Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <GlobalStyles />
-      <Nav />
-      <Route path={["/game/:id", "/"]}>
-        <Home />
-      </Route>
+      <Router>
+        <GlobalStyles />
+        <Nav />
+        <Route path={["/game/:id", "/"]} component={Home} />
+      </Router>
     </div>
   );
 }

@@ -1,12 +1,10 @@
 import React from "react";
 //styling and animation
-import Modal from "./Modal";
-
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 //Redux
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 //Icons_images
 import playstation from "../img/playstation.svg";
 import steam from "../img/steam.svg";
@@ -14,18 +12,16 @@ import xbox from "../img/xbox.svg";
 import nintendo from "../img/nintendo.svg";
 import apple from "../img/apple.svg";
 import gamepad from "../img/gamepad.svg";
-import { Route } from "react-router-dom";
 
 const Gamedetail = ({ pathId }) => {
-  const { url } = useRouteMatch();
   const history = useHistory();
 
   //exit detail
   const exitDetailHandler = (e) => {
     const element = e.target;
-    if (!element.classList.contains('content')) {
+    if (element.classList.contains("shadow")) {
       document.body.style.overflow = "auto";
-      history.push('/');
+      history.push("/");
     }
   };
 
@@ -49,10 +45,9 @@ const Gamedetail = ({ pathId }) => {
   const { screen, game, isLoading } = useSelector((state) => state.detail);
 
   return (
-    <Route path={'/game'} render={() => (
-      <Modal onClick={exitDetailHandler}>
+    !isLoading && (
+      <CardShadow className="shadow" onClick={exitDetailHandler}>
         <Detail
-          className="content"
           LayoutId={pathId}
           initial={{ scale: 0.2, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -92,13 +87,32 @@ const Gamedetail = ({ pathId }) => {
             ))}
           </div>
         </Detail>
-      </Modal>
-    )}
-    />
-
+      </CardShadow>
+    )
   );
 };
 
+const CardShadow = styled(motion.div)`
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: scroll;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkred;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+`;
 
 const Detail = styled(motion.div)`
   width: 80%;
