@@ -18,6 +18,8 @@ export const detailReducer = (state = initialState, action) => {
         ...state,
         isLoading: true,
       };
+    case "CLOSE_DETAIL":
+      return initialState;
     default:
       return { ...state };
   }

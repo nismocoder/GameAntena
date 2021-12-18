@@ -1,12 +1,12 @@
 import React from "react";
+// components
+import { Modal, Loader } from "./";
 //styling and animation
-import Modal from "./Modal";
-
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 //Redux
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 //Icons_images
 import playstation from "../img/playstation.svg";
 import steam from "../img/steam.svg";
@@ -17,14 +17,15 @@ import gamepad from "../img/gamepad.svg";
 import { Route } from "react-router-dom";
 
 const Gamedetail = ({ pathId }) => {
-  const { url } = useRouteMatch();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   //exit detail
   const exitDetailHandler = (e) => {
     const element = e.target;
     if (!element.classList.contains('content')) {
       document.body.style.overflow = "auto";
+      dispatch({ type: "CLOSE_DETAIL" });
       history.push('/');
     }
   };
@@ -83,6 +84,7 @@ const Gamedetail = ({ pathId }) => {
               alt={game.background_image}
             />
           </Media>
+          {isLoading && <Loader />}
           <Description>
             <p>{game.description_raw}</p>
           </Description>
