@@ -15,6 +15,7 @@ import gamepad from "../img/gamepad.svg";
 
 const Gamedetail = ({ pathId }) => {
   const history = useHistory();
+
   //exit detail
   const exitDetailHandler = (e) => {
     const element = e.target;
@@ -46,7 +47,13 @@ const Gamedetail = ({ pathId }) => {
     <>
       {!isLoading && (
         <CardShadow className="shadow" onClick={exitDetailHandler}>
-          <Detail LayoutId={pathId}>
+          <Detail
+            LayoutId={pathId}
+            initial={{ scale: 0.2, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.2, opacity: 0.5 }}
+            transition={{ duration: 0.7, type: "spring" }}
+          >
             <Stats>
               <div className="rating">
                 <motion.h3 LayoutId={`title ${pathId}`}>{game.name}</motion.h3>
