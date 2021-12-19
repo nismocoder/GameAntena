@@ -7,53 +7,30 @@ import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 //Redux
 import { useHistory } from "react-router-dom";
-//Icons_images
-import playstation from "../img/playstation.svg";
-import steam from "../img/steam.svg";
-import xbox from "../img/xbox.svg";
-import nintendo from "../img/nintendo.svg";
-import apple from "../img/apple.svg";
-import gamepad from "../img/gamepad.svg";
 import { Route } from "react-router-dom";
+//utils
+import { getPlatformImages } from "../utils";
 
 const Gamedetail = ({ pathId }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   //exit detail
-  const exitDetailHandler = (e) => {
-    const element = e.target;
-    if (!element.classList.contains('content')) {
-      document.body.style.overflow = "auto";
-      dispatch({ type: "CLOSE_DETAIL" });
-      history.push('/');
-    }
-  };
-
-  //GET PLATFORM IMAGES
-  const getPlatform = (platform) => {
-    return (
-      {
-        "PlayStation 4": playstation,
-        "PlayStation 5": playstation,
-        "Xbox Series S/X": xbox,
-        "Xbox S": xbox,
-        "Xbox One": xbox,
-        "Nintendo Switch": nintendo,
-        PC: steam,
-        iOS: apple,
-      }[platform] || gamepad
-    );
-  };
+  const exitCallback = () => {
+    dispatch({ type: "CLOSE_DETAIL" });
+    history.push('/');
+  }
 
   //data
   const { screen, game, isLoading } = useSelector((state) => state.detail);
 
   return (
     <Route path={'/game'} render={() => (
-      <Modal onClick={exitDetailHandler}>
+      <Modal
+        controlled={false}
+        exitCallback={exitCallback}
+      >
         <Detail
-          className="content"
           LayoutId={pathId}
           initial={{ scale: 0.2, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -70,8 +47,9 @@ const Gamedetail = ({ pathId }) => {
               <Platforms>
                 {game.platforms.map((data) => (
                   <img
+                    alt='platform-icon'
                     key={data.platform.id}
-                    src={getPlatform(data.platform.name)}
+                    src={getPlatformImages(data.platform.name)}
                   ></img>
                 ))}
               </Platforms>
