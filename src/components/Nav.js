@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 //Animation
 import styled from "styled-components";
-import { motion } from "framer-motion";
-import logo from "../img/antena_logo1.svg";
-import controllers from "../img/controllers.jpg";
+import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
+import logo from "../img/logo/antena_logo1.svg";
 //redux&routes
 import { fetchSearch } from "../actions/gamesAction";
 import { useDispatch } from "react-redux";
-import { useAnimatedState } from "framer-motion";
+//icons
+import { faBars, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const dispatch = useDispatch();
+
+  const [showSearch, setShowSearch] = useState(false);
   const [textInput, setTextInput] = useState("");
 
   const inputHandler = (e) => {
@@ -19,65 +23,113 @@ const Nav = () => {
   const submitSearch = (e) => {
     e.preventDefault();
     dispatch(fetchSearch(textInput));
-    setTextInput("");
+    // setTextInput("");
   };
   const clearSearched = () => {
     dispatch({ type: "CLEAR_SEARCHED" });
   };
+  const closeSearch = () => {
+    setTextInput("");
+    setShowSearch(false);
+  }
+
   return (
     <StyledNav>
-      {/* <img id="PS4" src={controllers} alt="PS4" /> */}
-      <Logo onClick={clearSearched}>
-        <img src={logo} alt="logo" />
-        <h1>Game-Antena!</h1>
-      </Logo>
-      <form className="search">
-        <input value={textInput} onChange={inputHandler} type="text" />
-        <button onClick={submitSearch} type="submit">
-          Search
-        </button>
-      </form>
-    </StyledNav>
+      <div className="icon">
+        <FontAwesomeIcon icon={faBars} />
+      </div>
+      {!showSearch && (
+        <Link to={'/'}>
+          <Logo
+            onClick={clearSearched}
+            initial={{ scale: 0.2, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.2, opacity: 0.5 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img src={logo} alt="logo" />
+            <h1 className="logo-text">Game-Antena</h1>
+          </Logo>
+        </Link>
+
+      )}
+      <div className="icon search">
+        {!showSearch ?
+          <FontAwesomeIcon icon={faSearch} onClick={() => setShowSearch(true)} />
+          : (
+            <AnimatePresence>
+              <StyledSearch
+                onSubmit={submitSearch}
+                className="search-input"
+                initial={{ width: '0%', opacity: 0 }}
+                animate={{ width: '100%', opacity: 1 }}
+                exit={{ width: '0%', opacity: 0.5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <FontAwesomeIcon
+                  className="close-icon"
+                  icon={faTimes}
+                  onClick={closeSearch}
+                />
+                <input
+                  placeholder="Search a game.."
+                  value={textInput}
+                  onChange={inputHandler}
+                  type="text"
+                />
+              </StyledSearch>
+            </AnimatePresence>
+          )
+        }
+      </div>
+    </StyledNav >
   );
 };
 
 const StyledNav = styled(motion.nav)`
-  padding: 5rem 5rem;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
   text-align: center;
-  /* background-image: "../img/controllers.jpg"; */
-  /* background-image: url("../images/controllers.png"); */
-  input {
-    width: 30%;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    border: none;
-    margin-top: 1.5rem;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
-    outline: none;
-  }
-  button {
-    font-size: 1.5rem;
-    border: none;
-    padding: 0.5rem 2rem;
+  background-color: var(--primary);
+  color: var(--light-1);
+  z-index: 4;
+
+  .icon {
+    font-size: 1.2rem;
     cursor: pointer;
-    background: darkblue;
-    color: white;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
   }
-  img {
-    width: 50vw;
-    height: auto;
-    object-fit: contain;
-    background-size: cover;
-    position: "absolute";
+`;
+
+const StyledSearch = styled(motion.form)`
+  width: 90%;
+  text-align: left;
+  margin-left: auto;
+  position: relative;
+  border-radius: 50rem;
+  background-color: var(--light);
+  padding: 0.3rem 1rem;  
+
+  .close-icon {
+    position: absolute;
+    right: 2%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary-light);
+    font-size: 1.5rem;
   }
-  /* img {
-    width: 100vw;
-    height: auto;
-    object-fit: cover;
-    background-size: contain;
-    position: "absolute";
-  } */
+
+  input {
+    width: 85%;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    background: none;
+  }
+  
 `;
 
 // PS4 = styled(motion.div)`
@@ -90,13 +142,22 @@ const StyledNav = styled(motion.nav)`
 
 const Logo = styled(motion.div)`
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 2rem;
+  gap: 0.1rem;
   cursor: pointer;
-  font-size: 1.5rem;
+
   img {
-    height: 3rem;
-    width: 3rem;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .logo-text {
+    font-family: 'Kaufhalle';
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 0.15rem;
   }
 `;
 

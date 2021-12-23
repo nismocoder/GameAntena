@@ -70,7 +70,6 @@ const Home = () => {
             </Games>
           </div>
         )}
-        <User />
         <h2>UPCOMING GAMES</h2>
         <Games>
           {games.upcoming.map((game) => (
@@ -114,9 +113,12 @@ const Home = () => {
 };
 
 const GameList = styled(motion.div)`
-  padding: 0rem 2rem 5rem 2rem;
   h2 {
-    padding: 6rem 0rem;
+    font-family: var(--font-3);
+    letter-spacing: 3px;
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--primary);
   }
 `;
 

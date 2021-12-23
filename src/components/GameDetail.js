@@ -38,11 +38,11 @@ const Gamedetail = ({ pathId }) => {
           transition={{ duration: 0.7, type: "spring" }}
         >
           <Stats>
-            <div className="rating">
-              <motion.h3 LayoutId={`title ${pathId}`}>{game.name}</motion.h3>
-              <p>Rating: {game.rating}</p>
+            <div>
+              <motion.h3 className="title" LayoutId={`title ${pathId}`}>{game.name}</motion.h3>
+              <p className="rating">Rating: {game.rating}</p>
             </div>
-            <Info>
+            <div>
               <h3>Platforms</h3>
               <Platforms>
                 {game.platforms.map((data) => (
@@ -53,7 +53,7 @@ const Gamedetail = ({ pathId }) => {
                   ></img>
                 ))}
               </Platforms>
-            </Info>
+            </div>
           </Stats>
           <Media>
             <motion.img
@@ -81,34 +81,53 @@ const Gamedetail = ({ pathId }) => {
 
 
 const Detail = styled(motion.div)`
-  width: 80%;
+  width: 85%;
   border-radius: 1rem;
-  padding: 2rem 5rem;
+  padding: 5vw;
   background: lightgrey;
   position: absolute;
-  z-index: 10;
-  left: 10%;
   color: black;
   img {
     width: 100%;
+  }
+
+  @media(max-width: 360px) {
+    font-size: 0.8rem;
   }
 `;
 
 const Stats = styled(motion.div)`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-`;
+  flex-flow: row wrap;
+  gap: 4rem;
 
-const Info = styled(motion.div)`
-  text-align: center;
+  .title {
+    font-size: 1.5em;
+    font-family: var(--font-1);
+    margin-bottom: 0.5rem;
+  }
+
+  .rating {
+    font-size: 1.2em;
+  }
 `;
 
 const Platforms = styled(motion.div)`
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+
   img {
-    margin-left: 3rem;
+    width: 40px;
+  }
+
+  @media(max-width: 360px) {
+    img {
+    width: 30px;
+  }
+
   }
 `;
 
@@ -121,6 +140,8 @@ const Media = styled(motion.div)`
 
 const Description = styled(motion.div)`
   margin: 5rem 0rem;
+  letter-spacing: 0.5px;
+  font-size: 1.2em;
 `;
 
 export default Gamedetail;
