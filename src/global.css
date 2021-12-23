@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Prompt:wght@200;300;400;500;600;700;800&display=swap');
+
+@font-face {
+  font-family: 'Kaufhalle';
+  src: url('./fonts/kaufhalle.ttf') format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  --font-1: 'Prompt', sans-serif;
+  --font-2: 'Orbitron', sans-serif;
+  --font-3: 'Kaufhalle', sans-serif;
+
+  --light: #f5f5f7;
+  --light-1: #e2e2ef;
+  --light-2: #d7d7db;
+  --primary: #1f1f2d;
+  --primary-light: rgb(108, 113, 145);
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+body {
+  font-family: var(--font-1);
+  width: 100%;
+}
+
+p {
+  color: var(--primary-light);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  display: block;
+}
+input {
+  font-weight: bold;
+  font-family: 'montserrate', sans-serif;
+}
+/* button {
+    font-size: 1.5rem;
+    border: none;
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+    background: lightblue;
+    color: white;
+} */
