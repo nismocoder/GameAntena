@@ -19,6 +19,18 @@
   --light-2: #d7d7db;
   --primary: #1f1f2d;
   --primary-light: rgb(108, 113, 145);
+
+  --shade-1: rgba(65, 144, 201, 1);
+  --shade-1-fade: rgba(65, 144, 201, 0.15);
+
+  --shade-2: rgba(65, 79, 201, 1);
+  --shade-2-fade: rgba(65, 79, 201, 0.15);
+
+  --shade-3: rgb(65, 201, 133);
+  --shade-3-fade: rgba(65, 201, 133, 0.15);
+
+  --shade-4: rgb(201, 126, 65);
+  --shade-4-fade: rgba(201, 126, 65, 0.15);
 }
 
 ::-webkit-scrollbar {
