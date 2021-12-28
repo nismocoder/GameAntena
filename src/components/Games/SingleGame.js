@@ -18,7 +18,11 @@ const Game = ({ name, released, image, id }) => {
     dispatch(loadDetail(id));
   };
   return (
-    <StyledGame LayoutId={stringPathId} onClick={loadDetailHandler}>
+    <StyledGame
+      LayoutId={stringPathId}
+      onClick={loadDetailHandler}
+      className="hoverable"
+    >
       <Link to={`/game/${id}`}>
         <p className="title">{name}</p>
         {/* <p>{released}</p> */}
