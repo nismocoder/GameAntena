@@ -55,10 +55,10 @@ const Home = () => {
           <GameDetail pathId={pathId} />
         </AnimatePresence>
         {games.searched.length > 0 && (
-          <section className="searched">
+          <Section className="searched">
             <h3 className="section-title">Searched Games</h3>
             <Games games={games.searched} />
-          </section>
+          </Section>
         )}
         <Section className="upcoming">
           <h3 className="section-title">UPCOMING GAMES</h3>
@@ -82,6 +82,11 @@ const Home = () => {
 };
 
 const GameList = styled(motion.div)`
+  .searched {
+    background-color: var(--shade-4-fade);
+    .section-title {color: var(--shade-4)}
+  } 
+
   .upcoming {
     background-color: var(--shade-1-fade);
     .section-title {color: var(--shade-1)}

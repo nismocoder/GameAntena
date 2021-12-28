@@ -29,8 +29,8 @@
   --shade-3: rgb(65, 201, 133);
   --shade-3-fade: rgba(65, 201, 133, 0.15);
 
-  --shade-4: rgb(201, 126, 65);
-  --shade-4-fade: rgba(201, 126, 65, 0.15);
+  --shade-4: rgb(201, 97, 65);
+  --shade-4-fade: rgba(201, 97, 65, 0.15);
 }
 
 ::-webkit-scrollbar {
