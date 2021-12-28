@@ -4,9 +4,9 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 // REDUX
 import { useDispatch } from "react-redux";
-import { loadDetail } from "../actions/detailAction";
+import { loadDetail } from "../../actions/detailAction";
 import { Link } from "react-router-dom";
-import { smallImage } from "../utils/";
+import { smallImage } from "../../utils";
 
 const Game = ({ name, released, image, id }) => {
   const stringPathId = id.toString();
@@ -20,9 +20,7 @@ const Game = ({ name, released, image, id }) => {
   return (
     <StyledGame LayoutId={stringPathId} onClick={loadDetailHandler}>
       <Link to={`/game/${id}`}>
-        <div className="title">
-          <motion.h3 LayoutId={`title ${stringPathId}`}>{name}</motion.h3>
-        </div>
+        <p className="title">{name}</p>
         {/* <p>{released}</p> */}
         <motion.img
           LayoutId={`image $ stringPathId`}
@@ -36,6 +34,11 @@ const Game = ({ name, released, image, id }) => {
 
 const StyledGame = styled(motion.div)`
   position: relative;
+  min-height: 40vh; 
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
 
   .title {
     width: 100%;
@@ -47,19 +50,15 @@ const StyledGame = styled(motion.div)`
     background-image: linear-gradient(
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 0.48) 80%
-    )
+    );
+    font-size: 1.1rem;
   }
 
   img {
     width: 100%;
-    height: 50vh;
+    height: 100%;
     object-fit: cover;
   }
-  text-align: center;
-  min-height: 30vh;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
 `;
 
 export default Game;

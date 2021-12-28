@@ -4,7 +4,7 @@ import GameDetail from "../components/GameDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
 // components
-import { Game, User, Modal } from "../components/";
+import { Games } from "../components/";
 // styling and animation
 import styled from "styled-components";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
@@ -55,85 +55,73 @@ const Home = () => {
           <GameDetail pathId={pathId} />
         </AnimatePresence>
         {games.searched.length > 0 && (
-          <div className="searched">
-            <h2>Searched Games</h2>
-            <Games>
-              {games.searched.map((game) => (
-                <Game
-                  name={game.name}
-                  released={game.released}
-                  id={game.id}
-                  image={game.background_image}
-                  key={game.id}
-                />
-              ))}
-            </Games>
-          </div>
+          <section className="searched">
+            <h3 className="section-title">Searched Games</h3>
+            <Games games={games.searched} />
+          </section>
         )}
-        <h2>UPCOMING GAMES</h2>
-        <Games>
-          {games.upcoming.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-        </Games>
-        <h2>POPULAR GAMES</h2>
-        <Games>
-          {games.popular.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-        </Games>
-        <h2>NEW GAMES</h2>
-        <Games>
-          {games.newGames.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-          <h4>API from RAWG.IO</h4>
-        </Games>
+        <section className="upcoming">
+          <h3 className="section-title">UPCOMING GAMES</h3>
+          <Games games={games.upcoming} />
+        </section>
+
+        <section className="popular">
+          <h3 className="section-title">POPULAR GAMES</h3>
+          <Games games={games.popular} />
+        </section>
+
+        <section className="new">
+          <h3 className="section-title">NEW GAMES</h3>
+          <Games games={games.newGames} />
+        </section>
+
+        <h4 className="rawg-api">API from RAWG.IO</h4>
       </AnimateSharedLayout>
     </GameList>
   );
 };
 
 const GameList = styled(motion.div)`
-  h2 {
+  section {
+    padding: 3rem 0rem;
+  }
+
+  .section-title {
     font-family: var(--font-3);
     letter-spacing: 3px;
-    text-align: center;
-    padding: 4rem 1rem;
+    text-align: left;
     color: var(--primary);
+    padding: 0rem 2rem 1.5rem 1.5rem;
   }
-`;
 
-const Games = styled(motion.div)`
-  min-height: 80vh;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-column-gap: 3rem;
-  grid-row-gap: 5rem;
-  h4 {
-    font-weight: bold;
+  .upcoming {
+    background-color: var(--shade-1-fade);
+    .section-title {color: var(--shade-1)}
+  } 
+
+  .popular {
+    background-color: var(--shade-2-fade);
+    .section-title {color: var(--shade-2)}
+  } 
+
+  .new {
+    background-color: var(--shade-3-fade);
+    .section-title {color: var(--shade-3)}
+  } 
+
+  .rawg-api {
     font-size: 1.3rem;
     color: darkred;
     padding: 1.1rem 4rem;
   }
+
+  @media(min-width: 768px) {
+    section {
+      padding: 3rem 1rem;
+    }
+  }
 `;
+
+
 
 export default Home;
