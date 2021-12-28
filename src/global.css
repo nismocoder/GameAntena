@@ -62,14 +62,17 @@ img {
   display: block;
 }
 input {
-  font-weight: bold;
-  font-family: 'montserrate', sans-serif;
+  font-family: var(--font-1);
 }
-/* button {
-    font-size: 1.5rem;
-    border: none;
-    padding: 0.5rem 2rem;
-    cursor: pointer;
-    background: lightblue;
-    color: white;
-} */
+button {
+  font-family: var(--font-1);
+  font-size: 1rem;
+}
+
+.hoverable {
+  transition: filter 0.3s ease-out;
+}
+
+.hoverable:hover {
+  filter: brightness(80%);
+}
