@@ -60,20 +60,20 @@ const Home = () => {
             <Games games={games.searched} />
           </section>
         )}
-        <section className="upcoming">
+        <Section className="upcoming">
           <h3 className="section-title">UPCOMING GAMES</h3>
           <Games games={games.upcoming} />
-        </section>
+        </Section>
 
-        <section className="popular">
+        <Section className="popular">
           <h3 className="section-title">POPULAR GAMES</h3>
           <Games games={games.popular} />
-        </section>
+        </Section>
 
-        <section className="new">
+        <Section className="new">
           <h3 className="section-title">NEW GAMES</h3>
           <Games games={games.newGames} />
-        </section>
+        </Section>
 
         <h4 className="rawg-api">API from RAWG.IO</h4>
       </AnimateSharedLayout>
@@ -82,18 +82,6 @@ const Home = () => {
 };
 
 const GameList = styled(motion.div)`
-  section {
-    padding: 3rem 0rem;
-  }
-
-  .section-title {
-    font-family: var(--font-3);
-    letter-spacing: 3px;
-    text-align: left;
-    color: var(--primary);
-    padding: 0rem 2rem 1.5rem 1.5rem;
-  }
-
   .upcoming {
     background-color: var(--shade-1-fade);
     .section-title {color: var(--shade-1)}
@@ -112,16 +100,26 @@ const GameList = styled(motion.div)`
   .rawg-api {
     font-size: 1.3rem;
     color: darkred;
-    padding: 1.1rem 4rem;
-  }
-
-  @media(min-width: 768px) {
-    section {
-      padding: 3rem 1rem;
-    }
+    padding: 2rem 0;
+    text-align: center;
   }
 `;
 
+const Section = styled(motion.div)`
+  padding: 3rem 0rem;
+  
+  .section-title {
+    font-family: var(--font-3);
+    letter-spacing: 3px;
+    text-align: left;
+    color: var(--primary);
+    padding: 0rem 2rem 1.5rem 1.5rem;
+  }
+
+  @media(min-width: 768px) {
+    padding: 3rem 1rem;
+  }
+`;
 
 
 export default Home;
