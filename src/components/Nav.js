@@ -42,8 +42,9 @@ const Nav = () => {
         <FontAwesomeIcon icon={faBars} />
       </div>
       {!showSearch && (
-        <Link to={'/'}>
+        <Link to="/">
           <Logo
+            className="hoverable"
             onClick={clearSearched}
             initial={{ scale: 0.2, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -148,7 +149,6 @@ const StyledSearchDesktop = styled(motion.form)`
     top: 50%;
     transform: translate(-50%, -50%);
     color: var(--light);
-    cursor: pointer;
     z-index: 5;
     background-color: var(--shade-2);
     height: 100%;
@@ -228,7 +228,6 @@ const Logo = styled(motion.div)`
   align-items: center;
   justify-content: flex-start;
   gap: 0.1rem;
-  cursor: pointer;
 
   img {
     height: 1.5rem;
