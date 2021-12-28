@@ -20,14 +20,17 @@ const Nav = () => {
   const inputHandler = (e) => {
     setTextInput(e.target.value);
   };
+
   const submitSearch = (e) => {
     e.preventDefault();
     dispatch(fetchSearch(textInput));
     // setTextInput("");
   };
+
   const clearSearched = () => {
     dispatch({ type: "CLEAR_SEARCHED" });
   };
+
   const closeSearch = () => {
     setTextInput("");
     setShowSearch(false);
@@ -35,7 +38,7 @@ const Nav = () => {
 
   return (
     <StyledNav>
-      <div className="icon">
+      <div className="mobile-icon bars">
         <FontAwesomeIcon icon={faBars} />
       </div>
       {!showSearch && (
@@ -53,35 +56,53 @@ const Nav = () => {
         </Link>
 
       )}
-      <div className="icon search">
+      <div className="mobile-icon search">
         {!showSearch ?
           <FontAwesomeIcon icon={faSearch} onClick={() => setShowSearch(true)} />
           : (
-            <AnimatePresence>
-              <StyledSearch
-                onSubmit={submitSearch}
-                className="search-input"
-                initial={{ width: '0%', opacity: 0 }}
-                animate={{ width: '100%', opacity: 1 }}
-                exit={{ width: '0%', opacity: 0.5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <FontAwesomeIcon
-                  className="close-icon"
-                  icon={faTimes}
-                  onClick={closeSearch}
-                />
-                <input
-                  placeholder="Search a game.."
-                  value={textInput}
-                  onChange={inputHandler}
-                  type="text"
-                />
-              </StyledSearch>
-            </AnimatePresence>
+            <StyledSearchMobile
+              onSubmit={submitSearch}
+              className="search-input"
+              initial={{ width: '0%', opacity: 0 }}
+              animate={{ width: '100%', opacity: 1 }}
+              exit={{ width: '0%', opacity: 0.5 }}
+              transition={{ duration: 0.3 }}
+            >
+              <FontAwesomeIcon
+                className="close-icon"
+                icon={faTimes}
+                onClick={closeSearch}
+              />
+              <input
+                placeholder="Search a game.."
+                value={textInput}
+                onChange={inputHandler}
+                type="text"
+              />
+            </StyledSearchMobile>
           )
         }
       </div>
+      <StyledSearchDesktop
+        onSubmit={submitSearch}
+        className='desktop'
+      >
+        <input
+          placeholder="Search a game.."
+          value={textInput}
+          onChange={inputHandler}
+          type="text"
+        />
+        <FontAwesomeIcon
+          className="search-icon hoverable"
+          icon={faSearch}
+          onClick={submitSearch}
+        />
+      </StyledSearchDesktop>
+      <StyledAuth className='desktop'>
+        <button className="login hoverable">Login</button>
+        <button className="register hoverable">Register</button>
+      </StyledAuth>
     </StyledNav >
   );
 };
@@ -98,13 +119,56 @@ const StyledNav = styled(motion.nav)`
   color: var(--light-1);
   z-index: 4;
 
-  .icon {
-    font-size: 1.2rem;
-    cursor: pointer;
+  .desktop {
+    display: none;
+  }
+
+  /* desktop */
+  @media(min-width: 769px) {
+    > * {
+      flex: 1;
+    }
+
+    padding: 1rem 1rem;
+
+    .mobile-icon {display: none}
+
+    .desktop {
+      display: flex;
+    }
   }
 `;
 
-const StyledSearch = styled(motion.form)`
+const StyledSearchDesktop = styled(motion.form)`
+  position: relative;
+  
+  .search-icon {
+    position: absolute;
+    right: -5.2%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--light);
+    cursor: pointer;
+    z-index: 5;
+    background-color: var(--shade-2);
+    height: 100%;
+    width: 10%;
+    padding: 0.6rem;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  input {
+    width: 100%;
+    font-size: 1.2rem;
+    border: none;
+    background-color: var(--light);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+  }
+`;
+
+const StyledSearchMobile = styled(motion.form)`
   width: 90%;
   text-align: left;
   margin-left: auto;
@@ -129,21 +193,40 @@ const StyledSearch = styled(motion.form)`
     outline: none;
     background: none;
   }
-  
 `;
 
-// PS4 = styled(motion.div)`
-//   width: 100vw;
-//   height: auto;
-//   object-fit: cover;
-//   background-size: contain;
-//   position: "absolute";
-// `;
+const StyledAuth = styled(motion.div)`
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    padding: 0.5rem 2rem;
+    border-radius: 50rem;
+    border: none;
+    margin-left: 1rem;  
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--light);
+  }
+
+  button:hover { 
+    filter: brightness(80%);
+  }
+
+  .login {
+    background-color: var(--shade-4);
+  }
+
+  .register {
+    background-color: var(--primary);
+    border: 2px solid var(--light);
+  }
+`;
 
 const Logo = styled(motion.div)`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.1rem;
   cursor: pointer;
 
