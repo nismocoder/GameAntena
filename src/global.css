@@ -71,6 +71,7 @@ button {
 
 .hoverable {
   transition: filter 0.3s ease-out;
+  cursor: pointer;
 }
 
 .hoverable:hover {
