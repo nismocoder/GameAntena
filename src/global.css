@@ -31,6 +31,9 @@
 
   --shade-4: rgb(201, 97, 65);
   --shade-4-fade: rgba(201, 97, 65, 0.15);
+
+  --box-shadow: rgba(50, 50, 93, 0.25) 8px 0px 27px -5px,
+    rgba(0, 0, 0, 0.548) 0px 8px 16px -8px;
 }
 
 ::-webkit-scrollbar {
@@ -76,4 +79,9 @@ button {
 
 .hoverable:hover {
   filter: brightness(80%);
+}
+
+.scrollable {
+  overflow-y: scroll;
+  height: 100vh;
 }
