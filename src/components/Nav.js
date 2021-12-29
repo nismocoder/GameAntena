@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 //Animation
 import styled from "styled-components";
-import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import logo from "../img/logo/antena_logo1.svg";
 //redux&routes
 import { fetchSearch } from "../actions/gamesAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 //icons
 import { faBars, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +16,8 @@ const Nav = () => {
 
   const [showSearch, setShowSearch] = useState(false);
   const [textInput, setTextInput] = useState("");
+
+  const ui = useSelector(state => state.ui)
 
   const inputHandler = (e) => {
     setTextInput(e.target.value);
@@ -36,10 +38,15 @@ const Nav = () => {
     setShowSearch(false);
   }
 
+  const toggleSideMenu = () => {
+    if (!ui.showSideMenu) return dispatch({ type: "SHOW_SIDE_MENU" });
+    return dispatch({ type: "HIDE_SIDE_MENU" });
+  }
+
   return (
     <StyledNav>
-      <div className="mobile-icon bars">
-        <FontAwesomeIcon icon={faBars} />
+      <div className="mobile-icon bars hoverable">
+        <FontAwesomeIcon onClick={toggleSideMenu} icon={ui.showSideMenu ? faTimes : faBars} />
       </div>
       {!showSearch && (
         <Link to="/">
@@ -65,7 +72,7 @@ const Nav = () => {
               onSubmit={submitSearch}
               className="search-input"
               initial={{ width: '0%', opacity: 0 }}
-              animate={{ width: '100%', opacity: 1 }}
+              animate={{ width: '90%', opacity: 1 }}
               exit={{ width: '0%', opacity: 0.5 }}
               transition={{ duration: 0.3 }}
             >

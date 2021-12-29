@@ -3,12 +3,18 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
 // components
-import { GameList } from "../components";
+import { GameList, SideMenu } from "../components";
 // utils
 import { getLocalStorageItem } from "../utils";
 import { updateUserAuthInfo } from "../actions/authAction";
 
+import { AnimateSharedLayout, motion } from "framer-motion";
+
+import styled from "styled-components";
+
 const Home = () => {
+
+  document.body.style.overflow = "hidden";
 
   // Fetch Games
   const dispatch = useDispatch();
@@ -26,12 +32,16 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <h2>TODO: ADD SIDEBAR</h2>
+    <Flex>
+      <SideMenu />
       <GameList />
-    </>
+    </Flex>
   );
 };
+
+const Flex = styled(motion.div)`
+  display: flex !important;
+`;
 
 
 
