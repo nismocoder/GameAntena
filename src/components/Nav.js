@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 //Animation
-import styled from "styled-components";
 import { motion } from "framer-motion";
-import logo from "../img/logo/antena_logo1.svg";
 //redux&routes
 import { fetchSearch } from "../actions/gamesAction";
 import { useDispatch, useSelector } from "react-redux";
 //icons
-import { faBars, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faSearch,
+  faTimes,
+  faUser
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+
+import styled from "styled-components";
+
+import Logo from "./Logo";
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -17,7 +24,8 @@ const Nav = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [textInput, setTextInput] = useState("");
 
-  const ui = useSelector(state => state.ui)
+  const ui = useSelector(state => state.ui);
+  const { isLoggedIn } = useSelector(state => state.auth)
 
   const inputHandler = (e) => {
     setTextInput(e.target.value);
@@ -25,7 +33,7 @@ const Nav = () => {
 
   const submitSearch = (e) => {
     e.preventDefault();
-    dispatch(fetchSearch(textInput));
+    if (textInput) dispatch(fetchSearch(textInput));
     // setTextInput("");
   };
 
@@ -50,17 +58,7 @@ const Nav = () => {
       </div>
       {!showSearch && (
         <Link to="/">
-          <Logo
-            className="hoverable"
-            onClick={clearSearched}
-            initial={{ scale: 0.2, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.2, opacity: 0.5 }}
-            transition={{ duration: 0.3 }}
-          >
-            <img src={logo} alt="logo" />
-            <h1 className="logo-text">Game-Antena</h1>
-          </Logo>
+          <Logo onClick={clearSearched} />
         </Link>
 
       )}
@@ -107,9 +105,33 @@ const Nav = () => {
           onClick={submitSearch}
         />
       </StyledSearchDesktop>
+
       <StyledAuth className='desktop'>
-        <button className="login hoverable">Login</button>
-        <button className="register hoverable">Register</button>
+        {!isLoggedIn ? (
+          <div>
+            <Link to="/login">
+              <button className="login hoverable">Login</button>
+            </Link>
+            <Link to="/register">
+              <button className="register hoverable">Register</button>
+            </Link>
+          </div>
+        ) : (
+          <>
+            <Link to="/" className="hoverable">
+              <button className="view-profile">
+                View Profile
+                <FontAwesomeIcon className="icon" icon={faUser} />
+              </button>
+
+            </Link>
+            {/* <div className="hoverable logout">
+              Logout
+              <FontAwesomeIcon className="icon" icon={faSignOutAlt} />
+            </div> */}
+          </>
+        )
+        }
       </StyledAuth>
     </StyledNav >
   );
@@ -204,10 +226,16 @@ const StyledSearchMobile = styled(motion.form)`
 
 const StyledAuth = styled(motion.div)`
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+  gap: 2rem;
+
+  .icon {
+    margin-left: 0.5rem;
+  }
 
   button {
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 50rem;
     border: none;
     margin-left: 1rem;  
@@ -228,26 +256,12 @@ const StyledAuth = styled(motion.div)`
     background-color: var(--primary);
     border: 2px solid var(--light);
   }
-`;
 
-const Logo = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.1rem;
-
-  img {
-    height: 1.5rem;
-    width: 1.5rem;
+  .view-profile {
+    background-color: var(--primary);
+    border: 2px solid var(--light);
   }
 
-  .logo-text {
-    font-family: 'Kaufhalle';
-    letter-spacing: 1px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    margin-top: 0.15rem;
-  }
 `;
 
 export default Nav;
