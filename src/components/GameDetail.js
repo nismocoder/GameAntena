@@ -62,7 +62,7 @@ const Gamedetail = ({ pathId }) => {
               alt={game.background_image}
             />
           </Media>
-          {isLoading && <Loader />}
+          {isLoading && <Loader style={{ transform: 'scale(1.5)' }} />}
           <Description>
             <p>{game.description_raw}</p>
           </Description>
