@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 
-import { GameDetail, Games } from "./index";
+import { GameDetail, Games, Loader } from ".";
 
 import { useLocation } from "react-router-dom";
 
@@ -21,35 +21,44 @@ const GameList = () => {
   const { showSideMenu } = useSelector((state) => state.ui);
 
   return (
-    <StyledGameList
-      layout
-      className={`${showSideMenu ? 'scrollable' : ''}`}
-    >
-      <AnimatePresence>
-        <GameDetail pathId={pathId} />
-      </AnimatePresence>
-      {games.searched.length > 0 && (
-        <Section className="searched">
-          <h3 className="section-title">Searched Games</h3>
-          <Games games={games.searched} />
+    games.isLoading ? (
+      <div style={{ width: '100vw', height: '100vh', flex: 1 }}>
+        <Loader style={{ transform: 'scale(2)' }} />
+      </div>
+    ) : (
+      <StyledGameList
+        layout
+        className={`${showSideMenu ? 'scrollable' : ''}`
+        }
+      >
+        <AnimatePresence>
+          <GameDetail pathId={pathId} />
+        </AnimatePresence>
+        {
+          games.searched.length > 0 && (
+            <Section className="searched">
+              <h3 className="section-title">Searched Games</h3>
+              <Games games={games.searched} />
+            </Section>
+          )
+        }
+        <Section className="upcoming">
+          <h3 className="section-title">UPCOMING GAMES</h3>
+          <Games games={games.upcoming} />
         </Section>
-      )}
-      <Section className="upcoming">
-        <h3 className="section-title">UPCOMING GAMES</h3>
-        <Games games={games.upcoming} />
-      </Section>
 
-      <Section className="popular">
-        <h3 className="section-title">POPULAR GAMES</h3>
-        <Games games={games.popular} />
-      </Section>
+        <Section className="popular">
+          <h3 className="section-title">POPULAR GAMES</h3>
+          <Games games={games.popular} />
+        </Section>
 
-      <Section className="new">
-        <h3 className="section-title">NEW GAMES</h3>
-        <Games games={games.newGames} />
-      </Section>
-      <h4 className="rawg-api">API from RAWG.IO</h4>
-    </StyledGameList>
+        <Section className="new">
+          <h3 className="section-title">NEW GAMES</h3>
+          <Games games={games.newGames} />
+        </Section>
+        <h4 className="rawg-api">API from RAWG.IO</h4>
+      </StyledGameList >
+    )
   )
 }
 
@@ -59,22 +68,18 @@ const StyledGameList = styled(motion.div)`
   height: 100vh;
 
   .searched {
-    background-color: var(--shade-4-fade);
     .section-title {color: var(--shade-4)}
   } 
 
   .upcoming {
-    background-color: var(--shade-1-fade);
     .section-title {color: var(--shade-1)}
   } 
 
   .popular {
-    background-color: var(--shade-2-fade);
     .section-title {color: var(--shade-2)}
   } 
 
   .new {
-    background-color: var(--shade-3-fade);
     .section-title {color: var(--shade-3)}
   } 
 
