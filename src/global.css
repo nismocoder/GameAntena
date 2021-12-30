@@ -32,8 +32,7 @@
   --shade-4: rgb(201, 97, 65);
   --shade-4-fade: rgba(201, 97, 65, 0.15);
 
-  --box-shadow: rgba(50, 50, 93, 0.25) 8px 0px 27px -5px,
-    rgba(0, 0, 0, 0.548) 0px 8px 16px -8px;
+  --box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
 ::-webkit-scrollbar {
