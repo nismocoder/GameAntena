@@ -3,14 +3,13 @@ import { createPortal } from "react-dom";
 
 import styled from "styled-components";
 
-import { motion } from "framer-motion";
-
 const Modal = ({
   show = false,
   controlled = true,
   children,
   exitCallback = () => { },
-  className
+  className,
+  alignV = 'flex-start'
 }) => {
 
   const handleClick = (e) => {
@@ -24,9 +23,9 @@ const Modal = ({
   // Fixed scrolling
   React.useEffect(() => {
     document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'auto';
-    }
+    // return () => {
+    //   document.body.style.overflow = 'auto';
+    // }
   }, [])
 
   // We have two options when rendering the modal
@@ -41,12 +40,12 @@ const Modal = ({
 
   return createPortal(
     !controlled ? (
-      <StyledModal className={`modal-wrapper ${className}`} onClick={handleClick}>
+      <StyledModal alignV={alignV} className={`modal-wrapper ${className}`} onClick={handleClick}>
         {children}
       </StyledModal>
     ) : (
       show && (
-        <StyledModal className={`modal-wrapper ${className}`} onClick={handleClick}>
+        <StyledModal alignV={alignV} className={`modal-wrapper ${className}`} onClick={handleClick}>
           {children}
         </StyledModal>
       )
@@ -55,13 +54,14 @@ const Modal = ({
   );
 }
 
-const StyledModal = styled(motion.div)`
+const StyledModal = styled.div`
   width: 100%;
   min-height: 100vh;
   overflow-y: scroll;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   display: flex;
+  align-items: ${props => props.alignV};
   justify-content: center;
   z-index: 5;
   top: 0;
