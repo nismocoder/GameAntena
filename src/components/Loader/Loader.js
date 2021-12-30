@@ -2,8 +2,10 @@ import React from 'react';
 
 import './Loader.css';
 
-const Loader = () => (
-  <div className='loader-wrapper'><div className='lds-ripple'><div></div><div></div></div></div>
+const Loader = ({ className, style = {} }) => (
+  <div className={`loader-wrapper ${className}`}>
+    <div className='lds-ripple' style={style}><div></div><div></div></div>
+  </div>
 );
 
 
