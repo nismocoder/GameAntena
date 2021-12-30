@@ -9,6 +9,10 @@ import {
 // ActionCreator
 
 export const loadGames = () => async (dispatch) => {
+  dispatch({
+    type: "LOADING_GAMES"
+  });
+
   // FETCH AXIOS
   const popularData = await axios.get(popularGamesURL());
   const newGamesData = await axios.get(newGamesURL());
@@ -24,6 +28,10 @@ export const loadGames = () => async (dispatch) => {
 };
 
 export const fetchSearch = (game_name) => async (dispatch) => {
+  dispatch({
+    type: "LOADING_GAMES"
+  });
+
   const searchGames = await axios.get(searchGameURL(game_name));
 
   dispatch({

@@ -11,10 +11,25 @@ const initialState = {
   },
   isLoggedIn: false,
   accessToken: "",
+  isLoading: false,
 };
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "LOADING_AUTH": {
+      return {
+        ...state,
+        isLoading: true
+      }
+    }
+
+    case "LOADING_AUTH_FINISHED": {
+      return {
+        ...state,
+        isLoading: false
+      }
+    }
+
     case "LOGIN_SUCCESS": {
       const { email, accessToken } = action.payload;
 
@@ -22,6 +37,7 @@ export const authReducer = (state = initialState, action) => {
         user: { ...state.user, email: email },
         isLoggedIn: true,
         accessToken: accessToken,
+        isLoading: false,
       };
     }
 

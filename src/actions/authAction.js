@@ -6,7 +6,11 @@ export const loginUser = (email, accessToken) => async (dispatch) => {
 }
 
 export const logoutUser = () => async (dispatch) => {
-  await dispatch({ type: "LOGOUT" });
+  dispatch({
+    type: "LOADING_AUTH",
+  });
+
+  setTimeout(() => dispatch({ type: "LOGOUT" }), 500);
 }
 
 export const updateUserAuthInfo = (userId, accessToken) => async (dispatch) => {
