@@ -6,14 +6,26 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import styled from 'styled-components';
 
-import { faChevronLeft, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import {
+  faChevronLeft,
+  faHome,
+  faUser,
+  faSignOutAlt,
+  faGamepad
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { logoutUser } from '../actions/authAction';
+
+import ModalLoader from './ModalLoader';
 
 const SideMenu = () => {
   const dispatch = useDispatch();
   const [screen, setScreen] = useState({ width: 0, height: 0 });
 
   const ui = useSelector((state) => state.ui);
+  const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
 
   const hideSideMenu = () => {
     dispatch({ type: "HIDE_SIDE_MENU" });
@@ -21,6 +33,13 @@ const SideMenu = () => {
 
   const showSideMenu = () => {
     dispatch({ type: "SHOW_SIDE_MENU" });
+  }
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+
+    localStorage.removeItem("email");
+    localStorage.removeItem("accessToken");
   }
 
   useEffect(() => {
@@ -34,18 +53,25 @@ const SideMenu = () => {
 
   return (
     <>
+      {isLoading && <ModalLoader />}
       <AnimatePresence>
         {!ui.showSideMenu && (
           <StyledMenuDrawer
             layout
             onMouseEnter={showSideMenu}
             initial={{ width: '0%' }}
-            animate={{ width: '5%' }}
+            animate={{ width: '4%' }}
             exit={{ width: '0%' }}
             transition={{ duration: 0.15 }}
           >
-            <div className="show-icon icon">
+            <div className="icons">
               <FontAwesomeIcon icon={faHome} />
+              <FontAwesomeIcon icon={faTwitch} />
+              <FontAwesomeIcon icon={faYoutube} />
+              <FontAwesomeIcon icon={faUser} />
+            </div>
+            <div className="logout-icon">
+              <FontAwesomeIcon icon={faSignOutAlt} />
             </div>
           </StyledMenuDrawer>
         )
@@ -59,7 +85,7 @@ const SideMenu = () => {
             initial={{ width: '0%' }}
             animate={{ width: `${screen.width > 768 ? '20%' : '80%'}` }}
             exit={{ width: '0%' }}
-            transition={{ duration: 0.4, delay: 0.1 }}
+            transition={{ duration: 0.4 }}
           >
             <div
               onClick={hideSideMenu}
@@ -73,10 +99,39 @@ const SideMenu = () => {
               exit={{ opacity: 0.0 }}
               transition={{ duration: 0.4 }}
             >
-              <li className='active'>Browse games</li>
-              <li>Browse games</li>
-              <li>Browse games</li>
-              <li>Browse games</li>
+              <div className="main-links">
+                <li className='active'>
+                  Browse games
+                  <FontAwesomeIcon className='icon' icon={faGamepad} />
+                </li>
+                <li className=''>
+                  Link Twitch
+                  <FontAwesomeIcon className='icon' icon={faTwitch} />
+                </li>
+                <li className=''>
+                  Link Youtube
+                  <FontAwesomeIcon className='icon' icon={faYoutube} />
+                </li>
+                {isLoggedIn && (
+                  <li className='' onClick={handleLogout}>
+                    Logout
+                    <FontAwesomeIcon className='icon' icon={faSignOutAlt} />
+                  </li>
+                )}
+
+              </div>
+
+              <div className="sub-links">
+                <li className=''>About Us</li>
+                <li className=''>Privacy Policy</li>
+                <li className=''>Terms and Conditions</li>
+              </div>
+
+              <div className='copyright'>
+                <p>Copyright &copy; 2021 Game-Antena</p>
+                All rights reserved
+              </div>
+
             </MenuLinks>
           </StyledSideMenu>
         )
@@ -86,39 +141,73 @@ const SideMenu = () => {
   )
 }
 
-const MenuLinks = styled(motion.div)`
-  li {
-    width: 100%;
-    padding: 0.5rem 1rem;
-  }
-
-  li:hover {
-    color: var(--light);
-    background-color: var(--shade-4);
-  }
-
-  li.active {
-    color: var(--light);
-    background-color: var(--shade-4);
-  }
-`;
-
-const StyledMenu = styled(motion.div)`
+const SideMenuElement = styled(motion.div)`
   margin-right: auto;
-  height: 100vh;
+  height: calc(100vh - 56px);
   background-color: var(--primary);
   position: relative;
   box-shadow: var(--box-shadow);
   color: var(--light);
-  padding-top: 2rem;
+  padding: 3rem 0 2rem 0;
+
+  @media(min-width: 768px) {
+    height: calc(100vh - 77px);
+  }
 `;
 
-const StyledSideMenu = styled(StyledMenu)`
-  padding-top: 5rem;
-  list-style: none;
-  font-size: 1.1rem;
+const MenuLinks = styled(motion.div)`
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  height: 100%;
 
+  li {
+    width: 100%;
+    padding: 1rem;
+    cursor: pointer;
+
+    .icon {
+      margin-left: 0.5rem;
+    }
+  }
+
+  li:hover {
+    color: var(--light);
+    filter: brightness(80%);
+  }
+
+  li.active {
+    color: var(--light);
+    background-color: var(--shade-2);
+  }
   
+  li.active:hover {
+    filter: brightness(100%);
+  }
+
+  .sub-links {
+    font-size: 0.9rem;
+  }
+
+  .sub-links li {
+    padding: 0.7rem 1rem;
+  }
+
+  .copyright {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+    color: var(--primary-light);
+
+    p {
+      font-weight: 600;
+    }
+  }
+`;
+
+const StyledSideMenu = styled(SideMenuElement)`
+  list-style: none;
+  z-index: 2;
+
   .hide-icon {
     position: absolute;
     top: 0;
@@ -132,17 +221,29 @@ const StyledSideMenu = styled(StyledMenu)`
 
 `;
 
-const StyledMenuDrawer = styled(StyledMenu)`
+const StyledMenuDrawer = styled(SideMenuElement)`
   cursor: pointer;
   display: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-size: 1.5rem;
+  z-index: 3;
 
-  .icon {
-    font-size: 1.5rem;
+  .icons {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .logout-icon {
+    
   }
 
   @media(min-width: 768px) {
     display: flex;
     flex-flow: column;
+    justify-content: space-between;
     align-items: center;
   }
 `;
