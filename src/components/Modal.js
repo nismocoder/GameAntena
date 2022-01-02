@@ -58,7 +58,7 @@ const StyledModal = styled.div`
   width: 100%;
   min-height: 100vh;
   overflow-y: scroll;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   display: flex;
   align-items: ${props => props.alignV};
