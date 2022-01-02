@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Logo, ModalLoader } from '../../components';
@@ -12,7 +13,9 @@ const PageLayout = ({ children, linkToElement }) => {
   return (
     <StyledPage>
       {isLoading && <ModalLoader />}
-      <Logo />
+      <Link to='/'>
+        <Logo />
+      </Link>
       <main>
         {children}
         <div className="link-to">
