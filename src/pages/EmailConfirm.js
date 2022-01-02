@@ -47,12 +47,12 @@ const EmailConfirm = () => {
 
         history.push('/');
       } catch (error) {
-        console.error(error);
+        console.error(error.response.data.message);
       }
     }
 
     confirmEmail();
-  }, [history, token]);
+  }, [dispatch, history, token]);
 
   return (
     <StyledPage>
