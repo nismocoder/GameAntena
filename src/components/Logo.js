@@ -11,7 +11,7 @@ const Logo = ({ onClick = () => { } }) => {
     <StyledLogo
       className="hoverable"
       onClick={onClick}
-      initial={{ scale: 0.2, opacity: 0 }}
+      // initial={{ scale: 0.2, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.2, opacity: 0.5 }}
       transition={{ duration: 1 }}
