@@ -41,7 +41,11 @@ const User = () => {
       setLocalStorageItem('accessToken', accessToken, 30);
       setLocalStorageItem('userId', userId, 30);
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        alert(error.response.data.message);
+        return
+      }
+      alert(error);
     }
   }
 
@@ -60,14 +64,18 @@ const User = () => {
         }
       });
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        alert(error.response.data.message);
+        return
+      }
+      alert(error);
     }
 
     dispatch(updateUserAuthInfo(user.id, accessToken));
   }
 
   return (
-    <div className='user'>
+    <div className='user' style={{ flex: 1 }}>
       {isLoggedIn ? (
         <>
           <h4>User email: {user.email}</h4>
@@ -82,8 +90,8 @@ const User = () => {
             {!user.twitch_user_id ? (
               <a href={twitchAuthForwardUrl({
                 clientId: process.env.REACT_APP_TWITCH_CLIENT_ID,
-                authRedirectUri: `${process.env.REACT_APP_BACKEND_URL}/twitch-auth`,
-                scope: ['user:read:email'],
+                authRedirectUri: `${process.env.REACT_APP_BACKEND_URL}/twitch/auth`,
+                scope: ['user:read:email', 'channel:read:subscriptions'],
                 email: user.email
               })}>
                 <button>

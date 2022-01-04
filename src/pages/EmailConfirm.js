@@ -47,7 +47,11 @@ const EmailConfirm = () => {
 
         history.push('/');
       } catch (error) {
-        console.error(error.response.data.message);
+        if (error.response) {
+          alert(error.response.data.message);
+          return
+        }
+        alert(error);
       }
     }
 
