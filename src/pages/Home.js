@@ -1,31 +1,16 @@
 import React from "react";
 
-import { GameList, SideMenu, Nav } from "../components";
+import { GameList } from '../components';
 
-import { motion } from "framer-motion";
-
-import styled from "styled-components";
+import WithSideMenuAndNav from "./layout/WithSideMenuAndNav";
 
 const Home = () => {
 
-  document.body.style.overflow = "hidden";
-
   return (
-    <>
-      <Nav />
-      <Flex>
-        <SideMenu />
-        <GameList />
-      </Flex>
-    </>
+    <WithSideMenuAndNav>
+      <GameList />
+    </WithSideMenuAndNav>
   );
 };
-
-const Flex = styled(motion.div)`
-  display: flex !important;
-`;
-
-
-
 
 export default Home;

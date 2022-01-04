@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 import axios from 'axios';
@@ -12,11 +12,9 @@ import { useHandleCredentialsInput, useRouteGuard } from '../../hooks';
 
 import { setLocalStorageItem } from '../../utils';
 
-import PageLayout from './PageLayout';
+import { AuthLayout } from '../layout';
 
 const Login = () => {
-  const history = useHistory();
-
   const dispatch = useDispatch();
 
   const { credentials, handleOnChange, setCredentials } = useHandleCredentialsInput();
@@ -52,9 +50,12 @@ const Login = () => {
       setLocalStorageItem('accessToken', accessToken, 30);
       setLocalStorageItem('userId', userId, 30);
 
-      history.push("/");
     } catch (error) {
-      alert(error.response.data.message);
+      if (error.response) {
+        alert(error.response.data.message);
+        return
+      }
+      alert(error);
     } finally {
       dispatch({ type: "LOADING_AUTH_FINISHED" });
       setCredentials((state) => {
@@ -67,7 +68,7 @@ const Login = () => {
   }
 
   return (
-    <PageLayout linkToElement={
+    <AuthLayout linkToElement={
       <>
         New to Game-Antena?
         <Link to="/register" className='hoverable'>
@@ -100,7 +101,7 @@ const Login = () => {
         </div>
         <button className='submit-btn hoverable'>Login</button>
       </StyledForm>
-    </PageLayout>
+    </AuthLayout>
   )
 }
 

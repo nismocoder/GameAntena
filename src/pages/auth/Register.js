@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useHandleCredentialsInput, useRouteGuard } from '../../hooks';
 
 import { Modal } from '../../components';
-import PageLayout from './PageLayout';
+import { AuthLayout } from '../layout';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -42,7 +42,11 @@ const Register = () => {
       // show modal pointing to email confirmaton link
       setShowModal(true);
     } catch (error) {
-      alert(error.response.data.message);
+      if (error.response) {
+        alert(error.response.data.message);
+        return
+      }
+      alert(error);
     } finally {
       dispatch({ type: "LOADING_AUTH_FINISHED" });
 
@@ -56,7 +60,7 @@ const Register = () => {
   }
 
   return (
-    <PageLayout linkToElement={
+    <AuthLayout linkToElement={
       <Link to="/login" className='hoverable'>
         Go back to Login Page
       </Link>
@@ -95,7 +99,7 @@ const Register = () => {
         </div>
         <button className='submit-btn hoverable'>Register</button>
       </StyledForm>
-    </PageLayout>
+    </AuthLayout>
   )
 }
 
