@@ -6,16 +6,7 @@ import styled from "styled-components";
 
 import { GameDetail, Games, Loader } from ".";
 
-import { useLocation } from "react-router-dom";
-
-import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
-
-
 const GameList = () => {
-  const location = useLocation();
-
-  const pathId = location.pathname.split("/")[2];
-
   // get that data back
   const games = useSelector((state) => state.games);
   const { showSideMenu } = useSelector((state) => state.ui);
@@ -27,13 +18,9 @@ const GameList = () => {
       </div>
     ) : (
       <StyledGameList
-        layout
-        className={`${showSideMenu ? 'scrollable' : ''}`
-        }
+        className={`${showSideMenu ? 'scrollable' : ''}`}
       >
-        <AnimatePresence>
-          <GameDetail pathId={pathId} />
-        </AnimatePresence>
+        <GameDetail />
         {
           games.searched.length > 0 && (
             <Section className="searched">
@@ -62,10 +49,10 @@ const GameList = () => {
   )
 }
 
-const StyledGameList = styled(motion.div)`
+const StyledGameList = styled.div`
   flex: 1;
   overflow-y: scroll;
-  height: 100vh;
+  height: calc(100vh - 56px);
 
   .searched {
     .section-title {color: var(--shade-4)}
@@ -89,9 +76,13 @@ const StyledGameList = styled(motion.div)`
     padding: 2rem 0;
     text-align: center;
   }
+
+  @media(min-width: 768px) {
+    height: calc(100vh - 77px);
+  }
 `;
 
-const Section = styled(motion.div)`
+const Section = styled.div`
   padding: 3rem 0rem;
   
   .section-title {
@@ -99,7 +90,7 @@ const Section = styled(motion.div)`
     letter-spacing: 3px;
     text-align: left;
     color: var(--primary);
-    padding: 0rem 2rem 1.5rem 1.5rem;
+    padding: 0rem 0rem 1.5rem 1.5rem;
   }
 
   @media(min-width: 768px) {

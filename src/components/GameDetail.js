@@ -11,7 +11,7 @@ import { Route } from "react-router-dom";
 //utils
 import { getPlatformImages } from "../utils";
 
-const Gamedetail = ({ pathId }) => {
+const Gamedetail = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -31,7 +31,6 @@ const Gamedetail = ({ pathId }) => {
         exitCallback={exitCallback}
       >
         <Detail
-          LayoutId={pathId}
           initial={{ scale: 0.2, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.2, opacity: 0.5 }}
@@ -39,7 +38,7 @@ const Gamedetail = ({ pathId }) => {
         >
           <Stats>
             <div>
-              <motion.h3 className="title" LayoutId={`title ${pathId}`}>{game.name}</motion.h3>
+              <motion.h3 className="title">{game.name}</motion.h3>
               <p className="rating">Rating: {game.rating}</p>
             </div>
             <div>
@@ -57,7 +56,6 @@ const Gamedetail = ({ pathId }) => {
           </Stats>
           <Media>
             <motion.img
-              LayoutId={`image ${pathId}`}
               src={game.background_image}
               alt={game.background_image}
             />
@@ -75,7 +73,6 @@ const Gamedetail = ({ pathId }) => {
       </Modal>
     )}
     />
-
   );
 };
 

@@ -1,7 +1,6 @@
 import React from "react";
 // styling and animation
 import styled from "styled-components";
-import { motion } from "framer-motion";
 // REDUX
 import { useDispatch } from "react-redux";
 import { loadDetail } from "../../actions/detailAction";
@@ -9,25 +8,22 @@ import { Link } from "react-router-dom";
 import { smallImage } from "../../utils";
 
 const Game = ({ name, released, image, id }) => {
-  const stringPathId = id.toString();
-
   // LOAD DETAIL HANDLER
   const dispatch = useDispatch();
+
   const loadDetailHandler = () => {
-    document.body.style.overflow = "hidden";
     dispatch(loadDetail(id));
   };
+
   return (
     <StyledGame
-      LayoutId={stringPathId}
       onClick={loadDetailHandler}
       className="hoverable"
     >
       <Link to={`/game/${id}`}>
         <p className="title">{name}</p>
         {/* <p>{released}</p> */}
-        <motion.img
-          LayoutId={`image $ stringPathId`}
+        <img
           src={smallImage(image, 640)}
           alt={name}
         />
@@ -36,10 +32,10 @@ const Game = ({ name, released, image, id }) => {
   );
 };
 
-const StyledGame = styled(motion.div)`
+const StyledGame = styled.div`
   position: relative;
   min-height: 40vh; 
-  text-align: center;
+  text-align: left;
   overflow: hidden;
   cursor: pointer;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
@@ -48,7 +44,6 @@ const StyledGame = styled(motion.div)`
     width: 100%;
     bottom: 0;
     color: var(--light);
-    text-align: left;
     position: absolute;
     padding: 5rem 1rem 1.5rem 1rem;
     background-image: linear-gradient(
