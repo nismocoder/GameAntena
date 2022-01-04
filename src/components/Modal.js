@@ -15,18 +15,17 @@ const Modal = ({
   const handleClick = (e) => {
     const element = e.target;
     if (element.classList.contains('modal-wrapper')) {
-      document.body.style.overflow = "auto";
       if (typeof exitCallback === 'function' && !controlled) exitCallback()
     }
   }
 
-  // Fixed scrolling
-  React.useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    // return () => {
-    //   document.body.style.overflow = 'auto';
-    // }
-  }, [])
+  // // Fixed scrolling
+  // React.useEffect(() => {
+  //   document.body.style.overflow = 'hidden';
+  //   return () => {
+  //     document.body.style.overflow = 'auto';
+  //   }
+  // }, [])
 
   // We have two options when rendering the modal
   // 1 - Controll the rendering of modal using the "show" prop.

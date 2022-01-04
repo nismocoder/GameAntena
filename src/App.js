@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 //Component and pages
-import { Home, EmailConfirm, Login, Register } from './pages';
+import { Home, EmailConfirm, Login, Register, TwitchGaming } from './pages';
 //styles
 import './global.css';
 //Router
@@ -14,7 +14,12 @@ import { updateUserAuthInfo } from "./actions/authAction";
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  // Fixed scrolling
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+  }, []);
+
+  React.useEffect(() => {
     dispatch(loadGames());
     if (typeof window !== "undefined") {
       let accessToken = getLocalStorageItem("accessToken");
@@ -30,6 +35,8 @@ function App() {
     <div className="App">
       <Router>
         <Route exact path={["/game/:id", "/"]} component={Home} />
+        <Route path={"/twitch-gaming"} component={TwitchGaming} />
+        <Route path={"/login"} component={Login} />
         <Route path={"/login"} component={Login} />
         <Route path={"/register"} component={Register} />
         <Route path={"/email-confirm/"} component={EmailConfirm} />
