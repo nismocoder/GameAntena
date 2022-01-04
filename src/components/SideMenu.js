@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { Link, useHistory } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 import { faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons';
@@ -21,6 +23,9 @@ import { logoutUser } from '../actions/authAction';
 import ModalLoader from './ModalLoader';
 
 const SideMenu = () => {
+  const history = useHistory();
+  const pathname = history.location.pathname;
+
   const dispatch = useDispatch();
   const [screen, setScreen] = useState({ width: 0, height: 0 });
 
@@ -100,14 +105,18 @@ const SideMenu = () => {
               transition={{ duration: 0.4 }}
             >
               <div className="main-links">
-                <li className='active'>
-                  Browse games
-                  <FontAwesomeIcon className='icon' icon={faGamepad} />
-                </li>
-                <li className=''>
-                  Link Twitch
-                  <FontAwesomeIcon className='icon' icon={faTwitch} />
-                </li>
+                <Link to='/'>
+                  <li className={`${pathname === '/' ? 'active' : ''}`}>
+                    Browse games
+                    <FontAwesomeIcon className='icon' icon={faGamepad} />
+                  </li>
+                </Link>
+                <Link to='/twitch-gaming'>
+                  <li className={`${pathname === '/twitch-gaming' ? 'active' : ''}`}>
+                    Twitch Gaming
+                    <FontAwesomeIcon className='icon' icon={faTwitch} />
+                  </li>
+                </Link>
                 <li className=''>
                   Link Youtube
                   <FontAwesomeIcon className='icon' icon={faYoutube} />
@@ -194,7 +203,7 @@ const MenuLinks = styled(motion.div)`
   }
 
   .copyright {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     padding: 0 1rem;
     color: var(--primary-light);
 
