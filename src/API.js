@@ -73,11 +73,14 @@ export const searchGameURL = (game_name) =>
 
 
 export const userDataURL = (userId) =>
-  `${backend_url}/users/${userId}`
+  `${backend_url}/users/${userId}`;
 
 
 export const userTwitchVideosURL = (userId) =>
-  `${backend_url}/users/twitch-videos/${userId}`
+  `${backend_url}/users/twitch-videos/${userId}`;
 
 export const unlinkTwitchAccountURL = (userId) =>
-  `${backend_url}/users/unlink-twitch/${userId}`
+  `${backend_url}/users/unlink-twitch/${userId}`;
+
+export const topGamingStreamsURL = () =>
+  `${backend_url}/twitch/gaming-streams`
