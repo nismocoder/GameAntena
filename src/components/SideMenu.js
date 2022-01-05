@@ -22,6 +22,8 @@ import { logoutUser } from '../actions/authAction';
 
 import ModalLoader from './ModalLoader';
 
+import { ToolTip } from './Radix';
+
 const SideMenu = () => {
   const history = useHistory();
   const pathname = history.location.pathname;
@@ -70,10 +72,19 @@ const SideMenu = () => {
             transition={{ duration: 0.15 }}
           >
             <div className="icons">
-              <FontAwesomeIcon icon={faHome} />
-              <FontAwesomeIcon icon={faTwitch} />
-              <FontAwesomeIcon icon={faYoutube} />
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon
+                className={`${pathname === '/' ? 'active' : ''}`}
+                icon={faHome}
+              />
+              <FontAwesomeIcon
+                className={`${pathname === '/twitch-gaming' ? 'active' : ''}`}
+                icon={faTwitch}
+              />
+              <FontAwesomeIcon
+                className={`${pathname === '/youtube-gaming' ? 'active' : ''}`}
+                icon={faYoutube}
+              />
+              {/* <FontAwesomeIcon icon={faUser} /> */}
             </div>
             <div className="logout-icon">
               <FontAwesomeIcon icon={faSignOutAlt} />
@@ -106,21 +117,44 @@ const SideMenu = () => {
             >
               <div className="main-links">
                 <Link to='/'>
-                  <li className={`${pathname === '/' ? 'active' : ''}`}>
-                    Browse games
-                    <FontAwesomeIcon className='icon' icon={faGamepad} />
-                  </li>
+                  <ToolTip
+                    trigger={
+                      <li className={`${pathname === '/' ? 'active' : ''}`}>
+                        Browse games
+                        <FontAwesomeIcon className='icon' icon={faGamepad} />
+                      </li>
+                    }
+                    content={
+                      <p>Games from RAWG.IO</p>
+                    }
+                  />
+
                 </Link>
                 <Link to='/twitch-gaming'>
-                  <li className={`${pathname === '/twitch-gaming' ? 'active' : ''}`}>
-                    Twitch Gaming
-                    <FontAwesomeIcon className='icon' icon={faTwitch} />
-                  </li>
+                  <ToolTip
+                    trigger={
+                      <li className={`${pathname === '/twitch-gaming' ? 'active' : ''}`}>
+                        Twitch Gaming
+                        <FontAwesomeIcon className='icon' icon={faTwitch} />
+                      </li>
+                    }
+                    content={
+                      <p>Twitch Gaming Streams</p>
+                    }
+                  />
+
                 </Link>
-                <li className=''>
-                  Link Youtube
-                  <FontAwesomeIcon className='icon' icon={faYoutube} />
-                </li>
+                <ToolTip
+                  trigger={
+                    <li className='disabled'>
+                      Youtube Gaming
+                      <FontAwesomeIcon className='icon' icon={faYoutube} />
+                    </li>
+                  }
+                  content={
+                    <p>Coming Soon</p>
+                  }
+                />
                 {isLoggedIn && (
                   <li className='' onClick={handleLogout}>
                     Logout
@@ -187,7 +221,7 @@ const MenuLinks = styled(motion.div)`
 
   li.active {
     color: var(--light);
-    background-color: var(--shade-2);
+    background-color: var(--shade-4);
   }
   
   li.active:hover {
@@ -243,6 +277,10 @@ const StyledMenuDrawer = styled(SideMenuElement)`
     flex-flow: column;
     align-items: center;
     gap: 2rem;
+  }
+
+  .icons > *.active {
+    color: var(--shade-4);
   }
 
   .logout-icon {
