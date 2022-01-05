@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-//Animation
+
 import { motion } from "framer-motion";
-//redux&routes
-import { fetchSearch } from "../actions/gamesAction";
+
 import { useDispatch, useSelector } from "react-redux";
-//icons
+import { fetchSearch } from "../actions/gamesAction";
+
 import {
   faBars,
   faSearch,
@@ -12,7 +12,8 @@ import {
   faUser
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+
+import { Link, useHistory } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -20,6 +21,9 @@ import Logo from "./Logo";
 
 const Nav = () => {
   const dispatch = useDispatch();
+
+  const history = useHistory();
+  const pathname = history.location.pathname;
 
   const [showSearch, setShowSearch] = useState(false);
   const [textInput, setTextInput] = useState("");
@@ -49,6 +53,11 @@ const Nav = () => {
   const toggleSideMenu = () => {
     if (!ui.showSideMenu) return dispatch({ type: "SHOW_SIDE_MENU" });
     return dispatch({ type: "HIDE_SIDE_MENU" });
+  }
+
+  const getSearchPlaceholder = (path) => {
+    if (path === '/') return 'Search a game..'
+    if (path === '/twitch-gaming') return 'Search a stream..'
   }
 
   return (
@@ -94,7 +103,7 @@ const Nav = () => {
         className='desktop'
       >
         <input
-          placeholder="Search a game.."
+          placeholder={getSearchPlaceholder(pathname)}
           value={textInput}
           onChange={inputHandler}
           type="text"
