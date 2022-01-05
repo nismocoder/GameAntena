@@ -24,23 +24,23 @@ const GameList = () => {
         {
           games.searched.length > 0 && (
             <Section className="searched">
-              <h3 className="section-title">Searched Games</h3>
+              <h4 className="section-title">Searched Games</h4>
               <Games games={games.searched} />
             </Section>
           )
         }
         <Section className="upcoming">
-          <h3 className="section-title">UPCOMING GAMES</h3>
+          <h4 className="section-title">UPCOMING GAMES</h4>
           <Games games={games.upcoming} />
         </Section>
 
         <Section className="popular">
-          <h3 className="section-title">POPULAR GAMES</h3>
+          <h4 className="section-title">POPULAR GAMES</h4>
           <Games games={games.popular} />
         </Section>
 
         <Section className="new">
-          <h3 className="section-title">NEW GAMES</h3>
+          <h4 className="section-title">NEW GAMES</h4>
           <Games games={games.newGames} />
         </Section>
         <h4 className="rawg-api">API from RAWG.IO</h4>
