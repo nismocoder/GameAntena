@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
+import { kNUmberFormatter } from '../../utils';
 
 const Stream = ({
   title = '',
@@ -21,13 +22,22 @@ const Stream = ({
         target='_blank'
         rel="noreferrer"
       >
-        <img
-          src={replaceThumbnailStringWithSize(
-            thumbnail,
-            { width: 450, height: 250 }
-          )}
-          alt='stream-thumbnail'
-        />
+        <div className="thumbnail">
+          <img
+            src={replaceThumbnailStringWithSize(
+              thumbnail,
+              { width: 350, height: 150 }
+            )}
+            alt='stream-thumbnail'
+          />
+          <div className="live">
+            Live
+          </div>
+          <div className="viewer-count">
+            {kNUmberFormatter(viewer_count)} viewers
+          </div>
+        </div>
+
         <div className="info">
           <p className='title'>{title}</p>
           <p className="user_name">{user_name}</p>
@@ -39,17 +49,42 @@ const Stream = ({
 }
 
 const StyledStream = styled.div`
-  width: 97.5vw;
+  width: 97.8vw;
+  
+  .thumbnail {
+    position: relative;
 
-  a {
-    display: block; 
-  }
+    img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    } 
 
-  img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-  }
+    .live {
+      position: absolute;
+      top: 10%;
+      left: 2%;
+      transform: translateY(-50%);
+      color: var(--light);
+      font-size: 0.85rem;
+      padding: 0rem 0.4rem;
+      background-color: var(--danger);
+      border-radius: 5px;
+    }
 
+    .viewer-count {
+      position: absolute;
+      top: 90%;
+      left: 2%;
+      transform: translateY(-50%);
+      color: var(--light);
+      font-size: 0.85rem;
+      padding: 0rem 0.25rem;
+      background-color: var(--dark-faded);
+      border-radius: 2px;
+    }
+  } 
+
+  
   .info {
       padding: 0.5rem 0.5rem;
 
