@@ -1,64 +1,63 @@
 import React from 'react';
 
-import { useSelector } from 'react-redux';
-
 import styled from 'styled-components';
 
-import { Loader } from '..';
 import Stream from './Stream';
 
-const GamingStreams = ({ gaming_streams = [] }) => {
-  const { showSideMenu } = useSelector((state) => state.ui);
+const GamingStreams = ({ gaming_streams = [], error }) => {
 
   return (
-    <StyledGamingStreams
-      className={`${showSideMenu ? 'scrollable' : ''}`
-      }
-    >
-      {
-        gaming_streams.map((gaming_stream, i) => (
-          <>
-            <StreamList key={i}>
+    <StyledGamingStreams>
+      {error ? (
+        <h2 className="error">
+          {error}
+        </h2>
+      )
+        : (
+          gaming_streams.map((data = [], i) => (
+            <>
+              <StreamList key={i}>
+                <a
+                  href={`https://www.twitch.tv/directory/game/${data.game}`}
+                  target='_blank'
+                  rel="noreferrer"
+                  className='link'
+                >
+                  <h4 className='section-title'>{data.game}</h4>
+                </a>
+
+                <Streams>
+                  {data.streams.map(({
+                    id,
+                    title,
+                    thumbnail_url,
+                    user_name,
+                    viewer_count,
+                    type
+                  }) => (
+                    <Stream
+                      key={id}
+                      title={title}
+                      thumbnail={thumbnail_url}
+                      user_name={user_name}
+                      viewer_count={viewer_count}
+                      type={type}
+                    />
+                  ))}
+                </Streams>
+              </StreamList>
               <a
-                href={`https://www.twitch.tv/directory/game/${gaming_stream.game}`}
+                href={`https://www.twitch.tv/directory/game/${data.game}`}
                 target='_blank'
                 rel="noreferrer"
-                className='link'
+                className='show-more link'
               >
-                <h4 className='section-title'>{gaming_stream.game}</h4>
+                Show more of this
               </a>
-
-              <Streams>
-                {gaming_stream.streams.map(({
-                  id,
-                  title,
-                  thumbnail_url,
-                  user_name,
-                  viewer_count,
-                  type
-                }) => (
-                  <Stream
-                    key={id}
-                    title={title}
-                    thumbnail={thumbnail_url}
-                    user_name={user_name}
-                    viewer_count={viewer_count}
-                    type={type}
-                  />
-                ))}
-              </Streams>
-            </StreamList>
-            <a
-              href={`https://www.twitch.tv/directory/game/${gaming_stream.game}`}
-              target='_blank'
-              rel="noreferrer"
-              className='show-more link'
-            >
-              Show more of this
-            </a>
-            <hr />
-          </>
-        ))
+              <hr />
+            </>
+          ))
+        )
       }
     </StyledGamingStreams >
   )
@@ -68,6 +67,15 @@ const StyledGamingStreams = styled.div`
   flex: 1;
   overflow-y: scroll;
   height: calc(100vh - 56px);
+
+  .error {
+    text-align: center;
+    padding: 3rem 1rem;
+    font-family: var(--font-3);
+    letter-spacing: 0.2rem;  
+    word-spacing: 1rem;
+    color: var(--danger);
+  }
 
   a {
     display: block; 
