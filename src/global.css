@@ -30,12 +30,12 @@
   --shade-3: rgb(65, 201, 133);
   --shade-3-fade: rgba(65, 201, 133, 0.15);
 
-  --shade-4: rgb(201, 97, 65);
-  --shade-4-fade: rgba(201, 97, 65, 0.15);
+  --shade-4: rgb(212, 107, 74);
+  --shade-4-fade: rgba(212, 107, 74, 0.15);
 
   --danger: rgb(219, 51, 51);
 
-  --box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  --box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.4);
 }
 
 ::-webkit-scrollbar {
@@ -81,11 +81,6 @@ button {
 
 .hoverable:hover {
   filter: brightness(75%);
-}
-
-.scrollable {
-  overflow-y: scroll;
-  height: 100vh;
 }
 
 .disabled {
