@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Loader } from '../components';
-import { GamingStreams } from '../components/TwitchGaming';
+import { GamingStreams, ChannelMenu } from '../components/TwitchGaming';
 
 import { WithSideMenuAndNav } from './layout';
 
@@ -13,12 +13,13 @@ const TwitchGaming = () => {
 
   return (
     <WithSideMenuAndNav>
+      <ChannelMenu />
       {loading ? (
         <div style={{ width: '100vw', height: '100vh', flex: 1 }} >
           <Loader style={{ transform: 'scale(2)' }} />
         </div >
       ) : (
-        <GamingStreams gaming_streams={data} />
+        <GamingStreams gaming_streams={data} error={error?.message} />
       )}
     </WithSideMenuAndNav>
   )

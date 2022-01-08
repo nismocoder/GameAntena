@@ -6,7 +6,7 @@ const WithSideMenuAndNav = ({ children }) => {
   return (
     <>
       <Nav />
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', position: 'relative' }}>
         <SideMenu />
         {children}
       </div>
