@@ -9,7 +9,6 @@ import { GameDetail, Games, Loader } from ".";
 const GameList = () => {
   // get that data back
   const games = useSelector((state) => state.games);
-  const { showSideMenu } = useSelector((state) => state.ui);
 
   return (
     games.isLoading ? (
@@ -17,9 +16,7 @@ const GameList = () => {
         <Loader style={{ transform: 'scale(2)' }} />
       </div>
     ) : (
-      <StyledGameList
-        className={`${showSideMenu ? 'scrollable' : ''}`}
-      >
+      <StyledGameList>
         <GameDetail />
         {
           games.searched.length > 0 && (
