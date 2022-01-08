@@ -12,7 +12,6 @@ import { faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import {
   faChevronLeft,
   faHome,
-  faUser,
   faSignOutAlt,
   faGamepad
 } from '@fortawesome/free-solid-svg-icons';
@@ -249,7 +248,7 @@ const MenuLinks = styled(motion.div)`
 
 const StyledSideMenu = styled(SideMenuElement)`
   list-style: none;
-  z-index: 2;
+  z-index: 4;
 
   .hide-icon {
     position: absolute;
@@ -270,7 +269,7 @@ const StyledMenuDrawer = styled(SideMenuElement)`
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   font-size: 1.5rem;
-  z-index: 3;
+  z-index: 5;
 
   .icons {
     display: flex;
