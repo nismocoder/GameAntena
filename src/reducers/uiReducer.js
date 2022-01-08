@@ -1,5 +1,6 @@
 const initState = {
-  showSideMenu: false
+  showSideMenu: false,
+  showChannelMenu: true
 };
 
 export const uiReducer = (state = initState, action) => {
@@ -14,6 +15,18 @@ export const uiReducer = (state = initState, action) => {
       return {
         ...state,
         showSideMenu: false
+      }
+
+    case "SHOW_CHANNEL_MENU":
+      return {
+        ...state,
+        showChannelMenu: true
+      }
+
+    case "HIDE_CHANNEL_MENU":
+      return {
+        ...state,
+        showChannelMenu: false
       }
 
     default:
