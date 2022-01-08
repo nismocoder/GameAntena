@@ -7,7 +7,11 @@ const initialState = {
     twitch_display_name: "",
     twitch_email: "",
     twitch_display_picture: "",
+    twitch_followers_count: 0,
+    twitch_subscribers_count: 0,
+    twitch_channel_qualified: false,
     twitch_videos: [],
+    twitch_subscribers: [],
   },
   isLoggedIn: false,
   accessToken: "",
@@ -56,6 +60,10 @@ export const authReducer = (state = initialState, action) => {
         twitch_display_picture,
         twitch_email,
         twitch_videos,
+        twitch_subscribers,
+        twitch_followers_count,
+        twitch_subscribers_count,
+        twitch_channel_qualified,
       } = action.payload;
 
       return {
@@ -68,7 +76,11 @@ export const authReducer = (state = initialState, action) => {
           twitch_display_name,
           twitch_display_picture,
           twitch_email,
-          twitch_videos
+          twitch_videos,
+          twitch_subscribers,
+          twitch_followers_count,
+          twitch_subscribers_count,
+          twitch_channel_qualified,
         },
         isLoggedIn: true,
         accessToken: accessToken,
