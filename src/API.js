@@ -71,13 +71,14 @@ export const gameScreenshotURL = (game_id) =>
 export const searchGameURL = (game_name) =>
   `${base_url}games?search=${game_name}&page_size=9&key=${key}`;
 
-
 export const userDataURL = (userId) =>
   `${backend_url}/users/${userId}`;
 
-
 export const userTwitchVideosURL = (userId) =>
   `${backend_url}/users/twitch-videos/${userId}`;
+
+export const userTwitchSubscribersURL = (userId) =>
+  `${backend_url}/users/twitch-subscribers/${userId}`;
 
 export const unlinkTwitchAccountURL = (userId) =>
   `${backend_url}/users/unlink-twitch/${userId}`;

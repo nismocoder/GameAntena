@@ -1,5 +1,9 @@
 import axios from "axios";
-import { userDataURL, userTwitchVideosURL } from "../API";
+import {
+  userDataURL,
+  userTwitchVideosURL,
+  userTwitchSubscribersURL
+} from "../API";
 
 export const loginUser = (email, accessToken) => async (dispatch) => {
   await dispatch({ type: 'LOGIN_SUCCESS', payload: { email, accessToken } });
@@ -28,9 +32,24 @@ export const updateUserAuthInfo = (userId, accessToken) => async (dispatch) => {
     },
   });
 
+  const userTwitchSubscribers = await axios.get(userTwitchSubscribersURL(userId), {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`
+    },
+  });
+
+  //TODO: ADD A STYLE FOR TWITCH USER SUBSCRIBERS
+  console.log(userTwitchSubscribers);
+
   await dispatch({
     type: 'UPDATE_USER_AUTH_INFO',
-    payload: { ...userData.data, twitch_videos: userTwitchVideos.data, accessToken }
+    payload: {
+      ...userData.data,
+      twitch_videos: userTwitchVideos.data,
+      subscribers: userTwitchSubscribers.data,
+      accessToken
+    }
   });
 }
 
