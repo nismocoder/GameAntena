@@ -89,7 +89,7 @@ const Nav = () => {
                 onClick={closeSearch}
               />
               <input
-                placeholder="Search a game.."
+                placeholder={getSearchPlaceholder(pathname)}
                 value={textInput}
                 onChange={inputHandler}
                 type="text"
