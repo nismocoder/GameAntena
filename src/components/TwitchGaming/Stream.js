@@ -48,11 +48,12 @@ const Stream = ({
   )
 }
 
-const StyledStream = styled.div`
-  width: 97.8vw;
-  
+const StyledStream = styled.div`  
+  overflow: hidden;
+
   .thumbnail {
     position: relative;
+    width: 100%;
 
     img {
       width: 100%;
@@ -102,7 +103,9 @@ const StyledStream = styled.div`
   }
 
   @media(min-width: 768px) {
-    width: auto;
+    .thumbnail {
+      width: fit-content;
+    }
     
     .info {
       padding: 0.5rem 0;
