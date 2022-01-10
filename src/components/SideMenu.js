@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -23,12 +23,11 @@ import ModalLoader from './ModalLoader';
 
 import { ToolTip } from './Radix';
 
-const SideMenu = () => {
+const SideMenu = ({ screen }) => {
   const history = useHistory();
   const pathname = history.location.pathname;
 
   const dispatch = useDispatch();
-  const [screen, setScreen] = useState({ width: 0, height: 0 });
 
   const ui = useSelector((state) => state.ui);
   const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
@@ -49,13 +48,13 @@ const SideMenu = () => {
   }
 
   useEffect(() => {
-    setScreen(() => {
-      return {
-        width: window.innerWidth,
-        height: window.innerHeight,
+    dispatch({
+      type: "SET_SCREEN", payload: {
+        width: window.outerWidth,
+        height: window.outerHeight,
       }
     })
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

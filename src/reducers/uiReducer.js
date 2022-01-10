@@ -1,6 +1,7 @@
 const initState = {
   showSideMenu: false,
-  showChannelMenu: true
+  showChannelMenu: true,
+  screen: { width: 0, height: 0 }
 };
 
 export const uiReducer = (state = initState, action) => {
@@ -28,6 +29,15 @@ export const uiReducer = (state = initState, action) => {
         ...state,
         showChannelMenu: false
       }
+
+    case "SET_SCREEN": {
+      const screen = action.payload;
+
+      return {
+        ...state,
+        screen
+      }
+    }
 
     default:
       return { ...state }
