@@ -47,7 +47,7 @@ export const updateUserAuthInfo = (userId, accessToken) => async (dispatch) => {
     payload: {
       ...userData.data,
       twitch_videos: userTwitchVideos.data,
-      subscribers: userTwitchSubscribers.data,
+      twitch_subscribers: userTwitchSubscribers.data,
       accessToken
     }
   });
