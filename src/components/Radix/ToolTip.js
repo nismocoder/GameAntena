@@ -1,23 +1,23 @@
 import * as Tooltip from '@radix-ui/react-tooltip';
 
-import styled from 'styled-components';
-import { ToolTip } from '.';
-
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({ trigger, content }) => (
-  <Tooltip.Provider delayDuration={500}>
+export default ({ trigger, content, theme = 'light' }) => (
+  <Tooltip.Provider delayDuration={300}>
     <Tooltip.Root>
       <Tooltip.Trigger asChild>
         {trigger}
       </Tooltip.Trigger>
-      <StyledContent style={{ padding: '0.5rem', borderRadius: '5px' }}>
+      <Tooltip.Content
+        style={{
+          padding: '0.5rem',
+          borderRadius: '5px',
+          backgroundColor: theme === 'light' ? 'var(--light)' : 'var(--shade-2)',
+          color: theme === 'light' ? 'var(--primary-light)' : 'var(--light)'
+        }}
+      >
         {content}
-        <Tooltip.Arrow style={{ fill: 'white' }} />
-      </StyledContent>
+        <Tooltip.Arrow style={{ fill: theme === 'light' ? 'var(--light)' : 'var(--shade-2)' }} />
+      </Tooltip.Content>
     </Tooltip.Root>
   </Tooltip.Provider>
 );
-
-const StyledContent = styled(Tooltip.TooltipContent)`
-  background-color: white;
-`;
