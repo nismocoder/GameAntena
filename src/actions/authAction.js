@@ -39,9 +39,6 @@ export const updateUserAuthInfo = (userId, accessToken) => async (dispatch) => {
     },
   });
 
-  //TODO: ADD A STYLE FOR TWITCH USER SUBSCRIBERS
-  console.log(userTwitchSubscribers);
-
   await dispatch({
     type: 'UPDATE_USER_AUTH_INFO',
     payload: {
