@@ -17,6 +17,8 @@ import { updateUserAuthInfo } from '../../actions/authAction';
 
 import axios from 'axios';
 
+import { ToolTip } from '../Radix';
+
 const ChannelMenu = () => {
   const dispatch = useDispatch();
 
@@ -120,23 +122,40 @@ const ChannelMenu = () => {
                     </div>
                   ) : (
                     user.twitch_subscribers.length > 0 ? (
-                      <>
+                      <div className='subs'>
                         <div className="icons">
                           {
-                            user.twitch_subscribers.map((subscriber) => (
-                              <div
-                                style={{ backgroundColor: subscriber }}
-                                className="user-icon"
-                              >
-                              </div>
+                            user.twitch_subscribers.map(({
+                              subscriber_display_picture,
+                              subscriber_name
+                            }) => (
+                              <ToolTip
+                                trigger={
+                                  <a
+                                    href={`https://www.twitch.tv/${subscriber_name}`}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    <img
+                                      src={subscriber_display_picture}
+                                      className="user-icon hoverable"
+                                      alt="subscriber-icon"
+                                    />
+                                  </a>
+                                }
+                                content={subscriber_name}
+                                theme='dark'
+                              />
+
                             ))
                           }
+                          ...
                         </div>
                         <div className="total-subscribers">
                           <span>{user.twitch_subscribers_count} </span>
                           total subscribers
                         </div>
-                      </>
+                      </div>
                     ) : (
                       <div style={{ padding: '0.5rem 1rem' }}>
                         You don't have any subscribers
@@ -305,34 +324,43 @@ const Subscribers = styled.div`
   align-items: center;
   background-color: var(--primary);
   color: var(--light);
-  padding: 0.2rem 0;
+  padding: 0.2rem 0rem 0.2rem 0.5rem;
   gap: 0.5rem;
   border-bottom-left-radius: 5px;
 
-  .icons {
+  .subs {
     display: flex;
-    background-color: var(--primary);
-    color: var(--light);
-    padding: 0.5rem;
-    gap: 0.5rem;
-    border-bottom-left-radius: 5px;
-  }
+    justify-content: space-between;
+    align-items: center;
 
-  .user-icon {
-    width: 1.8rem;
-    height: 1.8rem;
-    border-radius: 50%;
-  }
+    .icons {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: flex-end;
+      background-color: var(--primary);
+      color: var(--light);
+      padding: 0.5rem;
+      width: 100%;
+      gap: 0.5rem;
+      border-bottom-left-radius: 5px;
+    }
 
-  .total-subscribers {
-    flex-basis: 30%;
-    font-size: 0.85rem;
-    line-height: 1rem;
+    .user-icon {
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 50%;
+    }
 
-    span {
-      font-weight: 600;
+    .total-subscribers {
+      font-size: 0.85rem;
+      line-height: 1rem;
+
+      span {
+        font-weight: 600;
+      }
     }
   }
+  
 `;
 
 const StyledChannelMenuDrawer = styled(ChannelMenuElement)`
