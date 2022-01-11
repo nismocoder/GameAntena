@@ -62,7 +62,6 @@ const SideMenu = ({ screen }) => {
       <AnimatePresence>
         {!ui.showSideMenu && (
           <StyledMenuDrawer
-            layout
             onMouseEnter={showSideMenu}
             initial={{ width: '0%' }}
             animate={{ width: '4%' }}
@@ -95,7 +94,6 @@ const SideMenu = ({ screen }) => {
       <AnimatePresence>
         {ui.showSideMenu && (
           <StyledSideMenu
-            layout
             initial={{ width: '0%' }}
             animate={{ width: `${screen.width > 768 ? '20%' : '80%'}` }}
             exit={{ width: '0%' }}
@@ -142,17 +140,20 @@ const SideMenu = ({ screen }) => {
                   />
 
                 </Link>
-                <ToolTip
-                  trigger={
-                    <li className='disabled'>
-                      Youtube Gaming
-                      <FontAwesomeIcon className='icon' icon={faYoutube} />
-                    </li>
-                  }
-                  content={
-                    <p>Coming Soon</p>
-                  }
-                />
+                <Link to='/youtube-gaming'>
+                  <ToolTip
+                    trigger={
+                      <li className=''>
+                        Youtube Gaming
+                        <FontAwesomeIcon className='icon' icon={faYoutube} />
+                      </li>
+                    }
+                    content={
+                      <p>Youtube Gaming Streams</p>
+                    }
+                  />
+                </Link>
+
                 {isLoggedIn && (
                   <li className='' onClick={handleLogout}>
                     Logout

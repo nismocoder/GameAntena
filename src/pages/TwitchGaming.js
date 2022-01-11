@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Loader } from '../components';
-import { GamingStreams, ChannelMenu } from '../components/TwitchGaming';
+import { GamingStreams, ChannelMenu } from '../components/GamingPage';
 
 import { WithSideMenuAndNav } from './layout';
 
