@@ -10,7 +10,7 @@ const WithSideMenuAndNav = ({ children }) => {
   return (
     <>
       <Nav />
-      <div style={{ display: 'flex', position: 'relative' }}>
+      <div style={{ position: 'relative' }}>
         <SideMenu screen={screen} />
         {children}
       </div>

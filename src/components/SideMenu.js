@@ -63,10 +63,10 @@ const SideMenu = ({ screen }) => {
         {!ui.showSideMenu && (
           <StyledMenuDrawer
             onMouseEnter={showSideMenu}
-            initial={{ width: '0%' }}
-            animate={{ width: '4%' }}
-            exit={{ width: '0%' }}
-            transition={{ duration: 0.15 }}
+            initial={{ translateX: '-59px' }}
+            animate={{ translateX: '0px' }}
+            exit={{ translateX: '-59px' }}
+            transition={{ duration: 0.3 }}
           >
             <div className="icons">
               <FontAwesomeIcon
@@ -94,10 +94,10 @@ const SideMenu = ({ screen }) => {
       <AnimatePresence>
         {ui.showSideMenu && (
           <StyledSideMenu
-            initial={{ width: '0%' }}
-            animate={{ width: `${screen.width > 768 ? '20%' : '80%'}` }}
-            exit={{ width: '0%' }}
-            transition={{ duration: 0.4 }}
+            initial={{ translateX: '-283px' }}
+            animate={{ translateX: '0px' }}
+            exit={{ translateX: '-283px' }}
+            transition={{ duration: 0.5 }}
           >
             <div
               onClick={hideSideMenu}
@@ -184,17 +184,12 @@ const SideMenu = ({ screen }) => {
 }
 
 const SideMenuElement = styled(motion.div)`
-  margin-right: auto;
-  height: calc(100vh - 56px);
+  position: absolute;
+  top: 0;
+  bottom: 0;
   background-color: var(--primary);
-  position: relative;
   box-shadow: var(--box-shadow);
   color: var(--light);
-  padding: 3rem 0 2rem 0;
-
-  @media(min-width: 768px) {
-    height: calc(100vh - 77px);
-  }
 `;
 
 const MenuLinks = styled(motion.div)`
@@ -205,7 +200,7 @@ const MenuLinks = styled(motion.div)`
 
   li {
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 7rem 1rem 1rem;
     cursor: pointer;
 
     .icon {
@@ -249,6 +244,7 @@ const MenuLinks = styled(motion.div)`
 const StyledSideMenu = styled(SideMenuElement)`
   list-style: none;
   z-index: 4;
+  padding: 3rem 0 2rem 0;
 
   .hide-icon {
     position: absolute;
@@ -270,6 +266,7 @@ const StyledMenuDrawer = styled(SideMenuElement)`
   border-bottom-right-radius: 10px;
   font-size: 1.5rem;
   z-index: 5;
+  padding: 3rem 1rem;
 
   .icons {
     display: flex;

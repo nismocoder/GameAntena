@@ -4,10 +4,24 @@ import styled from 'styled-components';
 
 import Stream from './Stream';
 
+import { useSelector } from 'react-redux';
+
+import { motion } from 'framer-motion';
+
+const variants = {
+  open: { translateX: '283px' },
+  closed: { translateX: '59px' },
+}
+
 const GamingStreams = ({ gaming_streams = [], error }) => {
+  const { showSideMenu } = useSelector((state) => state.ui);
 
   return (
-    <StyledGamingStreams>
+    <StyledGamingStreams
+      variants={variants}
+      animate={showSideMenu ? "open" : "closed"}
+      transition={{ duration: 0.6 }}
+    >
       {error ? (
         <h2 className="error">
           {error}
@@ -59,14 +73,15 @@ const GamingStreams = ({ gaming_streams = [], error }) => {
           ))
         )
       }
-    </StyledGamingStreams >
+    </StyledGamingStreams>
   )
 }
 
-const StyledGamingStreams = styled.div`
-  flex: 1;
+const StyledGamingStreams = styled(motion.div)`
+  transform: translateX(59px);
   overflow-y: scroll;
   height: calc(100vh - 56px);
+  width: 95.7vw;
 
   .error {
     text-align: center;
