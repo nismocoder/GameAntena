@@ -1,6 +1,13 @@
 import React from "react";
 //Component and pages
-import { Home, EmailConfirm, Login, Register, TwitchGaming } from './pages';
+import {
+  Home,
+  EmailConfirm,
+  Login,
+  Register,
+  TwitchGaming,
+  YoutubeGaming
+} from './pages';
 //styles
 import './global.css';
 //Router
@@ -36,6 +43,7 @@ function App() {
       <Router>
         <Route exact path={["/game/:id", "/"]} component={Home} />
         <Route path={"/twitch-gaming"} component={TwitchGaming} />
+        <Route path={"/youtube-gaming"} component={YoutubeGaming} />
         <Route path={"/login"} component={Login} />
         <Route path={"/login"} component={Login} />
         <Route path={"/register"} component={Register} />
