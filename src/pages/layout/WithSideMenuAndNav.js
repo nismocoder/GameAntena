@@ -1,17 +1,27 @@
 import React from 'react';
 
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { Nav, SideMenu } from '../../components';
 
 const WithSideMenuAndNav = ({ children }) => {
-  const { screen } = useSelector((state) => state.ui);
+  const dispatch = useDispatch();
+
+  // Set screen after first render
+  React.useEffect(() => {
+    dispatch({
+      type: "SET_SCREEN", payload: {
+        width: window.outerWidth,
+        height: window.outerHeight,
+      }
+    });
+  }, [dispatch]);
 
   return (
     <>
       <Nav />
-      <div style={{ position: 'relative' }}>
-        <SideMenu screen={screen} />
+      <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <SideMenu />
         {children}
       </div>
     </>
