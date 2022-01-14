@@ -26,8 +26,17 @@ function App() {
     document.body.style.overflow = "hidden";
   }, []);
 
+
   React.useEffect(() => {
     dispatch(loadGames());
+
+    dispatch({
+      type: "SET_SCREEN", payload: {
+        width: window.outerWidth,
+        height: window.outerHeight,
+      }
+    });
+
     if (typeof window !== "undefined") {
       let accessToken = getLocalStorageItem("accessToken");
       let userId = getLocalStorageItem("userId");

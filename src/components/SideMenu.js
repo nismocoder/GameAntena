@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -23,7 +23,7 @@ import ModalLoader from './ModalLoader';
 
 import { ToolTip } from './Radix';
 
-const SideMenu = ({ screen }) => {
+const SideMenu = () => {
   const history = useHistory();
   const pathname = history.location.pathname;
 
@@ -46,15 +46,6 @@ const SideMenu = ({ screen }) => {
     localStorage.removeItem("email");
     localStorage.removeItem("accessToken");
   }
-
-  useEffect(() => {
-    dispatch({
-      type: "SET_SCREEN", payload: {
-        width: window.outerWidth,
-        height: window.outerHeight,
-      }
-    })
-  }, [dispatch]);
 
   return (
     <>
@@ -97,7 +88,7 @@ const SideMenu = ({ screen }) => {
             initial={{ translateX: '-283px' }}
             animate={{ translateX: '0px' }}
             exit={{ translateX: '-283px' }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
           >
             <div
               onClick={hideSideMenu}

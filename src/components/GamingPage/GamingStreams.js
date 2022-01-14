@@ -8,19 +8,34 @@ import { useSelector } from 'react-redux';
 
 import { motion } from 'framer-motion';
 
-const variants = {
-  open: { translateX: '283px' },
-  closed: { translateX: '59px' },
-}
+
 
 const GamingStreams = ({ gaming_streams = [], error }) => {
-  const { showSideMenu } = useSelector((state) => state.ui);
+  const { showSideMenu, screen } = useSelector((state) => state.ui);
+
+  const getGamingStreamsVariant = (screenWidth) => {
+    const variants = {
+      desktop: {
+        open: { translateX: '283px' },
+        closed: { translateX: '59px' },
+      },
+      mobile: {
+        open: { translateX: '283px' },
+        closed: { translateX: '0px' },
+      }
+    }
+
+    if (screenWidth > 768) {
+      return variants.desktop
+    }
+    return variants.mobile
+  }
 
   return (
     <StyledGamingStreams
-      variants={variants}
+      variants={getGamingStreamsVariant(screen.width)}
       animate={showSideMenu ? "open" : "closed"}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.4 }}
     >
       {error ? (
         <h2 className="error">
@@ -78,10 +93,9 @@ const GamingStreams = ({ gaming_streams = [], error }) => {
 }
 
 const StyledGamingStreams = styled(motion.div)`
-  transform: translateX(59px);
   overflow-y: scroll;
   height: calc(100vh - 56px);
-  width: 95.7vw;
+  width: 100vw;
 
   .error {
     text-align: center;
@@ -119,7 +133,10 @@ const StyledGamingStreams = styled(motion.div)`
     color: var(--shade-2);
   }
 
+
+  /* DESKTOP */
   @media(min-width: 768px) {
+    width: 95.65vw;
     height: calc(100vh - 77px);
   }
 `;
