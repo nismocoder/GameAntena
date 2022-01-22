@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import { twitchAuthForwardUrl } from '../../utils';
 import { unlinkTwitchAccountURL } from '../../API';
 
-import { updateUserAuthInfo } from '../../actions/authAction';
+import { unlinkUserTwitchData } from '../../actions/authAction';
 
 import axios from 'axios';
 
@@ -48,7 +48,7 @@ const ChannelMenu = () => {
       alert(error);
     }
 
-    dispatch(updateUserAuthInfo(user.id, accessToken));
+    dispatch(unlinkUserTwitchData());
   }
 
   return (
@@ -81,7 +81,7 @@ const ChannelMenu = () => {
             transition={{ duration: 0.4 }}
           >
             {
-              !user.twitch_user_id && (
+              !user.twitchData.twitch_user_id && (
                 isLoggedIn ? (
                   <ChannelMenuCover>
                     <a href={twitchAuthForwardUrl({
@@ -115,17 +115,17 @@ const ChannelMenu = () => {
 
             <Subscribers className="subscribers">
               {
-                !user.twitch_channel_qualified ?
+                !user.twitchData.twitch_channel_qualified ?
                   (
                     <div style={{ padding: '0.5rem 1rem' }}>
                       Your channel isn't qualified to have subscribers
                     </div>
                   ) : (
-                    user.twitch_subscribers.length > 0 ? (
+                    user.twitchData.twitch_subscribers.length > 0 ? (
                       <div className='subs'>
                         <div className="icons">
                           {
-                            user.twitch_subscribers.map(({
+                            user.twitchData.twitch_subscribers.map(({
                               subscriber_display_picture,
                               subscriber_name
                             }) => (
@@ -152,7 +152,7 @@ const ChannelMenu = () => {
                           ...
                         </div>
                         <div className="total-subscribers">
-                          <span>{user.twitch_subscribers_count} </span>
+                          <span>{user.twitchData.twitch_subscribers_count} </span>
                           total subscribers
                         </div>
                       </div>
@@ -167,20 +167,20 @@ const ChannelMenu = () => {
             <main>
               <div className="channel-info">
                 <div className="channel">
-                  <img src={user.twitch_display_picture} alt='channel-icon' />
+                  <img src={user.twitchData.twitch_display_picture} alt='channel-icon' />
                   <a
-                    href={`https://www.twitch.tv/${user.twitch_display_name}`}
+                    href={`https://www.twitch.tv/${user.twitchData.twitch_display_name}`}
                     target='_blank'
                     rel="noreferrer"
                   >
-                    {user.twitch_display_name || 'SomeTwitchChannel'}
+                    {user.twitchData.twitch_display_name || 'SomeTwitchChannel'}
                   </a>
                 </div>
                 <div className="followers">
-                  {user.twitch_followers_count > 1 ? (
-                    `${user.twitch_followers_count} followers`
+                  {user.twitchData.twitch_followers_count > 1 ? (
+                    `${user.twitchData.twitch_followers_count} followers`
                   ) : (
-                    `${user.twitch_followers_count} follower`
+                    `${user.twitchData.twitch_followers_count} follower`
                   )
                   }
 

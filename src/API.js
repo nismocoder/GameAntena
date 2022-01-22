@@ -74,6 +74,9 @@ export const searchGameURL = (game_name) =>
 export const userDataURL = (userId) =>
   `${backend_url}/users/${userId}`;
 
+export const userTwitchDataURL = (userId) =>
+  `${backend_url}/users/twitch-data/${userId}`;
+
 export const userTwitchVideosURL = (userId) =>
   `${backend_url}/users/twitch-videos/${userId}`;
 

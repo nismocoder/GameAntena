@@ -134,7 +134,7 @@ const SideMenu = () => {
                 <Link to='/youtube-gaming'>
                   <ToolTip
                     trigger={
-                      <li className=''>
+                      <li className={`${pathname === '/youtube-gaming' ? 'active' : ''}`}>
                         Youtube Gaming
                         <FontAwesomeIcon className='icon' icon={faYoutube} />
                       </li>

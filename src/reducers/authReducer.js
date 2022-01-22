@@ -3,15 +3,17 @@ const initialState = {
     id: "",
     email: "",
     role: "",
-    twitch_user_id: "",
-    twitch_display_name: "",
-    twitch_email: "",
-    twitch_display_picture: "",
-    twitch_followers_count: 0,
-    twitch_subscribers_count: 0,
-    twitch_channel_qualified: false,
-    twitch_videos: [],
-    twitch_subscribers: [],
+    twitchData: {
+      twitch_user_id: "",
+      twitch_display_name: "",
+      twitch_email: "",
+      twitch_display_picture: "",
+      twitch_followers_count: 0,
+      twitch_subscribers_count: 0,
+      twitch_channel_qualified: false,
+      twitch_videos: [],
+      twitch_subscribers: [],
+    }
   },
   isLoggedIn: false,
   accessToken: "",
@@ -55,15 +57,6 @@ export const authReducer = (state = initialState, action) => {
         email,
         accessToken,
         role,
-        twitch_user_id,
-        twitch_display_name,
-        twitch_display_picture,
-        twitch_email,
-        twitch_videos,
-        twitch_subscribers,
-        twitch_followers_count,
-        twitch_subscribers_count,
-        twitch_channel_qualified,
       } = action.payload;
 
       return {
@@ -72,18 +65,60 @@ export const authReducer = (state = initialState, action) => {
           id,
           email,
           role,
-          twitch_user_id,
-          twitch_display_name,
-          twitch_display_picture,
-          twitch_email,
-          twitch_videos,
-          twitch_subscribers,
-          twitch_followers_count,
-          twitch_subscribers_count,
-          twitch_channel_qualified,
         },
         isLoggedIn: true,
-        accessToken: accessToken,
+        accessToken,
+      }
+    }
+
+    case "UPDATE_USER_TWITCH_DATA": {
+      const {
+        twitch_user_id,
+        twitch_display_name,
+        twitch_email,
+        twitch_display_picture,
+        twitch_followers_count,
+        twitch_subscribers_count,
+        twitch_channel_qualified,
+        twitch_videos,
+        twitch_subscribers,
+      } = action.payload;
+
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          twitchData: {
+            twitch_user_id,
+            twitch_display_name,
+            twitch_email,
+            twitch_display_picture,
+            twitch_followers_count,
+            twitch_subscribers_count,
+            twitch_channel_qualified,
+            twitch_subscribers,
+          }
+        },
+      }
+    }
+
+    case "UNLINK_USER_TWITCH_DATA": {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          twitchData: {
+            twitch_user_id: "",
+            twitch_display_name: "",
+            twitch_email: "",
+            twitch_display_picture: "",
+            twitch_followers_count: 0,
+            twitch_subscribers_count: 0,
+            twitch_channel_qualified: false,
+            twitch_videos: [],
+            twitch_subscribers: [],
+          }
+        },
       }
     }
 
