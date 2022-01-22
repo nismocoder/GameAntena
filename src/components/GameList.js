@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { GameDetail, Games, Loader } from ".";
+import { AdjustToSideMenu } from '../pages/layout';
 
 const GameList = () => {
   // get that data back
@@ -16,41 +17,39 @@ const GameList = () => {
         <Loader style={{ transform: 'scale(2)' }} />
       </div>
     ) : (
-      <StyledGameList>
-        <GameDetail />
-        {
-          games.searched.length > 0 && (
-            <Section className="searched">
-              <h4 className="section-title">Searched Games</h4>
-              <Games games={games.searched} />
-            </Section>
-          )
-        }
-        <Section className="upcoming">
-          <h4 className="section-title">UPCOMING GAMES</h4>
-          <Games games={games.upcoming} />
-        </Section>
+      <AdjustToSideMenu>
+        <AdjustToSideMenuContent>
+          <GameDetail />
+          {
+            games.searched.length > 0 && (
+              <Section className="searched">
+                <h4 className="section-title">Searched Games</h4>
+                <Games games={games.searched} />
+              </Section>
+            )
+          }
+          <Section className="upcoming">
+            <h4 className="section-title">UPCOMING GAMES</h4>
+            <Games games={games.upcoming} />
+          </Section>
 
-        <Section className="popular">
-          <h4 className="section-title">POPULAR GAMES</h4>
-          <Games games={games.popular} />
-        </Section>
+          <Section className="popular">
+            <h4 className="section-title">POPULAR GAMES</h4>
+            <Games games={games.popular} />
+          </Section>
 
-        <Section className="new">
-          <h4 className="section-title">NEW GAMES</h4>
-          <Games games={games.newGames} />
-        </Section>
-        <h4 className="rawg-api">API from RAWG.IO</h4>
-      </StyledGameList >
+          <Section className="new">
+            <h4 className="section-title">NEW GAMES</h4>
+            <Games games={games.newGames} />
+          </Section>
+          <h4 className="rawg-api">API from RAWG.IO</h4>
+        </AdjustToSideMenuContent>
+      </AdjustToSideMenu >
     )
   )
 }
 
-const StyledGameList = styled.div`
-  flex: 1;
-  overflow-y: scroll;
-  height: calc(100vh - 56px);
-
+const AdjustToSideMenuContent = styled.div`
   .searched {
     .section-title {color: var(--shade-4)}
   } 
@@ -72,10 +71,6 @@ const StyledGameList = styled.div`
     color: darkred;
     padding: 2rem 0;
     text-align: center;
-  }
-
-  @media(min-width: 768px) {
-    height: calc(100vh - 77px);
   }
 `;
 
