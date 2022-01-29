@@ -1,5 +1,5 @@
 //Base url
-const base_url = "https://api.rawg.io/api/";
+const base_url = 'https://api.rawg.io/api/';
 
 const backend_url = process.env.REACT_APP_BACKEND_URL;
 
@@ -71,8 +71,7 @@ export const gameScreenshotURL = (game_id) =>
 export const searchGameURL = (game_name) =>
   `${base_url}games?search=${game_name}&page_size=9&key=${key}`;
 
-export const userDataURL = (userId) =>
-  `${backend_url}/users/${userId}`;
+export const userDataURL = (userId) => `${backend_url}/users/${userId}`;
 
 export const userTwitchDataURL = (userId) =>
   `${backend_url}/users/twitch-data/${userId}`;
@@ -86,5 +85,8 @@ export const userTwitchSubscribersURL = (userId) =>
 export const unlinkTwitchAccountURL = (userId) =>
   `${backend_url}/users/unlink-twitch/${userId}`;
 
-export const topGamingStreamsURL = () =>
-  `${backend_url}/twitch/gaming-streams`
+export const topTwitchGamingStreamsURL = () =>
+  `${backend_url}/twitch/gaming-streams`;
+
+export const topYoutubeGamingStreamsURL = () =>
+  `${backend_url}/youtube/gaming-streams`;
