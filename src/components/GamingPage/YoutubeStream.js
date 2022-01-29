@@ -1,54 +1,41 @@
 import React from 'react';
 
 import styled from 'styled-components';
+
 import { kNUmberFormatter } from '../../utils';
 
-const Stream = ({
+const YoutubeStream = ({
+  video_id = '',
   title = '',
   thumbnail = '',
-  user_name = '',
+  channel_name = '',
   viewer_count = 0,
-  type = '',
 }) => {
-  const replaceThumbnailStringWithSize = (string, { width, height }) => {
-    const widthReplaced = string.replace("{width}", width);
-
-    return widthReplaced.replace("{height}", height);
-  }
   return (
     <StyledStream className='hoverable'>
       <a
-        href={`https://www.twitch.tv/${user_name}`}
+        href={`https://youtube.com/watch?v=${video_id}`}
         target='_blank'
-        rel="noreferrer"
+        rel='noreferrer'
       >
-        <div className="thumbnail">
-          <img
-            src={replaceThumbnailStringWithSize(
-              thumbnail,
-              { width: 350, height: 150 }
-            )}
-            alt='stream-thumbnail'
-          />
-          <div className="live">
-            Live
-          </div>
-          <div className="viewer-count">
+        <div className='thumbnail'>
+          <img src={thumbnail} alt='stream-thumbnail' />
+          <div className='live'>Live</div>
+          <div className='viewer-count'>
             {kNUmberFormatter(viewer_count)} viewers
           </div>
         </div>
 
-        <div className="info">
+        <div className='info'>
           <p className='title'>{title}</p>
-          <p className="user_name">{user_name}</p>
+          <p className='channel_name'>{channel_name}</p>
         </div>
       </a>
     </StyledStream>
+  );
+};
 
-  )
-}
-
-const StyledStream = styled.div`  
+const StyledStream = styled.div`
   overflow: hidden;
 
   .thumbnail {
@@ -58,7 +45,7 @@ const StyledStream = styled.div`
     img {
       width: 100%;
       aspect-ratio: 16 / 9;
-    } 
+    }
 
     .live {
       position: absolute;
@@ -83,13 +70,12 @@ const StyledStream = styled.div`
       background-color: var(--dark-faded);
       border-radius: 2px;
     }
-  } 
+  }
 
-  
   .info {
-      padding: 0.5rem 0.5rem;
+    padding: 0.5rem 0.5rem;
 
-     .title {
+    .title {
       color: var(--primary);
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -97,20 +83,20 @@ const StyledStream = styled.div`
       font-size: 1.1rem;
     }
 
-    .user_name {
+    .channel_name {
       font-size: 0.95rem;
     }
   }
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     .thumbnail {
       width: fit-content;
     }
-    
+
     .info {
       padding: 0.5rem 0;
     }
   }
 `;
 
-export default Stream
+export default YoutubeStream;
