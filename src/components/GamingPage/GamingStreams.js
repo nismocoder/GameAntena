@@ -1,25 +1,16 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 import { TwitchStream, YoutubeStream } from '.';
 import { AdjustToSideMenu } from '../../pages/layout';
 
-import { useHistory } from 'react-router-dom';
-
-import { motion } from 'framer-motion';
-
-const getGameSectionUrl = (pathname = '/', game = '') => {
-  if (pathname === '/twitch-gaming')
-    return `https://www.twitch.tv/directory/game/${game}`;
-
-  if (pathname === '/youtube-gaming')
-    return `https://www.youtube.com/results?search_query=${game}&sp=CAMSBBABQAE%253D`;
-};
+import { getGameSectionUrl } from '../../utils/basedOnPath';
 
 const GamingStreams = ({ gaming_streams = [], error }) => {
   const history = useHistory();
-
   const pathname = history.location.pathname;
 
   const getTwitchStreams = (streams = []) => {
