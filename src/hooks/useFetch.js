@@ -8,28 +8,29 @@ const useFetch = (url) => {
 
   React.useEffect(() => {
     const source = axios.CancelToken.source();
-    axios.get(url, { cancelToken: source.token })
-      .then(response => {
-        //checking for multiple responses for more flexibility 
+    axios
+      .get(url, { cancelToken: source.token })
+      .then((response) => {
+        //checking for multiple responses for more flexibility
         //with the url we send in.
         setData(response.data);
         setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
-          setError(error.response.data.message);
-          return
+          setError(error.response.data);
+          setLoading(false);
+          return;
         }
         setError(error);
         setLoading(false);
-      })
+      });
     return () => {
       source.cancel();
-    }
-  }, [url])
+    };
+  }, [url]);
 
-  return { data, loading, error }
+  return { data, loading, error };
+};
 
-}
-
-export default useFetch
+export default useFetch;
