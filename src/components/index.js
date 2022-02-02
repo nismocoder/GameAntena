@@ -1,6 +1,6 @@
 export { default as Games } from './Games/Games';
 export { default as GameList } from './GameList';
-export { default as GameDetail } from './GameDetail';
+export { default as GameDetails } from './GameDetails';
 export { default as Nav } from './Nav';
 export { default as SideMenu } from './SideMenu';
 export { default as Modal } from './Modal';
