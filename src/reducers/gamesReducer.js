@@ -1,39 +1,38 @@
 const initState = {
-  popular: [],
-  newGames: [],
-  upcoming: [],
-  searched: [],
-  isLoading: false,
+  searchedGames: [],
+  isLoading: true,
 };
 
 export const gamesReducer = (state = initState, action) => {
   switch (action.type) {
-    case "LOADING_GAMES":
+    case 'LOADING_GAMES': {
       return {
         ...state,
         isLoading: true,
-      }
+      };
+    }
 
-    case "FETCH_GAMES":
+    case 'LOADING_GAMES_FINISHED': {
       return {
         ...state,
-        popular: action.payload.popular,
-        upcoming: action.payload.upcoming,
-        newGames: action.payload.newGames,
         isLoading: false,
       };
-    case "FETCH_SEARCHED":
+    }
+
+    case 'FETCH_SEARCHED': {
       return {
         ...state,
-        searched: action.payload.searched,
-        isLoading: false,
+        searchedGames: action.payload.searchedGames,
       };
-    case "CLEAR_SEARCHED":
+    }
+
+    case 'CLEAR_SEARCHED': {
       return {
         ...state,
-        searched: [],
-        isLoading: false,
+        searchedGames: [],
       };
+    }
+
     default:
       return { ...state };
   }
