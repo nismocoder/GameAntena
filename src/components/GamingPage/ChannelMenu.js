@@ -8,12 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-import { twitchAuthForwardUrl } from '../../utils';
-import { unlinkTwitchAccountURL } from '../../API';
+import {
+  getAuthForwardUrl,
+  getChannelMenuBackground,
+  getPlatformName,
+} from '../../utils/basedOnPath';
 
-import { unlinkUserTwitchData } from '../../actions/authAction';
+import { unlinkTwitchAccountURL } from '../../utils/apiUrls';
 
 import axios from 'axios';
 
@@ -22,40 +25,42 @@ import { ToolTip } from '../Radix';
 const ChannelMenu = () => {
   const dispatch = useDispatch();
 
+  const history = useHistory();
+  const pathname = history.location.pathname;
+
   const ui = useSelector((state) => state.ui);
   const { user, isLoggedIn, accessToken } = useSelector((state) => state.auth);
 
   const showChannelMenu = () => {
-    dispatch({ type: "SHOW_CHANNEL_MENU" });
-  }
+    dispatch({ type: 'SHOW_CHANNEL_MENU' });
+  };
 
   const hideChannelMenu = () => {
-    dispatch({ type: "HIDE_CHANNEL_MENU" });
-  }
+    dispatch({ type: 'HIDE_CHANNEL_MENU' });
+  };
 
   const handleUnlink = async () => {
     try {
       await axios.get(unlinkTwitchAccountURL(user.id), {
         headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);
-        return
+        return;
       }
       alert(error);
     }
-
-    dispatch(unlinkUserTwitchData());
-  }
+  };
 
   return (
     <>
       <AnimatePresence>
         {!ui.showChannelMenu && (
           <StyledChannelMenuDrawer
+            style={{ backgroundColor: getChannelMenuBackground(pathname) }}
             onClick={showChannelMenu}
             onMouseEnter={showChannelMenu}
             initial={{ right: '-30%' }}
@@ -63,11 +68,10 @@ const ChannelMenu = () => {
             exit={{ right: '-30%' }}
             transition={{ duration: 0.3 }}
           >
-            <div className="channel-icon">
+            <div className='channel-icon'>
               <FontAwesomeIcon className='person' icon={faUserAlt} />
               <FontAwesomeIcon className='video' icon={faVideo} />
             </div>
-
           </StyledChannelMenuDrawer>
         )}
       </AnimatePresence>
@@ -80,136 +84,123 @@ const ChannelMenu = () => {
             exit={{ right: '-100%' }}
             transition={{ duration: 0.4 }}
           >
-            {
-              !user.twitchData.twitch_user_id && (
-                isLoggedIn ? (
-                  <ChannelMenuCover>
-                    <a href={twitchAuthForwardUrl({
-                      clientId: process.env.REACT_APP_TWITCH_CLIENT_ID,
-                      authRedirectUri: `${process.env.REACT_APP_BACKEND_URL}/twitch/auth`,
-                      scope: ['user:read:email', 'channel:read:subscriptions'],
-                      email: user.email
-                    })}>
-                      <button className='hoverable'>Link your twitch account</button>
-                    </a>
-                    <FontAwesomeIcon
-                      onClick={hideChannelMenu}
-                      className='close-icon hoverable'
-                      icon={faTimes}
-                    />
-                  </ChannelMenuCover>
-                ) : (
-                  <ChannelMenuCover>
-                    <Link to='/login'>
-                      <button className='hoverable'>Link your twitch account</button>
-                    </Link>
-                    <FontAwesomeIcon
-                      onClick={hideChannelMenu}
-                      className='close-icon hoverable'
-                      icon={faTimes}
-                    />
-                  </ChannelMenuCover>
-                )
-              )
-            }
+            {!user &&
+              (isLoggedIn ? (
+                <ChannelMenuCover>
+                  <a href={getAuthForwardUrl(pathname, user.email)}>
+                    <button
+                      style={{
+                        backgroundColor: getChannelMenuBackground(pathname),
+                      }}
+                      className='hoverable'
+                    >
+                      Link your {getPlatformName(pathname)} account
+                    </button>
+                  </a>
+                  <FontAwesomeIcon
+                    onClick={hideChannelMenu}
+                    className='close-icon hoverable'
+                    icon={faTimes}
+                  />
+                </ChannelMenuCover>
+              ) : (
+                <ChannelMenuCover>
+                  <Link to='/login'>
+                    <button
+                      style={{
+                        backgroundColor: getChannelMenuBackground(pathname),
+                      }}
+                      className='hoverable'
+                    >
+                      Link your {getPlatformName(pathname)} account
+                    </button>
+                  </Link>
+                  <FontAwesomeIcon
+                    onClick={hideChannelMenu}
+                    className='close-icon hoverable'
+                    icon={faTimes}
+                  />
+                </ChannelMenuCover>
+              ))}
 
-            <Subscribers className="subscribers">
-              {
-                !user.twitchData.twitch_channel_qualified ?
-                  (
-                    <div style={{ padding: '0.5rem 1rem' }}>
-                      Your channel isn't qualified to have subscribers
-                    </div>
-                  ) : (
-                    user.twitchData.twitch_subscribers.length > 0 ? (
-                      <div className='subs'>
-                        <div className="icons">
-                          {
-                            user.twitchData.twitch_subscribers.map(({
-                              subscriber_display_picture,
-                              subscriber_name
-                            }) => (
-                              <ToolTip
-                                trigger={
-                                  <a
-                                    href={`https://www.twitch.tv/${subscriber_name}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                  >
-                                    <img
-                                      src={subscriber_display_picture}
-                                      className="user-icon hoverable"
-                                      alt="subscriber-icon"
-                                    />
-                                  </a>
-                                }
-                                content={subscriber_name}
-                                theme='dark'
+            {/* <Subscribers className='subscribers'>
+              {!user.twitchData.twitch_channel_qualified ? (
+                <div style={{ padding: '0.5rem 1rem' }}>
+                  Your channel isn't qualified to have subscribers
+                </div>
+              ) : user.twitchData.twitch_subscribers.length > 0 ? (
+                <div className='subs'>
+                  <div className='icons'>
+                    {user.twitchData.twitch_subscribers.map(
+                      ({ subscriber_display_picture, subscriber_name }) => (
+                        <ToolTip
+                          trigger={
+                            <a
+                              href={`https://www.twitch.tv/${subscriber_name}`}
+                              target='_blank'
+                              rel='noreferrer'
+                            >
+                              <img
+                                src={subscriber_display_picture}
+                                className='user-icon hoverable'
+                                alt='subscriber-icon'
                               />
-
-                            ))
+                            </a>
                           }
-                          ...
-                        </div>
-                        <div className="total-subscribers">
-                          <span>{user.twitchData.twitch_subscribers_count} </span>
-                          total subscribers
-                        </div>
-                      </div>
-                    ) : (
-                      <div style={{ padding: '0.5rem 1rem' }}>
-                        You don't have any subscribers
-                      </div>
-                    )
-                  )
-              }
+                          content={subscriber_name}
+                          theme='dark'
+                        />
+                      ),
+                    )}
+                    ...
+                  </div>
+                  <div className='total-subscribers'>
+                    <span>{user.twitchData.twitch_subscribers_count} </span>
+                    total subscribers
+                  </div>
+                </div>
+              ) : (
+                <div style={{ padding: '0.5rem 1rem' }}>
+                  You don't have any subscribers
+                </div>
+              )}
             </Subscribers>
             <main>
-              <div className="channel-info">
-                <div className="channel">
-                  <img src={user.twitchData.twitch_display_picture} alt='channel-icon' />
+              <div className='channel-info'>
+                <div className='channel'>
+                  <img
+                    src={user.twitchData.twitch_display_picture}
+                    alt='channel-icon'
+                  />
                   <a
                     href={`https://www.twitch.tv/${user.twitchData.twitch_display_name}`}
                     target='_blank'
-                    rel="noreferrer"
+                    rel='noreferrer'
                   >
                     {user.twitchData.twitch_display_name || 'SomeTwitchChannel'}
                   </a>
                 </div>
-                <div className="followers">
-                  {user.twitchData.twitch_followers_count > 1 ? (
-                    `${user.twitchData.twitch_followers_count} followers`
-                  ) : (
-                    `${user.twitchData.twitch_followers_count} follower`
-                  )
-                  }
-
+                <div className='followers'>
+                  {user.twitchData.twitch_followers_count > 1
+                    ? `${user.twitchData.twitch_followers_count} followers`
+                    : `${user.twitchData.twitch_followers_count} follower`}
                 </div>
               </div>
               <div className='buttons'>
-                <button
-                  onClick={handleUnlink}
-                  className='unlink hoverable'
-                >
+                <button onClick={handleUnlink} className='unlink hoverable'>
                   Unlink
                 </button>
-                <button
-                  onClick={hideChannelMenu}
-                  className='hoverable hide'
-                >
+                <button onClick={hideChannelMenu} className='hoverable hide'>
                   Hide
                 </button>
               </div>
-
-            </main>
-
-
+            </main> */}
           </StyledChannelMenu>
         )}
       </AnimatePresence>
     </>
-  )
-}
+  );
+};
 
 const ChannelMenuElement = styled(motion.div)`
   position: absolute;
@@ -224,7 +215,7 @@ const StyledChannelMenu = styled(ChannelMenuElement)`
   z-index: 2;
   background-color: var(--light);
   color: var(--primary);
-  padding: 0 0 0.5rem 1rem;  
+  padding: 0 0 0.5rem 1rem;
 
   main {
     display: flex;
@@ -234,7 +225,6 @@ const StyledChannelMenu = styled(ChannelMenuElement)`
     gap: 4rem;
 
     .channel-info {
-
       .channel {
         margin-bottom: 0.5rem;
 
@@ -259,7 +249,7 @@ const StyledChannelMenu = styled(ChannelMenuElement)`
 
     .buttons {
       display: flex;
-      flex-flow: column; 
+      flex-flow: column;
       align-items: flex-end;
       justify-content: space-between;
       padding: 0 1rem 0.5rem 0;
@@ -268,23 +258,19 @@ const StyledChannelMenu = styled(ChannelMenuElement)`
       button {
         border: none;
         border-radius: 3px;
-        background-color: var(--primary-light); 
-        color: var(--light); 
+        background-color: var(--primary-light);
+        color: var(--light);
         font-size: 0.95rem;
         padding: 0.2rem 0.5rem;
       }
 
       .unlink {
-        background-color: var(--light); 
-        color: var(--danger); 
+        background-color: var(--light);
+        color: var(--danger);
         border: 2px solid var(--danger);
       }
     }
-
-    
   }
-
-  
 `;
 
 const ChannelMenuCover = styled.div`
@@ -296,14 +282,13 @@ const ChannelMenuCover = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--dark-faded); 
+  background-color: var(--dark-faded);
   border-bottom-left-radius: 5px;
 
   button {
     border: none;
     border-radius: 5px;
-    background-color: var(--shade-2); 
-    color: var(--light); 
+    color: var(--light);
     padding: 0.8rem;
     box-shadow: var(--box-shadow);
   }
@@ -360,12 +345,10 @@ const Subscribers = styled.div`
       }
     }
   }
-  
 `;
 
 const StyledChannelMenuDrawer = styled(ChannelMenuElement)`
   z-index: 3;
-  background-color: var(--shade-4);
   color: var(--light);
   cursor: pointer;
 
@@ -381,6 +364,4 @@ const StyledChannelMenuDrawer = styled(ChannelMenuElement)`
   }
 `;
 
-
-
-export default ChannelMenu
+export default ChannelMenu;
