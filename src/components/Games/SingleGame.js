@@ -1,32 +1,17 @@
-import React from "react";
+import React from 'react';
 // styling and animation
-import styled from "styled-components";
+import styled from 'styled-components';
 // REDUX
-import { useDispatch } from "react-redux";
-import { loadDetail } from "../../actions/detailAction";
-import { Link } from "react-router-dom";
-import { smallImage } from "../../utils";
+import { Link } from 'react-router-dom';
+import { smallImage } from '../../utils';
 
 const Game = ({ name, released, image, id }) => {
-  // LOAD DETAIL HANDLER
-  const dispatch = useDispatch();
-
-  const loadDetailHandler = () => {
-    dispatch(loadDetail(id));
-  };
-
   return (
-    <StyledGame
-      onClick={loadDetailHandler}
-      className="hoverable"
-    >
+    <StyledGame className='hoverable'>
       <Link to={`/game/${id}`}>
-        <p className="title">{name}</p>
+        <p className='title'>{name}</p>
         {/* <p>{released}</p> */}
-        <img
-          src={smallImage(image, 640)}
-          alt={name}
-        />
+        <img src={smallImage(image, 640)} alt={name} />
       </Link>
     </StyledGame>
   );
@@ -34,7 +19,7 @@ const Game = ({ name, released, image, id }) => {
 
 const StyledGame = styled.div`
   position: relative;
-  min-height: 40vh; 
+  min-height: 40vh;
   text-align: left;
   overflow: hidden;
   cursor: pointer;

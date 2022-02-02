@@ -1,11 +1,9 @@
-import React from "react";
+import React from 'react';
 
 import { GameList } from '../components';
-
-import WithSideMenuAndNav from "./layout/WithSideMenuAndNav";
+import WithSideMenuAndNav from './layout/WithSideMenuAndNav';
 
 const Home = () => {
-
   return (
     <WithSideMenuAndNav>
       <GameList />
