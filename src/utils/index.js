@@ -6,3 +6,4 @@ export { youtubeAuthForwardUrl } from './youtubeAuthForwardUrl';
 export { getLocalStorageItem } from './getLocalStorageItem';
 export { setLocalStorageItem } from './setLocalStorageItem';
 export { kNUmberFormatter } from './kNUmberFormatter';
+export { getLastSegmentURL } from './getLastSegmentURL';
