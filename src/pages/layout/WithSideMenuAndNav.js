@@ -10,22 +10,23 @@ const WithSideMenuAndNav = ({ children }) => {
   // Set screen after first render
   React.useEffect(() => {
     dispatch({
-      type: "SET_SCREEN", payload: {
+      type: 'SET_SCREEN',
+      payload: {
         width: window.outerWidth,
         height: window.outerHeight,
-      }
+      },
     });
   }, [dispatch]);
 
   return (
     <>
       <Nav />
-      <div style={{ position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'relative' }}>
         <SideMenu />
         {children}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default WithSideMenuAndNav
+export default WithSideMenuAndNav;
