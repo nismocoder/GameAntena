@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSearch } from "../actions/gamesAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSearchGames } from '../actions/gamesAction';
 
 import {
   faBars,
   faSearch,
   faTimes,
-  faUser
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory } from 'react-router-dom';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import Logo from "./Logo";
+import Logo from './Logo';
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -26,10 +26,10 @@ const Nav = () => {
   const pathname = history.location.pathname;
 
   const [showSearch, setShowSearch] = useState(false);
-  const [textInput, setTextInput] = useState("");
+  const [textInput, setTextInput] = useState('');
 
-  const ui = useSelector(state => state.ui);
-  const { isLoggedIn } = useSelector(state => state.auth)
+  const ui = useSelector((state) => state.ui);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const inputHandler = (e) => {
     setTextInput(e.target.value);
@@ -37,79 +37,80 @@ const Nav = () => {
 
   const submitSearch = (e) => {
     e.preventDefault();
-    if (textInput) dispatch(fetchSearch(textInput));
-    // setTextInput("");
+    if (textInput) dispatch(fetchSearchGames(textInput));
   };
 
   const clearSearched = () => {
-    dispatch({ type: "CLEAR_SEARCHED" });
+    setTextInput('');
+    dispatch({ type: 'CLEAR_SEARCHED' });
   };
 
   const closeSearch = () => {
-    setTextInput("");
+    setTextInput('');
     setShowSearch(false);
-  }
+  };
 
   const toggleSideMenu = () => {
-    if (!ui.showSideMenu) return dispatch({ type: "SHOW_SIDE_MENU" });
-    return dispatch({ type: "HIDE_SIDE_MENU" });
-  }
+    if (!ui.showSideMenu) return dispatch({ type: 'SHOW_SIDE_MENU' });
+    return dispatch({ type: 'HIDE_SIDE_MENU' });
+  };
 
   const getSearchPlaceholder = (path) => {
-    if (path === '/') return 'Search a game..'
-    if (path === '/twitch-gaming') return 'Search a stream..'
-  }
+    if (path === '/') return 'Search a game..';
+    if (path === '/twitch-gaming') return 'Search a stream..';
+  };
 
   return (
     <StyledNav>
-      <div className="mobile-icon bars hoverable">
-        <FontAwesomeIcon onClick={toggleSideMenu} icon={ui.showSideMenu ? faTimes : faBars} />
+      <div className='mobile-icon bars hoverable'>
+        <FontAwesomeIcon
+          onClick={toggleSideMenu}
+          icon={ui.showSideMenu ? faTimes : faBars}
+        />
       </div>
       {!showSearch && (
-        <Link to="/">
+        <Link to='/'>
           <Logo onClick={clearSearched} />
         </Link>
-
       )}
-      <div className="mobile-icon search">
-        {!showSearch ?
-          <FontAwesomeIcon icon={faSearch} onClick={() => setShowSearch(true)} />
-          : (
-            <StyledSearchMobile
-              onSubmit={submitSearch}
-              className="search-input"
-              initial={{ width: '0%', opacity: 0 }}
-              animate={{ width: '90%', opacity: 1 }}
-              exit={{ width: '0%', opacity: 0.5 }}
-              transition={{ duration: 0.3 }}
-            >
-              <FontAwesomeIcon
-                className="close-icon"
-                icon={faTimes}
-                onClick={closeSearch}
-              />
-              <input
-                placeholder={getSearchPlaceholder(pathname)}
-                value={textInput}
-                onChange={inputHandler}
-                type="text"
-              />
-            </StyledSearchMobile>
-          )
-        }
+      <div className='mobile-icon search'>
+        {!showSearch ? (
+          <FontAwesomeIcon
+            icon={faSearch}
+            onClick={() => setShowSearch(true)}
+          />
+        ) : (
+          <StyledSearchMobile
+            onSubmit={submitSearch}
+            className='search-input'
+            initial={{ width: '0%', opacity: 0 }}
+            animate={{ width: '90%', opacity: 1 }}
+            exit={{ width: '0%', opacity: 0.5 }}
+            transition={{ duration: 0.3 }}
+          >
+            <FontAwesomeIcon
+              className='close-icon'
+              icon={faTimes}
+              onClick={closeSearch}
+            />
+            <input
+              placeholder={getSearchPlaceholder(pathname)}
+              value={textInput}
+              onChange={inputHandler}
+              type='text'
+            />
+          </StyledSearchMobile>
+        )}
       </div>
-      <StyledSearchDesktop
-        onSubmit={submitSearch}
-        className='desktop'
-      >
+      <StyledSearchDesktop onSubmit={submitSearch} className='desktop'>
         <input
           placeholder={getSearchPlaceholder(pathname)}
           value={textInput}
           onChange={inputHandler}
-          type="text"
+          type='text'
         />
         <FontAwesomeIcon
-          className="search-icon hoverable"
+          className='search-icon hoverable'
           icon={faSearch}
           onClick={submitSearch}
         />
@@ -118,31 +119,29 @@ const Nav = () => {
       <StyledAuth className='desktop'>
         {!isLoggedIn ? (
           <div>
-            <Link to="/login">
-              <button className="login hoverable">Login</button>
+            <Link to='/login'>
+              <button className='login hoverable'>Login</button>
             </Link>
-            <Link to="/register">
-              <button className="register hoverable">Register</button>
+            <Link to='/register'>
+              <button className='register hoverable'>Register</button>
             </Link>
           </div>
         ) : (
           <>
-            <Link to="/" className="hoverable">
-              <button className="view-profile">
+            <Link to='/' className='hoverable'>
+              <button className='view-profile'>
                 View Profile
-                <FontAwesomeIcon className="icon" icon={faUser} />
+                <FontAwesomeIcon className='icon' icon={faUser} />
               </button>
-
             </Link>
             {/* <div className="hoverable logout">
               Logout
               <FontAwesomeIcon className="icon" icon={faSignOutAlt} />
             </div> */}
           </>
-        )
-        }
+        )}
       </StyledAuth>
-    </StyledNav >
+    </StyledNav>
   );
 };
 
@@ -163,14 +162,16 @@ const StyledNav = styled(motion.nav)`
   }
 
   /* desktop */
-  @media(min-width: 769px) {
+  @media (min-width: 769px) {
     > * {
       flex: 1;
     }
 
     padding: 1rem 1rem;
 
-    .mobile-icon {display: none}
+    .mobile-icon {
+      display: none;
+    }
 
     .desktop {
       display: flex;
@@ -180,7 +181,7 @@ const StyledNav = styled(motion.nav)`
 
 const StyledSearchDesktop = styled(motion.form)`
   position: relative;
-  
+
   .search-icon {
     position: absolute;
     right: -5.2%;
@@ -213,7 +214,7 @@ const StyledSearchMobile = styled(motion.form)`
   position: relative;
   border-radius: 50rem;
   background-color: var(--light);
-  padding: 0.3rem 1rem;  
+  padding: 0.3rem 1rem;
 
   .close-icon {
     position: absolute;
@@ -247,13 +248,13 @@ const StyledAuth = styled(motion.div)`
     padding: 0.5rem 1.5rem;
     border-radius: 50rem;
     border: none;
-    margin-left: 1rem;  
+    margin-left: 1rem;
     cursor: pointer;
     font-weight: 600;
     color: var(--light);
   }
 
-  button:hover { 
+  button:hover {
     filter: brightness(80%);
   }
 
@@ -270,7 +271,6 @@ const StyledAuth = styled(motion.div)`
     background-color: var(--primary);
     border: 2px solid var(--light);
   }
-
 `;
 
 export default Nav;
