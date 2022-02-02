@@ -38,7 +38,6 @@ function App() {
         <Route path={'/twitch-gaming'} component={TwitchGaming} />
         <Route path={'/youtube-gaming'} component={YoutubeGaming} />
         <Route path={'/login'} component={Login} />
-        <Route path={'/login'} component={Login} />
         <Route path={'/register'} component={Register} />
         <Route path={'/email-confirm/'} component={EmailConfirm} />
       </Router>
