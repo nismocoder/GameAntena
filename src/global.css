@@ -21,6 +21,9 @@
   --primary: #1f1f2d;
   --primary-light: rgb(108, 113, 145);
 
+  --twitch-purple: #6441a5;
+  --youtube-red: #d41a1a;
+
   --shade-1: rgba(65, 144, 201, 1);
   --shade-1-fade: rgba(65, 144, 201, 0.15);
 
