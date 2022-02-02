@@ -3,7 +3,7 @@ import { useHistory, Route } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
 // components
-import { Modal, Loader } from './';
+import { Modal, Loader } from '.';
 
 //styling and animation
 import styled from 'styled-components';
@@ -23,9 +23,8 @@ const Gamedetails = () => {
 
   const gameId = getLastSegmentURL(pathname);
 
-  const { data: details, isLoading } = useQuery(
-    `${gameId}-details`,
-    ({ signal }) => getGameDetails(gameId, signal),
+  const { data: details, isLoading } = useQuery(`${gameId}-details`, () =>
+    getGameDetails(gameId),
   );
 
   return (
