@@ -19,13 +19,12 @@ const EmailConfirm = () => {
 
   const dispatch = useDispatch();
 
-  const search = useLocation().search;
+  const { search } = useLocation();
 
-  const token = new URLSearchParams(search).get("token");
+  const token = new URLSearchParams(search).get('token');
 
   React.useEffect(() => {
-    if (!token)
-      history.push('/');
+    if (!token) history.push('/');
 
     // Send POST request to backend's email confirm endpoint
 
@@ -34,8 +33,8 @@ const EmailConfirm = () => {
         const result = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/email/confirm`,
           {
-            token: token
-          }
+            token: token,
+          },
         );
 
         const { userId, access_token: accessToken } = result.data;
@@ -49,11 +48,11 @@ const EmailConfirm = () => {
       } catch (error) {
         if (error.response) {
           alert(error.response.data.message);
-          return
+          return;
         }
         alert(error);
       }
-    }
+    };
 
     confirmEmail();
   }, [dispatch, history, token]);
@@ -68,8 +67,8 @@ const EmailConfirm = () => {
         </StyledModalContent>
       </Modal>
     </StyledPage>
-  )
-}
+  );
+};
 
 const StyledPage = styled.div`
   background-color: var(--primary);
@@ -90,6 +89,4 @@ const StyledModalContent = styled.div`
   }
 `;
 
-
-
-export default EmailConfirm
+export default EmailConfirm;
