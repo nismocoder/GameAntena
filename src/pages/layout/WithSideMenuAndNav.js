@@ -21,7 +21,7 @@ const WithSideMenuAndNav = ({ children }) => {
   return (
     <>
       <Nav />
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', overflow: 'hidden' }}>
         <SideMenu />
         {children}
       </div>
