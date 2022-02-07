@@ -18,6 +18,7 @@ import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Logo from './Logo';
+import { getSearchPlaceholder } from '../utils/basedOnPath';
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -53,11 +54,6 @@ const Nav = () => {
   const toggleSideMenu = () => {
     if (!ui.showSideMenu) return dispatch({ type: 'SHOW_SIDE_MENU' });
     return dispatch({ type: 'HIDE_SIDE_MENU' });
-  };
-
-  const getSearchPlaceholder = (path) => {
-    if (path === '/') return 'Search a game..';
-    if (path === '/twitch-gaming') return 'Search a stream..';
   };
 
   return (

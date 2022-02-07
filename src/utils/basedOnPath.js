@@ -18,11 +18,7 @@ export const getAuthForwardUrl = (pathname = '/', email) => {
     return youtubeAuthForwardUrl({
       clientId: process.env.REACT_APP_YOUTUBE_CLIENT_ID,
       authRedirectUri: `${process.env.REACT_APP_BACKEND_URL}/youtube/auth`,
-      scope: [
-        'https://www.googleapis.com/auth/youtube',
-        'https://www.googleapis.com/auth/youtube.force-ssl',
-        'https://www.googleapis.com/auth/youtube.readonly',
-      ],
+      scope: ['https://www.googleapis.com/auth/youtube.readonly'],
       email,
     });
 };
@@ -38,4 +34,10 @@ export const getGameSectionUrl = (pathname = '/', game = '') => {
 export const getChannelMenuBackground = (pathname = '/') => {
   if (pathname === '/twitch-gaming') return 'var(--twitch-purple)';
   if (pathname === '/youtube-gaming') return 'var(--youtube-red)';
+};
+
+export const getSearchPlaceholder = (path) => {
+  if (path === '/') return 'Search a game..';
+  if (path === '/twitch-gaming') return 'Search twitch stream..';
+  if (path === '/youtube-gaming') return 'Search youtube stream..';
 };
