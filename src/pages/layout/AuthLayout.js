@@ -37,7 +37,7 @@ const StyledPage = styled.div`
 
   main {
     width: 100%;
-    height: 100%;
+    height: 98.5%;
     display: flex;
     flex-flow: column;
     align-items: center;
