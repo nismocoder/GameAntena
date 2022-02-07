@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
 import axios from 'axios';
@@ -17,30 +17,30 @@ import { AuthLayout } from '../layout';
 const Login = () => {
   const dispatch = useDispatch();
 
-  const { credentials, handleOnChange, setCredentials } = useHandleCredentialsInput();
+  const { search } = useLocation();
+  const previous_page = new URLSearchParams(search).get('p');
 
-  // redirect to '/' - homepage if not logged in
-  useRouteGuard('/');
+  const { credentials, handleOnChange, setCredentials } =
+    useHandleCredentialsInput();
+
+  // redirect to previous page after (if there's any) after loggin in
+  useRouteGuard(previous_page || '/');
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    dispatch({ type: "LOADING_AUTH" });
+    dispatch({ type: 'LOADING_AUTH' });
 
     const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
-      }
-    }
+        'Content-Type': 'application/json',
+      },
+    };
 
     try {
-      const result = await axios.post(
-        `${baseUrl}/login`,
-        credentials,
-        config
-      );
+      const result = await axios.post(`${baseUrl}/login`, credentials, config);
 
       const { access_token: accessToken, email, userId } = result.data;
 
@@ -49,52 +49,53 @@ const Login = () => {
 
       setLocalStorageItem('accessToken', accessToken, 30);
       setLocalStorageItem('userId', userId, 30);
-
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);
-        return
+        return;
       }
       alert(error);
     } finally {
-      dispatch({ type: "LOADING_AUTH_FINISHED" });
+      dispatch({ type: 'LOADING_AUTH_FINISHED' });
       setCredentials((state) => {
         return {
           ...state,
-          password: "",
-        }
-      })
+          password: '',
+        };
+      });
     }
-  }
+  };
 
   return (
-    <AuthLayout linkToElement={
-      <>
-        New to Game-Antena?
-        <Link to="/register" className='hoverable'>
-          Register here
-        </Link>
-      </>
-    }>
+    <AuthLayout
+      linkToElement={
+        <>
+          New to Game-Antena?
+          <Link to='/register' className='hoverable'>
+            Register here
+          </Link>
+        </>
+      }
+    >
       <h2>Welcome to Game-Antena</h2>
       <StyledForm onSubmit={handleLogin}>
-        <div className="form-group">
+        <div className='form-group'>
           <label>Email: </label>
           <input
-            name="email"
+            name='email'
             value={credentials.email}
-            type="email"
-            placeholder="my@email.com"
+            type='email'
+            placeholder='my@email.com'
             onChange={handleOnChange}
             required
           />
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <label>Password: </label>
           <input
-            name="password"
+            name='password'
             value={credentials.password}
-            type="password"
+            type='password'
             onChange={handleOnChange}
             required
           />
@@ -102,8 +103,8 @@ const Login = () => {
         <button className='submit-btn hoverable'>Login</button>
       </StyledForm>
     </AuthLayout>
-  )
-}
+  );
+};
 
 const StyledForm = styled.form`
   display: flex;
@@ -122,7 +123,7 @@ const StyledForm = styled.form`
       border: none;
       padding: 0.5rem;
       font-size: 1.1rem;
-      outline-color: var(--shade-4)
+      outline-color: var(--shade-4);
     }
   }
 
@@ -134,7 +135,7 @@ const StyledForm = styled.form`
     background-color: var(--shade-4);
     padding: 0.5rem;
     margin-top: 1rem;
-  }  
+  }
 `;
 
-export default Login
+export default Login;
