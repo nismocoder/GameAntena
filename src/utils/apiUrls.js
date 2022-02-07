@@ -42,6 +42,18 @@ export const userTwitchSubscribersURL = (userId) =>
 export const unlinkTwitchAccountURL = (userId) =>
   `${backend_url}/users/unlink-twitch/${userId}`;
 
+export const userYoutubeDataURL = (userId) =>
+  `${backend_url}/users/youtube-data/${userId}`;
+
+export const userYoutubeVideosURL = (userId) =>
+  `${backend_url}/users/youtube-videos/${userId}`;
+
+export const userYoutubeSubscribersURL = (userId) =>
+  `${backend_url}/users/youtube-subscribers/${userId}`;
+
+export const unlinkYoutubeAccountURL = (userId) =>
+  `${backend_url}/users/unlink-youtube/${userId}`;
+
 // BACKEND - Streams
 export const topTwitchGamingStreamsURL = () =>
   `${backend_url}/twitch/gaming-streams`;
