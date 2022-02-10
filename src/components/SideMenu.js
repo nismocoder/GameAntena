@@ -13,7 +13,7 @@ import {
   faChevronLeft,
   faHome,
   faSignOutAlt,
-  faGamepad
+  faGamepad,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -33,19 +33,19 @@ const SideMenu = () => {
   const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
 
   const hideSideMenu = () => {
-    dispatch({ type: "HIDE_SIDE_MENU" });
-  }
+    dispatch({ type: 'HIDE_SIDE_MENU' });
+  };
 
   const showSideMenu = () => {
-    dispatch({ type: "SHOW_SIDE_MENU" });
-  }
+    dispatch({ type: 'SHOW_SIDE_MENU' });
+  };
 
   const handleLogout = () => {
     dispatch(logoutUser());
 
-    localStorage.removeItem("email");
-    localStorage.removeItem("accessToken");
-  }
+    localStorage.removeItem('email');
+    localStorage.removeItem('accessToken');
+  };
 
   return (
     <>
@@ -59,7 +59,7 @@ const SideMenu = () => {
             exit={{ translateX: '-59px' }}
             transition={{ duration: 0.3 }}
           >
-            <div className="icons">
+            <div className='icons'>
               <FontAwesomeIcon
                 className={`${pathname === '/' ? 'active' : ''}`}
                 icon={faHome}
@@ -74,13 +74,12 @@ const SideMenu = () => {
               />
               {/* <FontAwesomeIcon icon={faUser} /> */}
             </div>
-            <div className="logout-icon">
+            <div className='logout-icon'>
               <FontAwesomeIcon icon={faSignOutAlt} />
             </div>
           </StyledMenuDrawer>
-        )
-        }
-      </AnimatePresence >
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {ui.showSideMenu && (
@@ -90,10 +89,7 @@ const SideMenu = () => {
             exit={{ translateX: '-283px' }}
             transition={{ duration: 0.4 }}
           >
-            <div
-              onClick={hideSideMenu}
-              className="hide-icon hoverable"
-            >
+            <div onClick={hideSideMenu} className='hide-icon hoverable'>
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <MenuLinks
@@ -102,7 +98,7 @@ const SideMenu = () => {
               exit={{ opacity: 0.0 }}
               transition={{ duration: 0.4 }}
             >
-              <div className="main-links">
+              <div className='main-links'>
                 <Link to='/'>
                   <ToolTip
                     trigger={
@@ -111,37 +107,37 @@ const SideMenu = () => {
                         <FontAwesomeIcon className='icon' icon={faGamepad} />
                       </li>
                     }
-                    content={
-                      <p>Games from RAWG.IO</p>
-                    }
+                    content={<p>Games from RAWG.IO</p>}
                   />
-
                 </Link>
                 <Link to='/twitch-gaming'>
                   <ToolTip
                     trigger={
-                      <li className={`${pathname === '/twitch-gaming' ? 'active' : ''}`}>
+                      <li
+                        className={`${
+                          pathname === '/twitch-gaming' ? 'active' : ''
+                        }`}
+                      >
                         Twitch Gaming
                         <FontAwesomeIcon className='icon' icon={faTwitch} />
                       </li>
                     }
-                    content={
-                      <p>Twitch Gaming Streams</p>
-                    }
+                    content={<p>Twitch Gaming Streams</p>}
                   />
-
                 </Link>
                 <Link to='/youtube-gaming'>
                   <ToolTip
                     trigger={
-                      <li className={`${pathname === '/youtube-gaming' ? 'active' : ''}`}>
+                      <li
+                        className={`${
+                          pathname === '/youtube-gaming' ? 'active' : ''
+                        }`}
+                      >
                         Youtube Gaming
                         <FontAwesomeIcon className='icon' icon={faYoutube} />
                       </li>
                     }
-                    content={
-                      <p>Youtube Gaming Streams</p>
-                    }
+                    content={<p>Youtube Gaming Streams</p>}
                   />
                 </Link>
 
@@ -151,28 +147,30 @@ const SideMenu = () => {
                     <FontAwesomeIcon className='icon' icon={faSignOutAlt} />
                   </li>
                 )}
-
               </div>
 
-              <div className="sub-links">
+              <div className='sub-links'>
                 <li className=''>About Us</li>
-                <li className=''>Privacy Policy</li>
-                <li className=''>Terms and Conditions</li>
+                <Link to='/privacy-policy'>
+                  <li className=''>Privacy Policy</li>
+                </Link>
+
+                <Link to='terms-and-conditions'>
+                  <li className=''>Terms and Conditions</li>
+                </Link>
               </div>
 
               <div className='copyright'>
                 <p>Copyright &copy; 2021 Game-Antena</p>
                 All rights reserved
               </div>
-
             </MenuLinks>
           </StyledSideMenu>
-        )
-        }
-      </AnimatePresence >
+        )}
+      </AnimatePresence>
     </>
-  )
-}
+  );
+};
 
 const SideMenuElement = styled(motion.div)`
   position: absolute;
@@ -208,7 +206,7 @@ const MenuLinks = styled(motion.div)`
     color: var(--light);
     background-color: var(--shade-4);
   }
-  
+
   li.active:hover {
     filter: brightness(100%);
   }
@@ -247,7 +245,6 @@ const StyledSideMenu = styled(SideMenuElement)`
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }
-
 `;
 
 const StyledMenuDrawer = styled(SideMenuElement)`
@@ -271,10 +268,9 @@ const StyledMenuDrawer = styled(SideMenuElement)`
   }
 
   .logout-icon {
-    
   }
 
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     display: flex;
     flex-flow: column;
     justify-content: space-between;
@@ -282,4 +278,4 @@ const StyledMenuDrawer = styled(SideMenuElement)`
   }
 `;
 
-export default SideMenu
+export default SideMenu;

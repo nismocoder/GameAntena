@@ -7,6 +7,8 @@ import {
   Register,
   TwitchGaming,
   YoutubeGaming,
+  PrivacyPolicy,
+  TermsAndConditions,
 } from './pages';
 //styles
 import './global.css';
@@ -39,7 +41,9 @@ function App() {
         <Route path={'/youtube-gaming'} component={YoutubeGaming} />
         <Route path={'/login'} component={Login} />
         <Route path={'/register'} component={Register} />
-        <Route path={'/email-confirm/'} component={EmailConfirm} />
+        <Route path={'/email-confirm'} component={EmailConfirm} />
+        <Route path='/privacy-policy' component={PrivacyPolicy} />
+        <Route path='/terms-and-conditions' component={TermsAndConditions} />
       </Router>
     </div>
   );
