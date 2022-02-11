@@ -23,8 +23,13 @@ const Gamedetails = () => {
 
   const gameId = getLastSegmentURL(pathname);
 
-  const { data: details, isLoading } = useQuery(`${gameId}-details`, () =>
-    getGameDetails(gameId),
+  const { data: details, isLoading } = useQuery(
+    `${gameId}-details`,
+    () => getGameDetails(gameId),
+    {
+      enabled: !!gameId,
+      refetchOnWindowFocus: false,
+    },
   );
 
   return (
