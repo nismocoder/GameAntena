@@ -9,6 +9,7 @@ import {
   YoutubeGaming,
   PrivacyPolicy,
   TermsAndConditions,
+  MyProfile,
 } from './pages';
 //styles
 import './global.css';
@@ -37,6 +38,7 @@ function App() {
     <div className='App'>
       <Router>
         <Route exact path={['/game/:id', '/']} component={Home} />
+        <Route exact path={['/my-profile']} component={MyProfile} />
         <Route path={'/twitch-gaming'} component={TwitchGaming} />
         <Route path={'/youtube-gaming'} component={YoutubeGaming} />
         <Route path={'/login'} component={Login} />
