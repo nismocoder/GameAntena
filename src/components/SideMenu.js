@@ -99,6 +99,7 @@ const SideMenu = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0.0 }}
               transition={{ duration: 0.4 }}
+              style={{ paddingBottom: `${showSubLinks ? '0' : '1rem'}` }}
             >
               <div className='main-links'>
                 <Link to='/'>
@@ -203,11 +204,11 @@ const SideMenu = () => {
                   </Link>
                 </div>
               )}
-              {/* <div className='copyright'>
-                <p>Copyright &copy; 2021 Game-Antena</p>
-                All rights reserved
-              </div> */}
             </MenuLinks>
+            <div className='copyright'>
+              <p>Copyright &copy; 2021 Game-Antena</p>
+              All rights reserved
+            </div>
           </StyledSideMenu>
         )}
       </AnimatePresence>
@@ -224,13 +225,58 @@ const SideMenuElement = styled(motion.div)`
   color: var(--light);
 `;
 
+const StyledSideMenu = styled(SideMenuElement)`
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  list-style: none;
+  z-index: 4;
+  padding-top: 3rem;
+
+  .hide-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    background-color: var(--light);
+    color: var(--primary);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  .copyright {
+    bottom: 0;
+    border-top: 1px solid var(--primary-light);
+    font-size: 0.85rem;
+    padding: 1rem;
+    color: var(--primary-light);
+
+    p {
+      font-weight: 600;
+    }
+  }
+`;
+
 const MenuLinks = styled(motion.div)`
   display: flex;
   flex-flow: column;
   overflow-y: auto;
   justify-content: space-between;
-  gap: 2rem;
-  height: 100%;
+  gap: 1rem;
+
+  ::-webkit-scrollbar-track {
+    background: var(--primary);
+  }
+
+  ::-webkit-scrollbar {
+    width: 0.6rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 50rem;
+    background-color: var(--primary-light);
+    border: 1px solid #000;
+  }
 
   li {
     width: 100%;
@@ -263,21 +309,12 @@ const MenuLinks = styled(motion.div)`
 
     button {
       padding: 0.5rem 1.5rem;
+      font-weight: 600;
     }
   }
 
   .logout {
-    color: var(--light-2);
-  }
-
-  .copyright {
-    font-size: 0.85rem;
-    padding: 0 1rem;
-    color: var(--primary-light);
-
-    p {
-      font-weight: 600;
-    }
+    padding-bottom: 2rem;
   }
 
   @media (min-width: 769px) {
@@ -306,23 +343,6 @@ const SubLinks = styled.div`
 
   .collapsible-content li {
     padding: 0.5rem 0.65rem 0.5rem 1.5rem;
-  }
-`;
-
-const StyledSideMenu = styled(SideMenuElement)`
-  list-style: none;
-  z-index: 4;
-  padding-top: 3rem;
-
-  .hide-icon {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.5rem;
-    background-color: var(--light);
-    color: var(--primary);
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
   }
 `;
 
