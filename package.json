@@ -9,6 +9,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
+    "@radix-ui/react-collapsible": "^0.1.5",
     "@radix-ui/react-tooltip": "^0.1.6",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.12.0",

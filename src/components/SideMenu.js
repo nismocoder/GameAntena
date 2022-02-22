@@ -1,12 +1,9 @@
 import React from 'react';
-
 import { useSelector, useDispatch } from 'react-redux';
-
-import { motion, AnimatePresence } from 'framer-motion';
-
 import { Link, useHistory } from 'react-router-dom';
 
 import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -14,12 +11,16 @@ import {
   faHome,
   faSignOutAlt,
   faGamepad,
+  faAngleDown,
+  faAngleRight,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { logoutUser } from '../actions/authAction';
 
 import ModalLoader from './ModalLoader';
+import { Collapsible } from './Radix';
 
 import { ToolTip } from './Radix';
 
@@ -31,6 +32,8 @@ const SideMenu = () => {
 
   const ui = useSelector((state) => state.ui);
   const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
+
+  const [showSubLinks, setShowSubLinks] = React.useState(true);
 
   const hideSideMenu = () => {
     dispatch({ type: 'HIDE_SIDE_MENU' });
@@ -72,7 +75,6 @@ const SideMenu = () => {
                 className={`${pathname === '/youtube-gaming' ? 'active' : ''}`}
                 icon={faYoutube}
               />
-              {/* <FontAwesomeIcon icon={faUser} /> */}
             </div>
             <div className='logout-icon'>
               <FontAwesomeIcon icon={faSignOutAlt} />
@@ -140,30 +142,71 @@ const SideMenu = () => {
                     content={<p>Youtube Gaming Streams</p>}
                   />
                 </Link>
-
                 {isLoggedIn && (
-                  <li className='' onClick={handleLogout}>
-                    Logout
-                    <FontAwesomeIcon className='icon' icon={faSignOutAlt} />
-                  </li>
+                  <Link to='/my-profile'>
+                    <li
+                      className={`${
+                        pathname === '/my-profile' ? 'active' : ''
+                      }`}
+                    >
+                      My Profile
+                      <FontAwesomeIcon className='icon' icon={faUser} />
+                    </li>
+                  </Link>
                 )}
               </div>
 
-              <div className='sub-links'>
-                <li className=''>About Us</li>
-                <Link to='/privacy-policy'>
-                  <li className=''>Privacy Policy</li>
-                </Link>
+              <SubLinks className='sub-links'>
+                <Collapsible
+                  open={showSubLinks}
+                  trigger={
+                    <li
+                      className='collapsible-trigger'
+                      onClick={() => setShowSubLinks((state) => !state)}
+                    >
+                      More{' '}
+                      <FontAwesomeIcon
+                        className='icon'
+                        icon={showSubLinks ? faAngleDown : faAngleRight}
+                      />
+                    </li>
+                  }
+                  content={
+                    <div className='collapsible-content'>
+                      <li>About Us</li>
+                      <Link to='/privacy-policy'>
+                        <li>Privacy Policy</li>
+                      </Link>
 
-                <Link to='terms-and-conditions'>
-                  <li className=''>Terms and Conditions</li>
-                </Link>
-              </div>
+                      <Link to='terms-and-conditions'>
+                        <li>Terms and Conditions</li>
+                      </Link>
+                    </div>
+                  }
+                />
+              </SubLinks>
 
-              <div className='copyright'>
+              {isLoggedIn ? (
+                <li className='logout' onClick={handleLogout}>
+                  Logout
+                  <FontAwesomeIcon className='icon' icon={faSignOutAlt} />
+                </li>
+              ) : (
+                <div className='auth'>
+                  <Link to='/login'>
+                    <button className='login rounded'>Login</button>
+                  </Link>
+                  <Link to='/register'>
+                    <button className='register rounded outline-light'>
+                      Register
+                    </button>
+                  </Link>
+                </div>
+              )}
+              {/* <div className='copyright'>
                 <p>Copyright &copy; 2021 Game-Antena</p>
                 All rights reserved
-              </div>
+              </div> */}
             </MenuLinks>
           </StyledSideMenu>
         )}
@@ -184,7 +227,9 @@ const SideMenuElement = styled(motion.div)`
 const MenuLinks = styled(motion.div)`
   display: flex;
   flex-flow: column;
+  overflow-y: auto;
   justify-content: space-between;
+  gap: 2rem;
   height: 100%;
 
   li {
@@ -211,12 +256,18 @@ const MenuLinks = styled(motion.div)`
     filter: brightness(100%);
   }
 
-  .sub-links {
-    font-size: 0.9rem;
+  .auth {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      padding: 0.5rem 1.5rem;
+    }
   }
 
-  .sub-links li {
-    padding: 0.7rem 1rem;
+  .logout {
+    color: var(--light-2);
   }
 
   .copyright {
@@ -228,12 +279,40 @@ const MenuLinks = styled(motion.div)`
       font-weight: 600;
     }
   }
+
+  @media (min-width: 769px) {
+    .auth {
+      display: none;
+    }
+  }
+`;
+
+const SubLinks = styled.div`
+  font-size: 0.9rem;
+  color: var(--light-2);
+
+  li {
+    cursor: pointer;
+
+    .icon {
+      margin-left: 1rem;
+    }
+  }
+
+  .collapsible-trigger {
+    display: flex;
+    align-items: center;
+  }
+
+  .collapsible-content li {
+    padding: 0.5rem 0.65rem 0.5rem 1.5rem;
+  }
 `;
 
 const StyledSideMenu = styled(SideMenuElement)`
   list-style: none;
   z-index: 4;
-  padding: 3rem 0 2rem 0;
+  padding-top: 3rem;
 
   .hide-icon {
     position: absolute;
