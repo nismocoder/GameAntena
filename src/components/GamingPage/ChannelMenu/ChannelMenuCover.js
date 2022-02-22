@@ -72,9 +72,6 @@ const StyledChannelMenuCover = styled.div`
   border-bottom-left-radius: 5px;
 
   button {
-    border: none;
-    border-radius: 5px;
-    color: var(--light);
     padding: 0.8rem;
     box-shadow: var(--box-shadow);
   }

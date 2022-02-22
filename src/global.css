@@ -15,8 +15,8 @@
   --font-3: 'Kaufhalle', sans-serif;
 
   --light: #f5f5f7;
-  --light-1: #e2e2ef;
-  --light-2: #d7d7db;
+  --light-1: #d5d5e4;
+  --light-2: #bfbfc4;
   --dark-faded: rgba(0, 0, 0, 0.63);
   --primary: #1f1f2d;
   --primary-light: rgb(108, 113, 145);
@@ -76,6 +76,24 @@ input {
 button {
   font-family: var(--font-1);
   font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: var(--light);
+  background-color: var(--shade-4);
+}
+button.rounded {
+  border-radius: 50rem;
+}
+button.outline-light {
+  background-color: var(--transparent);
+  border: 2px solid var(--light);
+  color: var(--light);
+}
+button.outline-dark {
+  background-color: var(--transparent);
+  border: 2px solid var(--primary);
+  color: var(--primary);
 }
 
 .hoverable {

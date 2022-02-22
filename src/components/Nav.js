@@ -114,27 +114,23 @@ const Nav = () => {
 
       <StyledAuth className='desktop'>
         {!isLoggedIn ? (
-          <div>
+          <>
             <Link to='/login'>
-              <button className='login hoverable'>Login</button>
+              <button className='rounded hoverable'>Login</button>
             </Link>
             <Link to='/register'>
-              <button className='register hoverable'>Register</button>
-            </Link>
-          </div>
-        ) : (
-          <>
-            <Link to='/' className='hoverable'>
-              <button className='view-profile'>
-                View Profile
-                <FontAwesomeIcon className='icon' icon={faUser} />
+              <button className='outline-light rounded hoverable'>
+                Register
               </button>
             </Link>
-            {/* <div className="hoverable logout">
-              Logout
-              <FontAwesomeIcon className="icon" icon={faSignOutAlt} />
-            </div> */}
           </>
+        ) : (
+          <Link to='/my-profile' className='hoverable'>
+            <button className='my-profile'>
+              My Profile
+              <FontAwesomeIcon className='icon' icon={faUser} />
+            </button>
+          </Link>
         )}
       </StyledAuth>
     </StyledNav>
@@ -180,14 +176,14 @@ const StyledSearchDesktop = styled(motion.form)`
 
   .search-icon {
     position: absolute;
-    right: -5.2%;
+    right: 0%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
     color: var(--light);
     z-index: 5;
     background-color: var(--shade-2);
-    height: 100%;
-    width: 10%;
+    height: 99%;
+    width: 2.8rem;
     padding: 0.6rem;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -196,7 +192,7 @@ const StyledSearchDesktop = styled(motion.form)`
   input {
     width: 100%;
     font-size: 1.2rem;
-    border: none;
+    border: 1px solid var(--primary);
     background-color: var(--light);
     padding: 0.5rem 1rem;
     border-radius: 5px;
@@ -234,7 +230,7 @@ const StyledAuth = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 2rem;
+  gap: 1rem;
 
   .icon {
     margin-left: 0.5rem;
@@ -242,28 +238,10 @@ const StyledAuth = styled(motion.div)`
 
   button {
     padding: 0.5rem 1.5rem;
-    border-radius: 50rem;
-    border: none;
-    margin-left: 1rem;
-    cursor: pointer;
     font-weight: 600;
-    color: var(--light);
   }
 
-  button:hover {
-    filter: brightness(80%);
-  }
-
-  .login {
-    background-color: var(--shade-4);
-  }
-
-  .register {
-    background-color: var(--primary);
-    border: 2px solid var(--light);
-  }
-
-  .view-profile {
+  .my-profile {
     background-color: var(--primary);
     border: 2px solid var(--light);
   }
