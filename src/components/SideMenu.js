@@ -262,6 +262,7 @@ const MenuLinks = styled(motion.div)`
   flex-flow: column;
   overflow-y: auto;
   justify-content: space-between;
+  height: 100%;
   gap: 1rem;
 
   ::-webkit-scrollbar-track {
