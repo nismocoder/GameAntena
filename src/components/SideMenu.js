@@ -99,7 +99,6 @@ const SideMenu = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0.0 }}
               transition={{ duration: 0.4 }}
-              style={{ paddingBottom: `${showSubLinks ? '0' : '1rem'}` }}
             >
               <div className='main-links'>
                 <Link to='/'>
@@ -264,6 +263,7 @@ const MenuLinks = styled(motion.div)`
   justify-content: space-between;
   height: 100%;
   gap: 1rem;
+  padding-bottom: 1rem;
 
   ::-webkit-scrollbar-track {
     background: var(--primary);
@@ -312,10 +312,6 @@ const MenuLinks = styled(motion.div)`
       padding: 0.5rem 1.5rem;
       font-weight: 600;
     }
-  }
-
-  .logout {
-    padding-bottom: 2rem;
   }
 
   @media (min-width: 769px) {
