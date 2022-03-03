@@ -1,19 +1,20 @@
 import axios from 'axios';
 import { userDataURL } from '../utils/apiUrls';
 
-export const loginUser = (email, accessToken) => (dispatch) => {
-  dispatch({ type: 'LOGIN_SUCCESS', payload: { email, accessToken } });
-};
-
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = () => (dispatch) => {
   dispatch({
     type: 'LOADING_AUTH',
   });
 
   setTimeout(() => dispatch({ type: 'LOGOUT' }), 500);
+
+  localStorage.removeItem('userId');
+  localStorage.removeItem('accessToken');
 };
 
-export const updateUserAuthInfo = (userId, accessToken) => async (dispatch) => {
+export const updateUserInfo = (userId, accessToken) => async (dispatch) => {
+  dispatch({ type: 'LOADING_AUTH' });
+
   const userData = await axios.get(userDataURL(userId), {
     headers: {
       'Content-Type': 'application/json',
@@ -21,10 +22,20 @@ export const updateUserAuthInfo = (userId, accessToken) => async (dispatch) => {
     },
   });
   await dispatch({
-    type: 'UPDATE_USER_AUTH_INFO',
-    payload: {
-      ...userData.data,
-      accessToken,
-    },
+    type: 'UPDATE_USER_INFO',
+    payload: userData.data,
   });
+
+  dispatch({ type: 'LOADING_AUTH_FINISHED' });
+};
+
+export const updateAuthInfo = (isLoggedIn, accessToken) => async (dispatch) => {
+  dispatch({ type: 'LOADING_AUTH' });
+
+  await dispatch({
+    type: 'UPDATE_AUTH_INFO',
+    payload: { isLoggedIn, accessToken },
+  });
+
+  dispatch({ type: 'LOADING_AUTH_FINISHED' });
 };

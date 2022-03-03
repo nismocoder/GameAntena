@@ -6,9 +6,12 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
-import { loginUser, updateUserAuthInfo } from '../../actions/authAction';
+import { updateAuthInfo, updateUserInfo } from '../../actions/authAction';
 
-import { useHandleCredentialsInput, useRouteGuard } from '../../hooks';
+import {
+  useHandleCredentialsInput,
+  useRedirectLoggedInUser,
+} from '../../hooks';
 
 import { setLocalStorageItem } from '../../utils';
 
@@ -24,7 +27,7 @@ const Login = () => {
     useHandleCredentialsInput();
 
   // redirect to previous page after (if there's any) after loggin in
-  useRouteGuard(previous_page || '/');
+  useRedirectLoggedInUser(previous_page || '/');
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,10 +45,10 @@ const Login = () => {
     try {
       const result = await axios.post(`${baseUrl}/login`, credentials, config);
 
-      const { access_token: accessToken, email, userId } = result.data;
+      const { access_token: accessToken, userId } = result.data;
 
-      dispatch(loginUser(email, accessToken));
-      dispatch(updateUserAuthInfo(userId, accessToken));
+      dispatch(updateAuthInfo(true, accessToken));
+      dispatch(updateUserInfo(userId, accessToken));
 
       setLocalStorageItem('accessToken', accessToken, 30);
       setLocalStorageItem('userId', userId, 30);
@@ -123,7 +126,7 @@ const StyledForm = styled.form`
       border: none;
       padding: 0.5rem;
       font-size: 1.1rem;
-      outline-color: var(--shade-4);
+      outline-color: var(--shade-2);
     }
   }
 
@@ -132,7 +135,7 @@ const StyledForm = styled.form`
     color: var(--light);
     font-weight: 600;
     font-size: 1.2rem;
-    background-color: var(--shade-4);
+    background-color: var(--shade-2);
     padding: 0.5rem;
     margin-top: 1rem;
   }

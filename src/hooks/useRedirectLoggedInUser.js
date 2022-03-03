@@ -4,14 +4,14 @@ import { useHistory } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 
-const useRouteGuard = (redirectTo = '/') => {
+const useRedirectLoggedInUser = (to = '/') => {
   const history = useHistory();
 
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   React.useEffect(() => {
-    if (isLoggedIn) history.push(redirectTo);
-  }, [history, isLoggedIn, redirectTo]);
+    if (isLoggedIn) history.push(to);
+  }, [history, isLoggedIn, to]);
 };
 
-export default useRouteGuard;
+export default useRedirectLoggedInUser;

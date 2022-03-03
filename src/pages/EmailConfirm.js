@@ -12,7 +12,8 @@ import axios from 'axios';
 
 import { setLocalStorageItem } from '../utils';
 
-import { updateUserAuthInfo } from '../actions/authAction';
+import { updateAuthInfo, updateUserInfo } from '../actions/authAction';
+import { useRedirectLoggedInUser } from '../hooks';
 
 const EmailConfirm = () => {
   const history = useHistory();
@@ -22,6 +23,8 @@ const EmailConfirm = () => {
   const { search } = useLocation();
 
   const token = new URLSearchParams(search).get('token');
+
+  useRedirectLoggedInUser('/');
 
   React.useEffect(() => {
     if (!token) history.push('/');
@@ -39,12 +42,11 @@ const EmailConfirm = () => {
 
         const { userId, access_token: accessToken } = result.data;
 
-        dispatch(updateUserAuthInfo(userId, accessToken));
+        dispatch(updateAuthInfo(true, accessToken));
+        dispatch(updateUserInfo(userId, accessToken));
 
         setLocalStorageItem('accessToken', accessToken, 30);
         setLocalStorageItem('userId', userId, 30);
-
-        history.push('/');
       } catch (error) {
         if (error.response) {
           alert(error.response.data.message);

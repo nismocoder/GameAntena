@@ -3,6 +3,8 @@ const initialState = {
     id: '',
     email: '',
     role: '',
+    displayName: '',
+    displayPicture: '',
   },
   isLoggedIn: false,
   accessToken: '',
@@ -25,31 +27,25 @@ export const authReducer = (state = initialState, action) => {
       };
     }
 
-    case 'LOGIN_SUCCESS': {
-      const { email, accessToken } = action.payload;
-
-      return {
-        user: { ...state.user, email: email },
-        isLoggedIn: true,
-        accessToken: accessToken,
-        isLoading: false,
-      };
-    }
-
     case 'LOGOUT': {
       return initialState;
     }
 
-    case 'UPDATE_USER_AUTH_INFO': {
-      const { id, email, accessToken, role } = action.payload;
+    case 'UPDATE_USER_INFO': {
+      const userUpdateFields = action.payload;
 
       return {
-        user: {
-          id,
-          email,
-          role,
-        },
-        isLoggedIn: true,
+        ...state,
+        user: userUpdateFields,
+      };
+    }
+
+    case 'UPDATE_AUTH_INFO': {
+      const { isLoggedIn, accessToken } = action.payload;
+
+      return {
+        ...state,
+        isLoggedIn,
         accessToken,
       };
     }
