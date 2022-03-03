@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ScrollUp } from '../../components';
 
 const LegalsLayout = ({ children }) => {
   const history = useHistory();
@@ -24,6 +25,7 @@ const LegalsLayout = ({ children }) => {
       </div>
 
       <div className='content'>{children}</div>
+      <ScrollUp />
     </StyledPage>
   );
 };
