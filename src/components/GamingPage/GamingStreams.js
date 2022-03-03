@@ -13,6 +13,8 @@ const GamingStreams = ({ gaming_streams = [], error }) => {
   const history = useHistory();
   const pathname = history.location.pathname;
 
+  const elementRef = React.createRef();
+
   const getTwitchStreams = (streams = []) => {
     return streams.map(
       ({ id, title, thumbnail_url, user_name, viewer_count }) => (
@@ -43,7 +45,7 @@ const GamingStreams = ({ gaming_streams = [], error }) => {
   };
 
   return (
-    <AdjustToSideMenu>
+    <AdjustToSideMenu ref={elementRef}>
       <AdjustToSideMenuContent>
         {error ? (
           <h2 className='error'>{error}</h2>

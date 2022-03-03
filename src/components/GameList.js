@@ -20,12 +20,14 @@ const GameList = () => {
     return dispatch({ type: 'LOADING_GAMES_FINISHED' });
   }, [dispatch, loadingGames]);
 
+  const elementRef = React.createRef();
+
   return isLoading ? (
     <div style={{ width: '100vw', height: '100vh', flex: 1 }}>
       <Loader style={{ transform: 'scale(2)' }} />
     </div>
   ) : (
-    <AdjustToSideMenu>
+    <AdjustToSideMenu ref={elementRef}>
       <AdjustToSideMenuContent>
         <GameDetails />
         {searchedGames.length > 0 && (
