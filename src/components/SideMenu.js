@@ -19,10 +19,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { logoutUser } from '../actions/authAction';
 
-import ModalLoader from './ModalLoader';
-import { Collapsible } from './Radix';
+import { Collapsible, ToolTip } from './Radix';
 
-import { ToolTip } from './Radix';
+import Footer from './Footer';
 
 const SideMenu = () => {
   const history = useHistory();
@@ -31,7 +30,7 @@ const SideMenu = () => {
   const dispatch = useDispatch();
 
   const ui = useSelector((state) => state.ui);
-  const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const [showSubLinks, setShowSubLinks] = React.useState(true);
 
@@ -45,14 +44,10 @@ const SideMenu = () => {
 
   const handleLogout = () => {
     dispatch(logoutUser());
-
-    localStorage.removeItem('email');
-    localStorage.removeItem('accessToken');
   };
 
   return (
     <>
-      {isLoading && <ModalLoader />}
       <AnimatePresence>
         {!ui.showSideMenu && (
           <StyledMenuDrawer
@@ -173,7 +168,16 @@ const SideMenu = () => {
                   }
                   content={
                     <div className='collapsible-content'>
-                      <li>About Us</li>
+                      <Link to='/about-us'>
+                        <li
+                          className={`${
+                            pathname === '/about-us' ? 'active' : ''
+                          }`}
+                        >
+                          About Us
+                        </li>
+                      </Link>
+
                       <Link to='/privacy-policy'>
                         <li>Privacy Policy</li>
                       </Link>
@@ -204,10 +208,7 @@ const SideMenu = () => {
                 </div>
               )}
             </MenuLinks>
-            <div className='copyright'>
-              <p>Copyright &copy; 2021 Game-Antena</p>
-              All rights reserved
-            </div>
+            <Footer />
           </StyledSideMenu>
         )}
       </AnimatePresence>
@@ -242,18 +243,6 @@ const StyledSideMenu = styled(SideMenuElement)`
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
   }
-
-  .copyright {
-    bottom: 0;
-    border-top: 1px solid var(--primary-light);
-    font-size: 0.85rem;
-    padding: 1rem;
-    color: var(--primary-light);
-
-    p {
-      font-weight: 600;
-    }
-  }
 `;
 
 const MenuLinks = styled(motion.div)`
@@ -264,6 +253,7 @@ const MenuLinks = styled(motion.div)`
   height: 100%;
   gap: 1rem;
   padding-bottom: 1rem;
+  border-bottom: 1px solid var(--primary-light);
 
   ::-webkit-scrollbar-track {
     background: var(--primary);

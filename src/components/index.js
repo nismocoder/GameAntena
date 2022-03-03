@@ -7,3 +7,7 @@ export { default as Modal } from './Modal';
 export { default as Loader } from './Loader/Loader';
 export { default as Logo } from './Logo';
 export { default as ModalLoader } from './ModalLoader';
+export { default as Card } from './Card';
+export { default as TextSection } from './TextSection';
+export { default as Footer } from './Footer';
+export { default as ScrollUp } from './ScrollUp';
