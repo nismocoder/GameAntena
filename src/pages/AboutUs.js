@@ -48,22 +48,14 @@ const AboutUs = () => {
         </Cards>
         <AboutText>
           <TextSection heading='Our Purpose'>
-            Developing a platform dedicated to gamers and streamers. Imagine a
-            platform where you can <strong>browse top games</strong> and{' '}
-            <strong>live gaming streams</strong> on youtube/twitch. A platform
-            that allows users to link their youtube/twitch account to and easily
-            view important channel details such as{' '}
-            <strong>channel subuscribers</strong> and{' '}
-            <strong>total subscribers count</strong>
-          </TextSection>
-          <TextSection heading='Our Team'>
-            Developing a platform dedicated to gamers and streamers. Imagine a
-            platform where you can <strong>browse top games</strong> and{' '}
-            <strong>live gaming streams</strong> on youtube/twitch. A platform
-            that allows users to link their youtube/twitch account to and easily
-            view important channel details such as{' '}
-            <strong>channel subuscribers</strong> and{' '}
-            <strong>total subscribers count</strong>
+            At Game-Antena, we want to provide an{' '}
+            <strong>all inclusive environment to gaming.</strong> We want our
+            users to consider the application as a part of their gaming space.
+            Here at Game-Antena, we realize how important gaming culture is, and
+            we want to keep you connected with everything in gaming, from{' '}
+            <strong>following your favorite streamers</strong> to{' '}
+            <strong>checking your stats</strong>. Game-Antena is right there
+            with you along every step, providing the signal.
           </TextSection>
         </AboutText>
       </AboutUsContent>
@@ -124,7 +116,7 @@ const Cards = styled.div`
   justify-content: center;
   row-gap: 1rem;
   column-gap: 3rem;
-  padding: 0 2rem;
+  padding: 0 2rem 1rem 2rem;
 
   .card {
     max-width: 20rem;

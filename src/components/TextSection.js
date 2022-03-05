@@ -17,7 +17,7 @@ const StyledSection = styled.div`
     position: relative;
     width: fit-content;
     color: var(--shade-2);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 
     .underline {
       width: 30%;
@@ -30,6 +30,7 @@ const StyledSection = styled.div`
   }
 
   .content {
+    font-size: 1.1rem;
   }
 `;
 
