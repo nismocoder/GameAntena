@@ -1,45 +1,55 @@
 const initState = {
   showSideMenu: false,
   showChannelMenu: true,
-  screen: { width: 0, height: 0 }
+  alertMessage: { message: '', status: '' },
+  screen: { width: 0, height: 0 },
 };
 
 export const uiReducer = (state = initState, action) => {
   switch (action.type) {
-    case "SHOW_SIDE_MENU":
+    case 'SHOW_SIDE_MENU':
       return {
         ...state,
-        showSideMenu: true
-      }
+        showSideMenu: true,
+      };
 
-    case "HIDE_SIDE_MENU":
+    case 'HIDE_SIDE_MENU':
       return {
         ...state,
-        showSideMenu: false
-      }
+        showSideMenu: false,
+      };
 
-    case "SHOW_CHANNEL_MENU":
+    case 'SHOW_CHANNEL_MENU':
       return {
         ...state,
-        showChannelMenu: true
-      }
+        showChannelMenu: true,
+      };
 
-    case "HIDE_CHANNEL_MENU":
+    case 'HIDE_CHANNEL_MENU':
       return {
         ...state,
-        showChannelMenu: false
-      }
+        showChannelMenu: false,
+      };
 
-    case "SET_SCREEN": {
+    case 'SET_SCREEN': {
       const screen = action.payload;
 
       return {
         ...state,
-        screen
-      }
+        screen,
+      };
+    }
+
+    case 'SET_ALERT_MESSAGE': {
+      const { message, status } = action.payload;
+
+      return {
+        ...state,
+        alertMessage: { message, status },
+      };
     }
 
     default:
-      return { ...state }
+      return { ...state };
   }
-}
+};

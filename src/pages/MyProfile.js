@@ -2,49 +2,38 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { WithSideMenuAndNav, AdjustToSideMenu } from './layout';
-import { faCameraRetro, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Loader } from '../components';
+import { ProfilePicturePreview } from '../components';
 
 const MyProfile = () => {
-  const { user, isLoading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <WithSideMenuAndNav>
       <AdjustToSideMenu>
-        {isLoading ? (
-          <div style={{ width: '100vw', height: '100vh', flex: 1 }}>
-            <Loader style={{ transform: 'scale(2)' }} />
-          </div>
-        ) : (
-          <AdjustToSideMenuContent>
-            <DisplayPicturePreview>
-              <img src={`${user.displayPicture}`} alt='user-dp' />
-              <div className='overlay hoverable'>
-                <FontAwesomeIcon className='camera-icon' icon={faCameraRetro} />
-              </div>
-            </DisplayPicturePreview>
-            <PersonalInfo>
-              <h3 className='title'>Personal Info:</h3>
-              <div className='info-fields'>
-                <div className='field'>
-                  <label>Name</label>
-                  <p>{user.displayName || ''}</p>
-                  <div className='edit-icon hoverable'>
-                    <FontAwesomeIcon icon={faPencilAlt} />
-                  </div>
-                </div>
-                <div className='field'>
-                  <label>Email</label>
-                  <p>{user.email || ''}</p>
-                  <div className='edit-icon hoverable'>
-                    <FontAwesomeIcon icon={faPencilAlt} />
-                  </div>
+        <AdjustToSideMenuContent>
+          <ProfilePicturePreview />
+          <PersonalInfo>
+            <h3 className='title'>Personal Info:</h3>
+            <div className='info-fields'>
+              <div className='field'>
+                <label>Name</label>
+                <p>{user.displayName || ''}</p>
+                <div className='edit-icon hoverable'>
+                  <FontAwesomeIcon icon={faPencilAlt} />
                 </div>
               </div>
-            </PersonalInfo>
-          </AdjustToSideMenuContent>
-        )}
+              <div className='field'>
+                <label>Email</label>
+                <p>{user.email || ''}</p>
+                <div className='edit-icon hoverable'>
+                  <FontAwesomeIcon icon={faPencilAlt} />
+                </div>
+              </div>
+            </div>
+          </PersonalInfo>
+        </AdjustToSideMenuContent>
       </AdjustToSideMenu>
     </WithSideMenuAndNav>
   );
@@ -56,41 +45,6 @@ const AdjustToSideMenuContent = styled.div`
   flex-flow: column;
   align-items: center;
   gap: 3rem;
-`;
-
-const DisplayPicturePreview = styled.div`
-  position: relative;
-  width: 10rem;
-
-  img {
-    object-fit: contain;
-    width: 100%;
-    clip-path: circle(50% at 50% 50%);
-    -webkit-mask-image: linear-gradient(to top, red 50%, black 100%);
-    mask-image: linear-gradient(to top, red 50%, black 50%);*/
-  }
-
-  .overlay {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    border-radius: 50%;
-    background: var(--dark-faded-1);
-    clip-path: inset(64% 0 0 0 round 0);
-    -webkit-tap-highlight-color: transparent;
-
-    .camera-icon {
-      position: absolute;
-      top: 80%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2rem;
-      color: var(--light);
-    }
-  }
-  
- 
 `;
 
 const PersonalInfo = styled.div`
