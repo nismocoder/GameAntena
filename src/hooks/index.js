@@ -2,3 +2,4 @@ export { default as useHandleCredentialsInput } from './useHandleCredentialsInpu
 export { default as useRedirectLoggedInUser } from './useRedirectLoggedInUser';
 export { default as useFetch } from './useFetch';
 export { default as useGetRefElementScrollY } from './useGetRefElementScrollY';
+export { default as useScrollableBody } from './useScrollableBody';

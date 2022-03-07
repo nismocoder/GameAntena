@@ -9,11 +9,10 @@ import antenaIcon from '../img/logo/antena-icon.webp';
 
 import { faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useScrollableBody } from '../hooks';
 
 const AboutUs = () => {
-  React.useEffect(() => {
-    document.body.style.overflow = 'auto';
-  }, []);
+  useScrollableBody();
 
   return (
     <>
@@ -70,7 +69,7 @@ const AboutUsContent = styled.div`
   flex-flow: column;
   align-items: center;
   row-gap: 1.5rem;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
 `;
 
 const Header = styled.header`

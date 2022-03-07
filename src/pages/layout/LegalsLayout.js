@@ -6,13 +6,12 @@ import styled from 'styled-components';
 import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ScrollUp } from '../../components';
+import { useScrollableBody } from '../../hooks';
 
 const LegalsLayout = ({ children }) => {
   const history = useHistory();
 
-  React.useEffect(() => {
-    document.body.style.overflow = 'auto';
-  }, []);
+  useScrollableBody();
 
   return (
     <StyledPage>

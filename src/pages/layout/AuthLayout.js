@@ -6,11 +6,10 @@ import { useSelector } from 'react-redux';
 import { Logo, ModalLoader } from '../../components';
 
 import styled from 'styled-components';
+import { useScrollableBody } from '../../hooks';
 
 const PageLayout = ({ children, linkToElement }) => {
-  React.useEffect(() => {
-    document.body.style.overflow = 'auto';
-  }, []);
+  useScrollableBody();
 
   const { isLoading } = useSelector((state) => state.auth);
 

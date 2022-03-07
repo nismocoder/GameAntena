@@ -10,7 +10,13 @@ const useRedirectLoggedInUser = (to = '/') => {
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   React.useEffect(() => {
-    if (isLoggedIn) history.push(to);
+    let isMounted = true;
+
+    if (isLoggedIn && isMounted) history.push(to);
+
+    return () => {
+      isMounted = false;
+    };
   }, [history, isLoggedIn, to]);
 };
 
