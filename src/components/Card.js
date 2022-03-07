@@ -11,10 +11,10 @@ const Card = ({ icons = [], description, buttonText, redirectTo = '/' }) => {
       {icons.length > 1 ? (
         <div className='icons'>
           {icons.map((icon, index) => (
-            <>
+            <React.Fragment key={index}>
               <FontAwesomeIcon icon={icon} />
               {index !== icons.length - 1 && '|'}
-            </>
+            </React.Fragment>
           ))}
         </div>
       ) : (

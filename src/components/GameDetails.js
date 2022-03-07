@@ -17,7 +17,7 @@ const Gamedetails = () => {
   const history = useHistory();
   const pathname = history.location.pathname;
 
-  const exitCallback = () => {
+  const exitModal = () => {
     history.push('/');
   };
 
@@ -36,7 +36,7 @@ const Gamedetails = () => {
     <Route
       path={'/game'}
       render={() => (
-        <Modal controlled={false} exitCallback={exitCallback}>
+        <Modal controlled={false} clickOutsideCallback={exitModal}>
           <Detail
             initial={{ scale: 0.2, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}

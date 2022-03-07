@@ -74,6 +74,7 @@ const StyledChannelMenuCover = styled.div`
   button {
     padding: 0.8rem;
     box-shadow: var(--box-shadow);
+    border: none;
   }
 
   .close-icon {

@@ -195,8 +195,8 @@ const StyledSearchDesktop = styled(motion.form)`
     z-index: 5;
     background-color: var(--shade-2);
     height: 99%;
-    width: 2.8rem;
-    padding: 0.6rem;
+    width: 1.5rem;
+    padding: 0 0.6rem;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }

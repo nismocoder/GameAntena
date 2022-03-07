@@ -36,7 +36,7 @@ const StyledLogo = styled(motion.div)`
   .logo-text {
     font-family: var(--font-3);
     letter-spacing: 1px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
     margin-top: 0.15rem;
   }

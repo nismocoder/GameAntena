@@ -13,7 +13,7 @@ const Footer = ({ background, textAlign }) => {
 const StyledFooter = styled.div`
   bottom: 0;
   font-size: 0.85rem;
-  padding: 1rem;
+  padding: 2rem 1rem;
   color: var(--primary-light);
 
   p {
