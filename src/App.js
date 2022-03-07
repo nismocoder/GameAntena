@@ -20,19 +20,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getAuthInfo } from './utils';
 import { updateAuthInfo, updateUserInfo } from './actions/authAction';
-import { useSelector } from 'react-redux';
-import { ModalLoader } from './components';
 import ProtectedRoute from './ProtectedRoute';
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const { isLoading } = useSelector((state) => state.auth);
-
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       const { userId, accessToken, isLoggedIn } = getAuthInfo();
-      console.log(userId, accessToken, isLoggedIn);
       dispatch(updateAuthInfo(isLoggedIn, accessToken));
 
       if (userId && accessToken) dispatch(updateUserInfo(userId, accessToken));
@@ -58,7 +53,6 @@ const App = () => {
         <Route path='/privacy-policy' component={PrivacyPolicy} />
         <Route path='/terms-and-conditions' component={TermsAndConditions} />
       </Router>
-      {isLoading && <ModalLoader />}
     </div>
   );
 };
