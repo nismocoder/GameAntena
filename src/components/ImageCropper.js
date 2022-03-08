@@ -5,7 +5,14 @@ import { useScrollableBody } from '../hooks';
 import { getCroppedImg } from '../utils/canvasUtils';
 import { blobToFile } from '../utils/file';
 
-const ImageCropper = ({ image, imageName, result = () => {} }) => {
+const ImageCropper = ({
+  image = {
+    source: '',
+    name: '',
+    type: '',
+  },
+  result = () => {},
+}) => {
   const [crop, setCrop] = React.useState({ x: 0, y: 0 });
   const [zoom, setZoom] = React.useState(1);
   const [rotation, setRotation] = React.useState(0);
@@ -20,16 +27,16 @@ const ImageCropper = ({ image, imageName, result = () => {} }) => {
   const showCroppedImage = React.useCallback(async () => {
     try {
       const croppedImage = await getCroppedImg(
-        image,
+        image.source,
         croppedAreaPixels,
         rotation,
       );
 
-      result(blobToFile(croppedImage, imageName));
+      result(new File([croppedImage], image.name, { type: image.type }));
     } catch (e) {
       console.error(e);
     }
-  }, [image, croppedAreaPixels, rotation, result, imageName]);
+  }, [image, croppedAreaPixels, rotation, result]);
 
   const handleRotation = (event) => {
     setRotation(event.target.value);
@@ -43,7 +50,7 @@ const ImageCropper = ({ image, imageName, result = () => {} }) => {
     <>
       <Cropper
         classes={{ containerClassName: 'cropper' }}
-        image={image}
+        image={image.source}
         crop={crop}
         zoom={zoom}
         rotation={rotation}

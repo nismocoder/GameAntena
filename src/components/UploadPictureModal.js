@@ -56,6 +56,15 @@ const UploadPictureModal = ({ show = false, exitModal = () => {} }) => {
 
         dispatch(updateUserInfo(user.id, accessToken));
       } catch (error) {
+        console.log(error.response);
+        if (error.response.status === 422)
+          dispatch(
+            setAlertMessage({
+              status: 'danger',
+              message: `Please upload a valid image`,
+            }),
+          );
+
         dispatch(
           setAlertMessage({
             status: 'danger',

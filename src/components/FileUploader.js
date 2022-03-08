@@ -13,8 +13,11 @@ const ORIENTATION_TO_ANGLE = {
 };
 
 const FileUploader = ({ children, handleUploadedFile = () => {} }) => {
-  const [uploadedImage, setUploadedImage] = React.useState(null);
-  const [imageName, setImageName] = React.useState('');
+  const [uploadedImage, setUploadedImage] = React.useState({
+    source: '',
+    name: '',
+    type: '',
+  });
 
   const hiddenFileInput = React.useRef(null);
 
@@ -37,9 +40,11 @@ const FileUploader = ({ children, handleUploadedFile = () => {} }) => {
         imageDataUrl = await getRotatedImage(imageDataUrl, rotation);
       }
 
-      console.log('Original file: ', file);
-      setUploadedImage(imageDataUrl);
-      setImageName(file.name);
+      setUploadedImage({
+        source: imageDataUrl,
+        name: file.name,
+        type: file.type,
+      });
     }
   };
 
@@ -58,18 +63,15 @@ const FileUploader = ({ children, handleUploadedFile = () => {} }) => {
       >
         {children}
       </div>
-      {uploadedImage && (
-        <ImageCropper
-          image={uploadedImage}
-          imageName={imageName}
-          result={handleCroppedImage}
-        />
+      {uploadedImage.source && (
+        <ImageCropper image={uploadedImage} result={handleCroppedImage} />
       )}
       <input
         onChange={handleChange}
         ref={hiddenFileInput}
         type='file'
         style={{ display: 'none' }}
+        accept='image/png, image/gif, image/jpeg'
       />
     </>
   );
