@@ -51,8 +51,8 @@ const GamingStreams = ({ gaming_streams = [], error }) => {
           <h2 className='error'>{error}</h2>
         ) : (
           gaming_streams.map((data = [], i) => (
-            <>
-              <StreamList key={i}>
+            <React.Fragment key={i}>
+              <StreamList>
                 <a
                   href={getGameSectionUrl(pathname, data.game)}
                   target='_blank'
@@ -79,7 +79,7 @@ const GamingStreams = ({ gaming_streams = [], error }) => {
                 Show more of this
               </a>
               <hr />
-            </>
+            </React.Fragment>
           ))
         )}
       </AdjustToSideMenuContent>

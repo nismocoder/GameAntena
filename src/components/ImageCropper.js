@@ -3,7 +3,6 @@ import Cropper from 'react-easy-crop';
 import styled from 'styled-components';
 import { useScrollableBody } from '../hooks';
 import { getCroppedImg } from '../utils/canvasUtils';
-import { blobToFile } from '../utils/file';
 
 const ImageCropper = ({
   image = {
@@ -24,19 +23,15 @@ const ImageCropper = ({
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
-  const showCroppedImage = React.useCallback(async () => {
-    try {
-      const croppedImage = await getCroppedImg(
-        image.source,
-        croppedAreaPixels,
-        rotation,
-      );
+  const showCroppedImage = async () => {
+    const croppedImage = await getCroppedImg(
+      image.source,
+      croppedAreaPixels,
+      rotation,
+    );
 
-      result(new File([croppedImage], image.name, { type: image.type }));
-    } catch (e) {
-      console.error(e);
-    }
-  }, [image, croppedAreaPixels, rotation, result]);
+    result(new File([croppedImage], image.name, { type: image.type }));
+  };
 
   const handleRotation = (event) => {
     setRotation(event.target.value);

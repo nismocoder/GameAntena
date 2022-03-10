@@ -68,7 +68,7 @@ const StyledChannelMenuCover = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--dark-faded);
+  background-color: var(--dark-fade);
   border-bottom-left-radius: 5px;
 
   button {

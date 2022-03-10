@@ -66,6 +66,7 @@ const ChannelMenu = () => {
     {
       initialData: initialTwitchData,
       enabled: !!user?.id,
+      retry: false,
     },
   );
 
@@ -75,6 +76,7 @@ const ChannelMenu = () => {
     {
       initialData: initialYoutubeData,
       enabled: !!user?.id,
+      retry: false,
     },
   );
 

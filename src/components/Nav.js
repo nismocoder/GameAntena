@@ -19,6 +19,7 @@ import styled from 'styled-components';
 
 import Logo from './Logo';
 import { getSearchPlaceholder } from '../utils/basedOnPath';
+import { ProfilePicturePreview } from '.';
 
 const Nav = ({
   showBars = true,
@@ -140,7 +141,15 @@ const Nav = ({
           <Link to='/my-profile' className='hoverable'>
             <button className='my-profile'>
               {user.displayName || 'My Profile'}
-              <FontAwesomeIcon className='icon' icon={faUser} />
+              {user.profilePicture ? (
+                <ProfilePicturePreview
+                  image={user.profilePicture}
+                  justPreview={true}
+                  sizeInRem={1.2}
+                />
+              ) : (
+                <FontAwesomeIcon className='icon' icon={faUser} />
+              )}
             </button>
           </Link>
         )}
@@ -254,6 +263,9 @@ const StyledAuthDesktop = styled(motion.div)`
   }
 
   .my-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     background-color: var(--primary);
     border: 2px solid var(--light);
   }

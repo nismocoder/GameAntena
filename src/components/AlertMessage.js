@@ -2,17 +2,17 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+const getColorByStatus = (status) => {
+  if (status === 'success') return 'var(--shade-3)';
+  if (status === 'danger') return 'var(--danger)';
+};
+
 const AlertMessage = ({
   message = '',
   status = 'success',
   removeAfter = 5,
 }) => {
   const dispatch = useDispatch();
-
-  const getColorByStatus = React.useCallback((status) => {
-    if (status === 'success') return 'var(--shade-3)';
-    if (status === 'danger') return 'var(--danger)';
-  }, []);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -25,7 +25,10 @@ const AlertMessage = ({
 
   return (
     message && (
-      <StyledAlertMessage style={{ color: getColorByStatus(status) }}>
+      <StyledAlertMessage
+        className='alert-message'
+        style={{ color: getColorByStatus(status) }}
+      >
         {message}
       </StyledAlertMessage>
     )

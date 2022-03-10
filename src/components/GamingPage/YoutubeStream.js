@@ -67,7 +67,7 @@ const StyledStream = styled.div`
       color: var(--light);
       font-size: 0.85rem;
       padding: 0rem 0.25rem;
-      background-color: var(--dark-faded);
+      background-color: var(--dark-fade);
       border-radius: 2px;
     }
   }

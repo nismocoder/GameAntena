@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { faCameraRetro, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -7,10 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { UploadPictureModal } from '.';
 
-const ProfilePicturePreview = ({ justPreview = false, sizeInRem = 10 }) => {
+const ProfilePicturePreview = ({
+  image,
+  justPreview = false,
+  sizeInRem = 10,
+}) => {
   const [showUploadModal, setShowUploadModal] = React.useState(false);
-
-  const { user } = useSelector((state) => state.auth);
 
   const handleShowUploadModal = () => {
     setShowUploadModal(true);
@@ -27,10 +28,15 @@ const ProfilePicturePreview = ({ justPreview = false, sizeInRem = 10 }) => {
         height: `${sizeInRem}rem`,
       }}
     >
-      {user.profilePicture ? (
-        <img src={`${user.profilePicture}`} alt='user-dp' />
+      {image ? (
+        <img src={`${image}`} alt='user-dp' />
       ) : (
-        <div className='default-picture'>
+        <div
+          className='default-picture'
+          style={{
+            fontSize: `${sizeInRem / 2}rem`,
+          }}
+        >
           <FontAwesomeIcon className='user' icon={faUser} />
         </div>
       )}
@@ -42,10 +48,17 @@ const ProfilePicturePreview = ({ justPreview = false, sizeInRem = 10 }) => {
         height: `${sizeInRem}rem`,
       }}
     >
-      {user.profilePicture ? (
-        <img src={`${user.profilePicture}`} alt='user-dp' />
+      {image ? (
+        <img src={`${image}`} alt='user-dp' />
       ) : (
-        <div className='default-picture'>
+        <div
+          style={{
+            width: `${sizeInRem}rem`,
+            height: `${sizeInRem}rem`,
+            fontSize: `${sizeInRem / 2}rem`,
+          }}
+          className='default-picture'
+        >
           <FontAwesomeIcon className='user' icon={faUser} />
         </div>
       )}
@@ -70,7 +83,6 @@ const StyledProfilePicturePreview = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
-    font-size: 5rem;
     background-color: var(--shade-4);
     color: var(--light);
     border-radius: 50%;
@@ -91,7 +103,7 @@ const StyledProfilePicturePreview = styled.div`
     top: 0;
     bottom: 0;
     border-radius: 50%;
-    background: var(--dark-faded-1);
+    background: var(--dark-fade-1);
     clip-path: inset(64% 0 0 0 round 0);
     -webkit-tap-highlight-color: transparent;
 

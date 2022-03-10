@@ -71,8 +71,13 @@ const Register = () => {
       {showModal && (
         <Modal show={true} alignV={'center'}>
           <StyledModalContent>
-            Check your email, and{' '}
-            <strong>click the confirmation link to login</strong>
+            <div>
+              Check your email, and{' '}
+              <strong>click the confirmation link to login</strong>
+            </div>
+            <div className='spam'>
+              Don't see any email? <strong>Please check your spam</strong>
+            </div>
           </StyledModalContent>
         </Modal>
       )}
@@ -148,6 +153,14 @@ const StyledModalContent = styled.div`
   width: 80%;
   font-size: 1.2rem;
   max-width: 20rem;
+  display: flex;
+  flex-flow: column;
+  gap: 2rem;
+
+  .spam {
+    color: var(--shade-2);
+    font-style: italic;
+  }
 `;
 
 export default Register;

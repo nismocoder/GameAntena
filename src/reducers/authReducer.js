@@ -5,6 +5,7 @@ const initialState = {
     role: '',
     displayName: '',
     profilePicture: '',
+    isEmailConfirmed: false,
   },
   isLoggedIn: false,
   accessToken: '',
@@ -32,7 +33,8 @@ export const authReducer = (state = initialState, action) => {
     }
 
     case 'UPDATE_USER_INFO': {
-      const { id, email, role, displayName, profilePicture } = action.payload;
+      const { id, email, role, displayName, profilePicture, isEmailConfirmed } =
+        action.payload;
 
       return {
         ...state,
@@ -42,6 +44,7 @@ export const authReducer = (state = initialState, action) => {
           role,
           displayName,
           profilePicture: profilePicture?.url,
+          isEmailConfirmed,
         },
       };
     }

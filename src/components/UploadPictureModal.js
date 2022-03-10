@@ -36,7 +36,7 @@ const UploadPictureModal = ({ show = false, exitModal = () => {} }) => {
         dispatch({ type: 'LOADING_AUTH' });
 
         const uploadedImage = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/users/${user.id}/upload-profile-picture`,
+          `${process.env.REACT_APP_BACKEND_URL}/users/upload-profile-picture/${user.id}`,
           formData,
           {
             headers: {
@@ -83,7 +83,7 @@ const UploadPictureModal = ({ show = false, exitModal = () => {} }) => {
       dispatch({ type: 'LOADING_AUTH' });
 
       const result = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/users/${user.id}/delete-profile-picture`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/delete-profile-picture/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -124,7 +124,7 @@ const UploadPictureModal = ({ show = false, exitModal = () => {} }) => {
           icon={faTimes}
         />
         <div className='title'>Profile picture</div>
-        <ProfilePicturePreview justPreview={true} />
+        <ProfilePicturePreview image={user.profilePicture} justPreview={true} />
         <AlertMessage
           message={alertMessage.message}
           status={alertMessage.status}

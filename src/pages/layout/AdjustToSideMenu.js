@@ -13,11 +13,11 @@ import { useGetRefElementScrollY } from '../../hooks';
 const getComponentVariant = (screenWidth) => {
   const variants = {
     desktop: {
-      open: { translateX: '283px' },
-      closed: { translateX: '59px' },
+      open: { translateX: '288px' },
+      closed: { translateX: '55px' },
     },
     mobile: {
-      open: { translateX: '283px' },
+      open: { translateX: '288px' },
       closed: { translateX: '0px' },
     },
   };
@@ -53,7 +53,7 @@ const StyledAdjustToSideMenu = styled(motion.div)`
 
   /* DESKTOP */
   @media (min-width: 768px) {
-    width: 95.65vw;
+    width: 96vw;
     height: calc(100vh - 77px);
   }
 `;

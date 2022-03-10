@@ -44,6 +44,7 @@ const SideMenu = () => {
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    if (pathname === '/my-profile') history.push('/login');
   };
 
   return (
@@ -52,9 +53,9 @@ const SideMenu = () => {
         {!ui.showSideMenu && (
           <StyledMenuDrawer
             onMouseEnter={showSideMenu}
-            initial={{ translateX: '-59px' }}
+            initial={{ translateX: '-55px' }}
             animate={{ translateX: '0px' }}
-            exit={{ translateX: '-59px' }}
+            exit={{ translateX: '-55px' }}
             transition={{ duration: 0.3 }}
           >
             <div className='icons'>
@@ -81,9 +82,9 @@ const SideMenu = () => {
       <AnimatePresence>
         {ui.showSideMenu && (
           <StyledSideMenu
-            initial={{ translateX: '-283px' }}
+            initial={{ translateX: '-288px' }}
             animate={{ translateX: '0px' }}
-            exit={{ translateX: '-283px' }}
+            exit={{ translateX: '-288px' }}
             transition={{ duration: 0.4 }}
           >
             <div onClick={hideSideMenu} className='hide-icon hoverable'>
