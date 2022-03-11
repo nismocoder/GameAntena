@@ -78,11 +78,13 @@ const MyProfile = () => {
   const saveInfoFields = async () => {
     if (fieldChangeToBeSaved)
       try {
-        const updateFields = {
+        let updateFields = {
           displayName: userInfoField.name.value,
-          profilePicture: {
-            url: `${userInfoField.displayPicture}`,
-          },
+          profilePicture: userInfoField.displayPicture
+            ? {
+                url: userInfoField.displayPicture,
+              }
+            : null,
         };
 
         dispatch({ type: 'LOADING_AUTH' });
