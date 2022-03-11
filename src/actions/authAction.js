@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { userDataURL } from '../utils/apiUrls';
+import { deleteUserAccountURL, userDataURL } from '../utils/apiUrls';
 
-export const logoutUser = () => (dispatch) => {
+export const logoutUser = (history) => (dispatch) => {
   dispatch({
     type: 'LOADING_AUTH',
   });
@@ -10,6 +10,8 @@ export const logoutUser = () => (dispatch) => {
 
   localStorage.removeItem('userId');
   localStorage.removeItem('accessToken');
+
+  history.push('/');
 };
 
 export const updateUserInfo = (userId, accessToken) => async (dispatch) => {
@@ -35,6 +37,18 @@ export const updateAuthInfo = (isLoggedIn, accessToken) => async (dispatch) => {
   await dispatch({
     type: 'UPDATE_AUTH_INFO',
     payload: { isLoggedIn, accessToken },
+  });
+
+  dispatch({ type: 'LOADING_AUTH_FINISHED' });
+};
+
+export const deleteUserAccount = (userId, accessToken) => async (dispatch) => {
+  dispatch({ type: 'LOADING_AUTH' });
+
+  await axios.delete(deleteUserAccountURL(userId), {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
 
   dispatch({ type: 'LOADING_AUTH_FINISHED' });

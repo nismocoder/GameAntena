@@ -15,11 +15,13 @@ const AlertMessage = ({
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       dispatch({
         type: 'SET_ALERT_MESSAGE',
         payload: { status: '', message: '' },
       });
+
+      return () => clearTimeout(timer);
     }, removeAfter * 1000);
   }, [dispatch, removeAfter]);
 

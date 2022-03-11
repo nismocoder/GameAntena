@@ -4,13 +4,14 @@ import { useQuery } from 'react-query';
 
 import styled from 'styled-components';
 
-import { GameDetails, Games, Loader } from '.';
+import { AlertMessage, GameDetails, Games, Loader } from '.';
 import { AdjustToSideMenu } from '../pages/layout';
 
 import { getGames } from '../services/games/gamesAPI';
 
 const GameList = () => {
   const dispatch = useDispatch();
+  const { alertMessage } = useSelector((state) => state.ui);
   const { searchedGames, isLoading } = useSelector((state) => state.games);
 
   const { data: games, isLoading: loadingGames } = useQuery('games', getGames);
@@ -29,6 +30,24 @@ const GameList = () => {
   ) : (
     <AdjustToSideMenu ref={elementRef}>
       <AdjustToSideMenuContent>
+        {alertMessage.message && (
+          <div
+            className='alert'
+            style={{
+              backgroundColor:
+                alertMessage.status === 'danger'
+                  ? 'var(--danger-fade)'
+                  : 'var(--shade-3-fade)',
+            }}
+          >
+            <AlertMessage
+              message={alertMessage.message}
+              status={alertMessage.status}
+              removeAfter={10}
+            />
+          </div>
+        )}
+
         <GameDetails />
         {searchedGames.length > 0 && (
           <Section className='searched'>
@@ -55,6 +74,17 @@ const GameList = () => {
 };
 
 const AdjustToSideMenuContent = styled.div`
+  position: relative;
+
+  .alert {
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    position: absolute;
+    left: 50%;
+    padding: 0.3rem 1rem;
+    transform: translateX(-50%);
+  }
+
   .searched {
     .section-title {
       color: var(--shade-4);

@@ -43,8 +43,7 @@ const SideMenu = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logoutUser());
-    if (pathname === '/my-profile') history.push('/login');
+    dispatch(logoutUser(history));
   };
 
   return (

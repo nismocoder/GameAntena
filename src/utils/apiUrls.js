@@ -30,6 +30,9 @@ export const searchGameURL = (game_name) =>
 // BACKEND - Users
 export const userDataURL = (userId) => `${backend_url}/users/${userId}`;
 
+export const deleteUserAccountURL = (userId) =>
+  `${backend_url}/users/delete/${userId}`;
+
 export const userTwitchDataURL = (userId) =>
   `${backend_url}/users/twitch-data/${userId}`;
 

@@ -11,15 +11,21 @@ import {
 } from '../components';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { updateUserInfo } from '../actions/authAction';
+import {
+  deleteUserAccount,
+  logoutUser,
+  updateUserInfo,
+} from '../actions/authAction';
 import { setAlertMessage } from '../actions/uiAction';
 import { twitchAuthForwardUrl, youtubeAuthForwardUrl } from '../utils';
 import {
   updateUserTwitchData,
   updateUserYoutubeData,
 } from '../actions/socialsDataAction';
+import { useHistory } from 'react-router-dom';
 
 const MyProfile = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { alertMessage } = useSelector((state) => state.ui);
   const { user, accessToken } = useSelector((state) => state.auth);
@@ -117,6 +123,23 @@ const MyProfile = () => {
       } finally {
         dispatch({ type: 'LOADING_AUTH_FINISHED' });
       }
+  };
+
+  const deleteAccount = async () => {
+    if (
+      window.confirm(
+        "You sure you want to delete your account? This can't be undone",
+      )
+    ) {
+      dispatch(logoutUser(history));
+      dispatch(deleteUserAccount(user.id, accessToken));
+      dispatch(
+        setAlertMessage({
+          status: 'danger',
+          message: 'Account has been deleted',
+        }),
+      );
+    }
   };
 
   const useTwitchInfo = () => {
@@ -217,14 +240,6 @@ const MyProfile = () => {
                 >
                   {user.email || ''}
                 </p>
-                {/* <div
-                  className={`edit-icon hoverable ${
-                    userInfoField.email.isEditing ? 'active' : ''
-                  }`}
-                  onClick={() => makeEditable('email', emailRef)}
-                >
-                  <FontAwesomeIcon icon={faPencilAlt} />
-                </div> */}
               </div>
             </InfoFields>
           </PersonalInfo>
@@ -284,6 +299,12 @@ const MyProfile = () => {
               </a>
             )}
           </SyncInfoNav>
+          <button
+            onClick={deleteAccount}
+            className='outline-danger delete-account'
+          >
+            Delete Account
+          </button>
         </AdjustToSideMenuContent>
       </AdjustToSideMenu>
     </WithSideMenuAndNav>
@@ -314,6 +335,10 @@ const AdjustToSideMenuContent = styled.div`
     position: fixed;
     top: 0;
     z-index: 4;
+  }
+
+  .delete-account {
+    padding: 0.5rem 1rem;
   }
 
   @media (min-width: 768px) {
