@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSearchGames } from '../actions/gamesAction';
+import { fetchedSearchGames } from '../actions/gamesAction';
 
 import {
   faBars,
@@ -20,6 +20,10 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import { getSearchPlaceholder } from '../utils/basedOnPath';
 import { ProfilePicturePreview } from '.';
+import {
+  fetchSearchedTwitchStreams,
+  fetchSearchedYoutubeStreams,
+} from '../actions/streamsAction';
 
 const Nav = ({
   showBars = true,
@@ -42,15 +46,38 @@ const Nav = ({
     setTextInput(e.target.value);
   };
 
-  const submitSearch = (e) => {
-    e.preventDefault();
-    if (textInput) dispatch(fetchSearchGames(textInput));
-  };
+  const submitSearch = React.useCallback(
+    (e) => {
+      e.preventDefault();
+      if (textInput) {
+        if (pathname === '/') dispatch(fetchedSearchGames(textInput));
 
-  const clearSearched = () => {
+        if (pathname === '/twitch-gaming')
+          dispatch(fetchSearchedTwitchStreams(textInput));
+
+        if (pathname === '/youtube-gaming')
+          dispatch(fetchSearchedYoutubeStreams(textInput));
+
+        if (pathname === '/my-profile') {
+          dispatch(fetchedSearchGames(textInput));
+          history.push('/');
+        }
+      }
+    },
+    [dispatch, history, pathname, textInput],
+  );
+
+  const clearSearched = React.useCallback(() => {
     setTextInput('');
-    dispatch({ type: 'CLEAR_SEARCHED' });
-  };
+    if (pathname === '/' || pathname === '/my-profile')
+      dispatch({ type: 'REMOVE_SEARCHED_GAMES' });
+
+    if (pathname === '/twitch-gaming')
+      dispatch({ type: 'REMOVE_SEARCHED_TWITCH_STREAMS' });
+
+    if (pathname === '/youtube-gaming')
+      dispatch({ type: 'REMOVE_SEARCHED_YOUTUBE_STREAMS' });
+  }, [dispatch, pathname]);
 
   const closeSearch = () => {
     setTextInput('');

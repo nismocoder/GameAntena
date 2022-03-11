@@ -4,6 +4,7 @@ import {
   gamesReducer,
   uiReducer,
   socialsDataReducer,
+  streamsReducer,
 } from './reducers';
 
 const store = configureStore({
@@ -12,6 +13,7 @@ const store = configureStore({
     ui: uiReducer,
     games: gamesReducer,
     socialsData: socialsDataReducer,
+    streams: streamsReducer,
   },
 });
 

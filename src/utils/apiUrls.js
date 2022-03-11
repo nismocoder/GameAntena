@@ -25,7 +25,7 @@ export const gameScreenshotURL = (game_id) =>
 
 // SEARCHED GAMES
 export const searchGameURL = (game_name) =>
-  `${base_url}/games?search=${game_name}&page_size=9&key=${key}`;
+  `${base_url}/games?search=${game_name}&page_size=12&key=${key}`;
 
 // BACKEND - Users
 export const userDataURL = (userId) => `${backend_url}/users/${userId}`;
@@ -60,3 +60,10 @@ export const topTwitchGamingStreamsURL = () =>
 
 export const topYoutubeGamingStreamsURL = () =>
   `${backend_url}/youtube/gaming-streams`;
+
+// BACKEND - Search streams
+export const searchTwitchStreamsURL = (query) =>
+  `${backend_url}/twitch/search-streams?query=${query}`;
+
+export const searchYoutubeStreamsURL = (query) =>
+  `${backend_url}/youtube/search-streams?query=${query}`;

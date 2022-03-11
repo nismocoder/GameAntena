@@ -1,17 +1,15 @@
 import axios from 'axios';
 import { searchGameURL } from '../utils/apiUrls';
 
-export const fetchSearchGames = (game_name) => async (dispatch) => {
-  dispatch({ type: 'LOADING_GAMES' });
+export const fetchedSearchGames = (game_name) => async (dispatch) => {
+  dispatch({ type: 'LOADING_SEARCH_GAMES' });
 
   const searchGames = await axios.get(searchGameURL(game_name));
 
   dispatch({
-    type: 'FETCH_SEARCHED',
-    payload: {
-      searchedGames: searchGames.data.results,
-    },
+    type: 'FETCH_SEARCHED_GAMES',
+    payload: searchGames.data.results,
   });
 
-  dispatch({ type: 'LOADING_GAMES_FINISHED' });
+  dispatch({ type: 'LOADING_SEARCH_GAMES_FINISHED' });
 };

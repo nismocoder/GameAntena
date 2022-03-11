@@ -16,8 +16,8 @@ const GameList = () => {
   const { data: games, isLoading: loadingGames } = useQuery('games', getGames);
 
   React.useEffect(() => {
-    if (loadingGames) return dispatch({ type: 'LOADING_GAMES' });
-    return dispatch({ type: 'LOADING_GAMES_FINISHED' });
+    if (loadingGames) return dispatch({ type: 'LOADING_SEARCH_GAMES' });
+    return dispatch({ type: 'LOADING_SEARCH_GAMES_FINISHED' });
   }, [dispatch, loadingGames]);
 
   const elementRef = React.createRef();
