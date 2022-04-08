@@ -58,6 +58,10 @@ const AboutUs = () => {
             <strong>checking your stats</strong>. Game-Antena is right there
             with you along every step, providing the signal.
           </TextSection>
+          <TextSection heading='Contact Information'>
+            Any questions or complaints can be directly sent to our support
+            email - <strong>gameantenallc@gmail.com</strong>
+          </TextSection>
         </AboutText>
       </AboutUsContent>
       <Footer background={'var(--primary)'} textAlign='center' />

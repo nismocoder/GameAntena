@@ -31,6 +31,7 @@ const StyledSection = styled.div`
 
   .content {
     font-size: 1.1rem;
+    letter-spacing: 0.8px;
   }
 `;
 
