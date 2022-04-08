@@ -42,7 +42,7 @@ const initialTwitchData = {
 
 const initialYoutubeData = {
   youtube_user_id: '',
-  youtube_display_name: 'My Youtube Channel',
+  youtube_display_name: 'My YouTube Channel',
   youtube_display_picture:
     'https://yt3.ggpht.com/XvMwB4gwGxnMUZZIMPNw6eZgebSCJskpko45RfqMT_jKFBgohCUsAB4wc0LYJbaiLA17Aw6pUw=s600-c-k-c0x00ffffff-no-rj-rp-mo',
   subscribers: [],
@@ -164,7 +164,7 @@ const ChannelMenu = () => {
                 <ChannelMenuCover
                   authForwardUrl={getAuthForwardUrl(pathname, user.email)}
                   backgroundColor={getChannelMenuBackground(pathname)}
-                  platformName={'Youtube'}
+                  platformName={'YouTube'}
                   pathname={pathname}
                 />
               )}

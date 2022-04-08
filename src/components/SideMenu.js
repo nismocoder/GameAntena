@@ -130,11 +130,11 @@ const SideMenu = () => {
                           pathname === '/youtube-gaming' ? 'active' : ''
                         }`}
                       >
-                        Youtube Gaming
+                        YouTube Gaming
                         <FontAwesomeIcon className='icon' icon={faYoutube} />
                       </li>
                     }
-                    content={<p>Youtube Gaming Streams</p>}
+                    content={<p>YouTube Gaming Streams</p>}
                   />
                 </Link>
                 {isLoggedIn && (
