@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import LegalsLayout from '../layout/LegalsLayout';
 
 const TermsAndConditions = () => {
+  document.title = 'Game-Antena | Terms & Conditions';
+
   return (
     <LegalsLayout>
       <div>

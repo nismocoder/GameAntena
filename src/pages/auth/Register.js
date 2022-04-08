@@ -15,6 +15,8 @@ import { Modal } from '../../components';
 import { AuthLayout } from '../layout';
 
 const Register = () => {
+  document.title = 'Game-Antena | Register';
+
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = React.useState(false);

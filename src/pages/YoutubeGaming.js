@@ -8,6 +8,8 @@ import { getYoutubeTopGamingStreams } from '../services/streams/youtubeStreams';
 import { WithSideMenuAndNav } from './layout';
 
 const YoutubeGaming = () => {
+  document.title = 'Browse YouTube top gaming streams';
+
   const { data, isLoading, error } = useQuery(
     'top-youtube-gaming-streams',
     getYoutubeTopGamingStreams,

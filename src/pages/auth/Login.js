@@ -18,6 +18,8 @@ import { setLocalStorageItem } from '../../utils';
 import { AuthLayout } from '../layout';
 
 const Login = () => {
+  document.title = 'Game-Antena | Login';
+
   const dispatch = useDispatch();
 
   const { search } = useLocation();

@@ -39,6 +39,10 @@ const MyProfile = () => {
   });
   const [fieldChangeToBeSaved, setFieldChangeToBeSaved] = React.useState(false);
 
+  document.title = user.displayName
+    ? `My Profile | ${user.displayName}`
+    : 'My Profile';
+
   const makeFieldEditable = (field) => {
     setUserInfoField((state) => ({
       ...state,

@@ -8,6 +8,8 @@ import { WithSideMenuAndNav } from './layout';
 import { getTwitchTopGamingStreams } from '../services/streams/twitchStreams';
 
 const TwitchGaming = () => {
+  document.title = 'Browse Twitch top gaming streams';
+
   const { data, isLoading, error } = useQuery(
     'top-twitch-gaming-streams',
     getTwitchTopGamingStreams,

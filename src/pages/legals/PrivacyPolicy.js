@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import LegalsLayout from '../layout/LegalsLayout';
 
 const PrivacyPolicy = () => {
+  document.title = 'Game-Antena | Privacy Policy';
+
   return (
     <LegalsLayout>
       <div>

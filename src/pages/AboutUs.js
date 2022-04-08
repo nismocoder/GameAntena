@@ -12,6 +12,8 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useScrollableBody } from '../hooks';
 
 const AboutUs = () => {
+  document.title = 'Game-Antena | About Us';
+
   useScrollableBody();
 
   return (
