@@ -13,11 +13,11 @@ import { useGetRefElementScrollY } from '../../hooks';
 const getComponentVariant = (screenWidth) => {
   const variants = {
     desktop: {
-      open: { translateX: '288px' },
-      closed: { translateX: '55px' },
+      open: { translateX: '284px' },
+      closed: { translateX: '51px' },
     },
     mobile: {
-      open: { translateX: '288px' },
+      open: { translateX: '284px' },
       closed: { translateX: '0px' },
     },
   };
