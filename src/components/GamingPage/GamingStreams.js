@@ -74,7 +74,7 @@ const GamingStreams = ({ gaming_streams = [], error }) => {
               youtube.searchedStreams.length > 0 && (
                 <Section>
                   <h4 className='section-title'>
-                    "{youtube.searchQuery}" related Twitch streams
+                    "{youtube.searchQuery}" related YouTube streams
                   </h4>
 
                   <Streams>
