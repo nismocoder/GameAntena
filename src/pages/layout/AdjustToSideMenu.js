@@ -53,7 +53,7 @@ const StyledAdjustToSideMenu = styled(motion.div)`
 
   /* DESKTOP */
   @media (min-width: 768px) {
-    width: 96vw;
+    width: 96.23vw;
     height: calc(100vh - 77px);
   }
 `;
