@@ -16,3 +16,4 @@ export { default as UploadPictureModal } from './UploadPictureModal';
 export { default as FileUploader } from './FileUploader';
 export { default as ImageCropper } from './ImageCropper';
 export { default as AlertMessage } from './AlertMessage';
+export { default as PopupMessage } from './PopupMessage';
