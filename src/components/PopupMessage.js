@@ -37,7 +37,7 @@ const StyledPopupMessage = styled.div`
   right: 50%;
   transform: translateX(50%);
   background-color: var(--shade-2);
-  padding: 2rem 10vw;
+  padding: 2rem 15vw 2rem 10vw;
   width: 100vw;
   color: var(--light);
   z-index: 5;
