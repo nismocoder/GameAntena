@@ -67,9 +67,14 @@ const StyledPage = styled.div`
     color: var(--primary);
   }
 
-  ul {
+  ul,
+  ol {
     list-style-position: inside;
-    margin: 1rem 0;
+  }
+
+  ul > li,
+  ol > li {
+    margin: 0.5rem 0;
   }
 
   .content > * {
