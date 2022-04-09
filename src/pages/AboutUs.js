@@ -1,8 +1,16 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Nav, Card, TextSection, Footer, ScrollUp } from '../components';
+import {
+  Nav,
+  Card,
+  TextSection,
+  Footer,
+  ScrollUp,
+  PopupMessage,
+} from '../components';
 
 import headerBG from '../img/header-bg.webp';
 import antenaIcon from '../img/logo/antena-icon.webp';
@@ -18,6 +26,13 @@ const AboutUs = () => {
 
   return (
     <>
+      <PopupMessage>
+        By using Game-Antena's service you agree to our{' '}
+        <Link to='/privacy-policy'>Privacy policy</Link> and its{' '}
+        <Link to='/terms-and-conditions'>Terms</Link>. Game-Antena also uses
+        Youtube API Services to bring you gaming related experiences from
+        YouTube
+      </PopupMessage>
       <Nav
         showBars={false}
         showNavLogoText={false}
