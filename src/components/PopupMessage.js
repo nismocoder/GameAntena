@@ -10,11 +10,11 @@ const PopupMessage = ({ children }) => {
   const hideShowPopup = () => {
     setShowPopup(false);
 
-    setLocalStorageItem('privacy-policy-consent', true);
+    setLocalStorageItem('show-once', true);
   };
 
   React.useEffect(() => {
-    if (getLocalStorageItem('privacy-policy-consent')) setShowPopup(false);
+    if (getLocalStorageItem('show-once')) setShowPopup(false);
   }, [showPopup]);
 
   return (
