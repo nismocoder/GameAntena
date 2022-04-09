@@ -3,7 +3,10 @@ export const setLocalStorageItem = (key, value, expiredInMinutes) => {
 
   const item = {
     value: value,
-    expiry: now.getTime() + expiredInMinutes * 60 * 1000,
   };
+
+  if (expiredInMinutes)
+    item.expiry = now.getTime() + expiredInMinutes * 60 * 1000;
+
   localStorage.setItem(key, JSON.stringify(item));
 };
