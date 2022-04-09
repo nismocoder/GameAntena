@@ -9,25 +9,26 @@ const PrivacyPolicy = () => {
   return (
     <LegalsLayout>
       <div>
-        <h1>Privacy Policy for GAME-ANTENA</h1>
+        <h1>Privacy Policy for Game-Antena</h1>
 
         <p>
-          At GAME-ANTENA, accessible from{' '}
+          At Game-Antena, accessible from{' '}
           <Link to='/'>https://game-antena.com</Link>, one of our main
           priorities is the privacy of our visitors. This Privacy Policy
           document contains types of information that is collected and recorded
-          by GAME-ANTENA and how we use it.
+          by Game-Antena and how we use it.
         </p>
 
         <p>
           If you have additional questions or require more information about our
-          Privacy Policy, do not hesitate to contact us.
+          Privacy Policy, do not hesitate to contact us directly on our support
+          email - gameantenallc@gmail.com
         </p>
 
         <p>
           This Privacy Policy applies only to our online activities and is valid
           for visitors to our website with regards to the information that they
-          shared and/or collect in GAME-ANTENA. This policy is not applicable to
+          shared and/or collect in Game-Antena. This policy is not applicable to
           any information collected offline or via channels other than this
           website. Our Privacy Policy was created with the help of the{' '}
           <a href='https://www.privacypolicygenerator.info'>
@@ -42,7 +43,15 @@ const PrivacyPolicy = () => {
 
         <p>
           By using our website, you hereby consent to our Privacy Policy and
-          agree to its terms.
+          agree to its <Link to='/terms-and-conditions'>terms</Link>, you're
+          also trusting Google with your information learn more -{' '}
+          <a
+            target={'_blank'}
+            href='http://www.google.com/policies/privacy'
+            rel='noreferrer'
+          >
+            Google Privacy Policy
+          </a>
         </p>
       </div>
 
@@ -61,9 +70,9 @@ const PrivacyPolicy = () => {
           information you may choose to provide.
         </p>
         <p>
-          When you register for an Account, we may ask for your contact
-          information, including items such as name, company name, address,
-          email address, and telephone number.
+          When you register for an Account, we or third parties may ask for your
+          contact information, including items such as name, company name,
+          address, email address, and telephone number.
         </p>
       </div>
 
@@ -89,10 +98,65 @@ const PrivacyPolicy = () => {
       </div>
 
       <div>
+        <h2>
+          Deleting User's Stored Data Revoking Game-Antena's Access to Your Data{' '}
+        </h2>
+
+        <ul>
+          <li>
+            <strong>Account deletion</strong>
+            <ol>
+              <li>
+                Once logged in, go to your <Link to='/my-profile'>profile</Link>{' '}
+                and click <strong>Delete Account</strong> button
+              </li>
+            </ol>
+          </li>
+
+          <li>
+            <strong>Unlinking 3rd parties' account</strong>
+
+            <ol>
+              <li>
+                Once you link your 3rd parties' account, go to the dedicated
+                page for that 3rd party platform (ex. Youtube -{' '}
+                <Link to='/youtube-gaming'>Youtube Gaming Page</Link> )
+              </li>
+              <li>See the Channel Menu on the top right side of the page</li>
+              <li>
+                Click the <strong>Unlink</strong> button
+              </li>
+            </ol>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Revoking Game-Antena's Access to Your Data</h2>
+
+        <ol>
+          <li>
+            Go to{' '}
+            <a
+              target={'_blank'}
+              href='https://myaccount.google.com/permissions'
+              rel='noreferrer'
+            >
+              Google Security Settings
+            </a>
+          </li>
+          <li>
+            Select Game-Antena and click the <strong>REMOVE ACCESS</strong>{' '}
+            button
+          </li>
+        </ol>
+      </div>
+
+      <div>
         <h2>Log Files</h2>
 
         <p>
-          GAME-ANTENA follows a standard procedure of using log files. These
+          Game-Antena follows a standard procedure of using log files. These
           files log visitors when they visit websites. All hosting companies do
           this and a part of hosting services' analytics. The information
           collected by log files include internet protocol (IP) addresses,
@@ -109,7 +173,7 @@ const PrivacyPolicy = () => {
         <h2>Cookies and Web Beacons</h2>
 
         <p>
-          Like any other website, GAME-ANTENA uses 'cookies'. These cookies are
+          Like any other website, Game-Antena uses 'cookies'. These cookies are
           used to store information including visitors' preferences, and the
           pages on the website that the visitor accessed or visited. The
           information is used to optimize the users' experience by customizing
@@ -131,13 +195,13 @@ const PrivacyPolicy = () => {
 
         <p>
           You may consult this list to find the Privacy Policy for each of the
-          advertising partners of GAME-ANTENA.
+          advertising partners of Game-Antena.
         </p>
 
         <p>
           Third-party ad servers or ad networks uses technologies like cookies,
           JavaScript, or Web Beacons that are used in their respective
-          advertisements and links that appear on GAME-ANTENA, which are sent
+          advertisements and links that appear on Game-Antena, which are sent
           directly to users' browser. They automatically receive your IP address
           when this occurs. These technologies are used to measure the
           effectiveness of their advertising campaigns and/or to personalize the
@@ -145,7 +209,7 @@ const PrivacyPolicy = () => {
         </p>
 
         <p>
-          Note that GAME-ANTENA has no access to or control over these cookies
+          Note that Game-Antena has no access to or control over these cookies
           that are used by third-party advertisers.
         </p>
       </div>
@@ -154,7 +218,7 @@ const PrivacyPolicy = () => {
         <h2>Third Party Privacy Policies</h2>
 
         <p>
-          GAME-ANTENA's Privacy Policy does not apply to other advertisers or
+          Game-Antena's Privacy Policy does not apply to other advertisers or
           websites. Thus, we are advising you to consult the respective Privacy
           Policies of these third-party ad servers for more detailed
           information. It may include their practices and instructions about how
@@ -251,7 +315,7 @@ const PrivacyPolicy = () => {
         </p>
 
         <p>
-          GAME-ANTENA does not knowingly collect any Personal Identifiable
+          Game-Antena does not knowingly collect any Personal Identifiable
           Information from children under the age of 13. If you think that your
           child provided this kind of information on our website, we strongly
           encourage you to contact us immediately and we will do our best
