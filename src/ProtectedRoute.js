@@ -1,25 +1,12 @@
 import React from 'react';
-import { Navigate, Route } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { getAuthInfo } from './utils';
 
-const ProtectedRoute = ({ component: Component, to = '/', ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={({ location }) => {
-        return getAuthInfo().isLoggedIn ? (
-          <Component />
-        ) : (
-          <Navigate
-            to={{
-              pathname: '/login',
-              state: { from: location },
-            }}
-          />
-        );
-      }}
-    />
-  );
+const ProtectedRoute = ({ children, to = '/login' }) => {
+  const { isLoggedIn } = getAuthInfo();
+  if (!isLoggedIn) return <Navigate to={to} replace />;
+
+  return children;
 };
 
 export default ProtectedRoute;

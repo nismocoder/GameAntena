@@ -45,12 +45,15 @@ const App = () => {
           <Route path={':id'} element={<GameDetails />} />
         </Route>
 
-        {/* <ProtectedRoute
-            exact
-            path={['/my-profile']}
-            element={<MyProfile />}
-            to={'/login'}
-          /> */}
+        <Route
+          path='/my-profile'
+          element={
+            <ProtectedRoute>
+              <MyProfile />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path={'/twitch-gaming/:another-id'} element={<TwitchGaming />} />
         <Route path={'/youtube-gaming'} element={<YoutubeGaming />} />
         <Route path={'/login'} element={<Login />} />
