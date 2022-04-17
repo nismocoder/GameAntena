@@ -13,7 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -33,8 +33,10 @@ const Nav = ({
 }) => {
   const dispatch = useDispatch();
 
-  const history = useHistory();
-  const pathname = history.location.pathname;
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const [showSearch, setShowSearch] = useState(false);
   const [textInput, setTextInput] = useState('');
@@ -60,11 +62,11 @@ const Nav = ({
 
         if (pathname === '/my-profile') {
           dispatch(fetchedSearchGames(textInput));
-          history.push('/');
+          navigate('/');
         }
       }
     },
-    [dispatch, history, pathname, textInput],
+    [dispatch, navigate, pathname, textInput],
   );
 
   const clearSearched = React.useCallback(() => {

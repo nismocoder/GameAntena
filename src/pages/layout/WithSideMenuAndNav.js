@@ -12,8 +12,8 @@ const WithSideMenuAndNav = ({ children }) => {
     dispatch({
       type: 'SET_SCREEN',
       payload: {
-        width: window.outerWidth,
-        height: window.outerHeight,
+        width: window.innerWidth,
+        height: window.innerHeight,
       },
     });
   }, [dispatch]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ import { ScrollUp } from '../../components';
 import { useScrollableBody } from '../../hooks';
 
 const LegalsLayout = ({ children }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useScrollableBody();
 
@@ -19,7 +19,7 @@ const LegalsLayout = ({ children }) => {
         <FontAwesomeIcon
           className='hoverable'
           icon={faChevronCircleLeft}
-          onClick={() => history.goBack()}
+          onClick={() => navigate.goBack()}
         />
       </div>
 

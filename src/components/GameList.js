@@ -1,10 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { useQuery } from 'react-query';
 
 import styled from 'styled-components';
 
-import { AlertMessage, GameDetails, Games, Loader } from '.';
+import { AlertMessage, Games, Loader } from '.';
 import { AdjustToSideMenu } from '../pages/layout';
 
 import { getGames } from '../services/games/gamesAPI';
@@ -48,7 +49,6 @@ const GameList = () => {
           </div>
         )}
 
-        <GameDetails />
         {searchedGames.length > 0 && (
           <Section className='searched'>
             <h4 className='section-title'>Searched Games</h4>

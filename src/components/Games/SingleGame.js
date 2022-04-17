@@ -8,7 +8,7 @@ import { smallImage } from '../../utils';
 const Game = ({ name, released, image, id }) => {
   return (
     <StyledGame className='hoverable'>
-      <Link to={`/game/${id}`}>
+      <Link to={`/games/${id}`}>
         <p className='title'>{name}</p>
         {/* <p>{released}</p> */}
         <img src={smallImage(image, 640)} alt={name} />

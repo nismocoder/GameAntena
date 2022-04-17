@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { deleteUserAccountURL, userDataURL } from '../utils/apiUrls';
 
-export const logoutUser = (history) => (dispatch) => {
+export const logoutUser = (navigate) => (dispatch) => {
   dispatch({
     type: 'LOADING_AUTH',
   });
@@ -11,7 +11,7 @@ export const logoutUser = (history) => (dispatch) => {
   localStorage.removeItem('userId');
   localStorage.removeItem('accessToken');
 
-  history.push('/');
+  navigate('/');
 };
 
 export const updateUserInfo = (userId, accessToken) => async (dispatch) => {

@@ -12,15 +12,18 @@ import {
   MyProfile,
   AboutUs,
 } from './pages';
+
 //styles
 import './global.css';
 //Router
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { getAuthInfo } from './utils';
 import { updateAuthInfo, updateUserInfo } from './actions/authAction';
+
 import ProtectedRoute from './ProtectedRoute';
+import { GameDetails } from './components';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,23 +39,37 @@ const App = () => {
 
   return (
     <div className='App'>
-      <Router>
-        <Route exact path={['/game/:id', '/']} component={Home} />
-        <ProtectedRoute
-          exact
-          path={['/my-profile']}
-          component={MyProfile}
-          to={'/login'}
+      <Routes>
+        <Route path={'/'} element={<Home />} />
+        <Route path={'/games'} element={<Home />}>
+          <Route path={':id'} element={<GameDetails />} />
+        </Route>
+
+        {/* <ProtectedRoute
+            exact
+            path={['/my-profile']}
+            element={<MyProfile />}
+            to={'/login'}
+          /> */}
+        <Route path={'/twitch-gaming/:another-id'} element={<TwitchGaming />} />
+        <Route path={'/youtube-gaming'} element={<YoutubeGaming />} />
+        <Route path={'/login'} element={<Login />} />
+        <Route path={'/register'} element={<Register />} />
+        <Route path={'/about-us'} element={<AboutUs />} />
+        <Route path={'/email-confirm'} element={<EmailConfirm />} />
+        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+        <Route path='/terms-and-conditions' element={<TermsAndConditions />} />
+
+        {/* Fallback route */}
+        <Route
+          path='*'
+          element={
+            <>
+              <h2>Page doesn't exist</h2>
+            </>
+          }
         />
-        <Route path={'/twitch-gaming'} component={TwitchGaming} />
-        <Route path={'/youtube-gaming'} component={YoutubeGaming} />
-        <Route path={'/login'} component={Login} />
-        <Route path={'/register'} component={Register} />
-        <Route path={'/about-us'} component={AboutUs} />
-        <Route path={'/email-confirm'} component={EmailConfirm} />
-        <Route path='/privacy-policy' component={PrivacyPolicy} />
-        <Route path='/terms-and-conditions' component={TermsAndConditions} />
-      </Router>
+      </Routes>
     </div>
   );
 };

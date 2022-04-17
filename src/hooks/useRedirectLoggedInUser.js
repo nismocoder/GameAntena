@@ -1,23 +1,23 @@
 import React from 'react';
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 
 const useRedirectLoggedInUser = (to = '/') => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   React.useEffect(() => {
     let isMounted = true;
 
-    if (isLoggedIn && isMounted) history.push(to);
+    if (isLoggedIn && isMounted) navigate(to);
 
     return () => {
       isMounted = false;
     };
-  }, [history, isLoggedIn, to]);
+  }, [navigate, isLoggedIn, to]);
 };
 
 export default useRedirectLoggedInUser;

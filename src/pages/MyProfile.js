@@ -22,10 +22,10 @@ import {
   updateUserTwitchData,
   updateUserYoutubeData,
 } from '../actions/socialsDataAction';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MyProfile = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { alertMessage } = useSelector((state) => state.ui);
   const { user, accessToken } = useSelector((state) => state.auth);
@@ -135,7 +135,7 @@ const MyProfile = () => {
         "You sure you want to delete your account? This can't be undone",
       )
     ) {
-      dispatch(logoutUser(history));
+      dispatch(logoutUser(navigate));
       dispatch(deleteUserAccount(user.id, accessToken));
       dispatch(
         setAlertMessage({

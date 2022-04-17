@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,8 +24,10 @@ import { Collapsible, ToolTip } from './Radix';
 import Footer from './Footer';
 
 const SideMenu = () => {
-  const history = useHistory();
-  const pathname = history.location.pathname;
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const dispatch = useDispatch();
 
@@ -43,7 +45,7 @@ const SideMenu = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logoutUser(history));
+    dispatch(logoutUser(navigate));
   };
 
   return (

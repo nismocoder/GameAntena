@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 
 import styled from 'styled-components';
@@ -52,8 +52,8 @@ const initialYoutubeData = {
 const ChannelMenu = () => {
   const dispatch = useDispatch();
 
-  const history = useHistory();
-  const pathname = history.location.pathname;
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const ui = useSelector((state) => state.ui);
   const { user, accessToken } = useSelector((state) => state.auth);

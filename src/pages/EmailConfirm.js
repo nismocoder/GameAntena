@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Modal, Loader } from '../components';
 
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
@@ -16,7 +16,7 @@ import { updateAuthInfo, updateUserInfo } from '../actions/authAction';
 import { useRedirectLoggedInUser } from '../hooks';
 
 const EmailConfirm = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ const EmailConfirm = () => {
   useRedirectLoggedInUser('/');
 
   React.useEffect(() => {
-    if (!token) history.push('/');
+    if (!token) navigate('/');
 
     // Send POST request to backend's email confirm endpoint
 
@@ -57,7 +57,7 @@ const EmailConfirm = () => {
     };
 
     confirmEmail();
-  }, [dispatch, history, token]);
+  }, [dispatch, navigate, token]);
 
   return (
     <StyledPage>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
@@ -12,8 +12,8 @@ import { useSelector } from 'react-redux';
 import { Loader } from '..';
 
 const GamingStreams = ({ gaming_streams = [], error }) => {
-  const history = useHistory();
-  const pathname = history.location.pathname;
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const { twitch, youtube, isLoading } = useSelector((state) => state.streams);
 
