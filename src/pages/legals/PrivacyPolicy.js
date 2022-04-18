@@ -13,7 +13,7 @@ const PrivacyPolicy = () => {
         By using Game-Antena's service you agree to our{' '}
         <Link to='/privacy-policy'>Privacy policy</Link> and its{' '}
         <Link to='/terms-and-conditions'>Terms</Link>. Game-Antena also uses
-        Youtube API Services to bring you gaming related experiences from
+        YouTube API Services to bring you gaming related experiences from
         YouTube
       </PopupMessage>
       <LegalsLayout>
@@ -133,8 +133,8 @@ const PrivacyPolicy = () => {
               <ol>
                 <li>
                   Once you link your 3rd parties' account, go to the dedicated
-                  page for that 3rd party platform (ex. Youtube -{' '}
-                  <Link to='/youtube-gaming'>Youtube Gaming Page</Link> )
+                  page for that 3rd party platform (ex. YouTube -{' '}
+                  <Link to='/youtube-gaming'>YouTube Gaming Page</Link> )
                 </li>
                 <li>See the Channel Menu on the top right side of the page</li>
                 <li>

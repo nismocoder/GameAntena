@@ -2,7 +2,7 @@ import { twitchAuthForwardUrl, youtubeAuthForwardUrl } from '.';
 
 export const getPlatformName = (pathname = '/') => {
   if (pathname === '/twitch-gaming') return 'Twitch';
-  if (pathname === '/youtube-gaming') return 'Youtube';
+  if (pathname === '/youtube-gaming') return '';
 };
 
 export const getAuthForwardUrl = (pathname = '/', email) => {

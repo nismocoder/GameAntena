@@ -13,7 +13,7 @@ const TermsAndConditions = () => {
         By using Game-Antena's service you agree to our{' '}
         <Link to='/privacy-policy'>Privacy policy</Link> and its{' '}
         <Link to='/terms-and-conditions'>Terms</Link>. Game-Antena also uses
-        Youtube API Services to bring you gaming related experiences from
+        YouTube API Services to bring you gaming related experiences from
         YouTube
       </PopupMessage>
       <LegalsLayout>

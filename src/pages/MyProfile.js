@@ -286,7 +286,7 @@ const MyProfile = () => {
                 className='danger hoverable-bright'
                 onClick={useYoutubeInfo}
               >
-                Use my Youtube info
+                Use my YouTube info
               </button>
             ) : (
               <a
@@ -298,7 +298,7 @@ const MyProfile = () => {
                 })}
               >
                 <button className='danger hoverable-bright'>
-                  Use my Youtube info
+                  Use my YouTube info
                 </button>
               </a>
             )}
