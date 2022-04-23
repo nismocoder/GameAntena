@@ -9,7 +9,6 @@ import { AdjustToSideMenu } from '../../pages/layout';
 
 import { getGameSectionUrl } from '../../utils/basedOnPath';
 import { useSelector } from 'react-redux';
-import { Loader } from '..';
 
 const GamingStreams = ({ gaming_streams = [], error }) => {
   const location = useLocation();
@@ -49,13 +48,9 @@ const GamingStreams = ({ gaming_streams = [], error }) => {
   };
 
   return (
-    <AdjustToSideMenu ref={elementRef}>
-      <AdjustToSideMenuContent>
-        {isLoading ? (
-          <div style={{ width: '100vw', height: '100vh', flex: 1 }}>
-            <Loader style={{ transform: 'scale(2)' }} />
-          </div>
-        ) : error ? (
+    <AdjustToSideMenu ref={elementRef} isLoading={isLoading}>
+      <Content>
+        {error ? (
           <h2 className='error'>{error}</h2>
         ) : (
           <>
@@ -116,21 +111,12 @@ const GamingStreams = ({ gaming_streams = [], error }) => {
             ))}
           </>
         )}
-      </AdjustToSideMenuContent>
+      </Content>
     </AdjustToSideMenu>
   );
 };
 
-const AdjustToSideMenuContent = styled(motion.div)`
-  .error {
-    text-align: center;
-    padding: 3rem 1rem;
-    font-family: var(--font-3);
-    letter-spacing: 0.2rem;
-    word-spacing: 1rem;
-    color: var(--danger);
-  }
-
+const Content = styled(motion.div)`
   a {
     display: block;
   }

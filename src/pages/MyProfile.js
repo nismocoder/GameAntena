@@ -195,7 +195,7 @@ const MyProfile = () => {
   return (
     <WithSideMenuAndNav>
       <AdjustToSideMenu>
-        <AdjustToSideMenuContent>
+        <Content>
           {isLoading && <ModalLoader />}
           {!user.isEmailConfirmed && (
             <div className='confirm-email'>
@@ -309,13 +309,13 @@ const MyProfile = () => {
           >
             Delete Account
           </button>
-        </AdjustToSideMenuContent>
+        </Content>
       </AdjustToSideMenu>
     </WithSideMenuAndNav>
   );
 };
 
-const AdjustToSideMenuContent = styled.div`
+const Content = styled.div`
   padding: 3rem 1rem 12rem 1rem;
   display: flex;
   flex-flow: column;

@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 
 import styled from 'styled-components';
 
-import { AlertMessage, Games, Loader } from '.';
+import { AlertMessage, Games } from '.';
 import { AdjustToSideMenu } from '../pages/layout';
 
 import { getGames } from '../services/games/gamesAPI';
@@ -15,7 +15,11 @@ const GameList = () => {
   const { alertMessage } = useSelector((state) => state.ui);
   const { searchedGames, isLoading } = useSelector((state) => state.games);
 
-  const { data: games, isLoading: loadingGames } = useQuery('games', getGames);
+  const {
+    data: games,
+    isLoading: loadingGames,
+    error,
+  } = useQuery('games', getGames);
 
   React.useEffect(() => {
     if (loadingGames) return dispatch({ type: 'LOADING_SEARCH_GAMES' });
@@ -24,56 +28,58 @@ const GameList = () => {
 
   const elementRef = React.createRef();
 
-  return isLoading ? (
-    <div style={{ width: '100vw', height: '100vh', flex: 1 }}>
-      <Loader style={{ transform: 'scale(2)' }} />
-    </div>
-  ) : (
-    <AdjustToSideMenu ref={elementRef}>
-      <AdjustToSideMenuContent>
-        {alertMessage.message && (
-          <div
-            className='alert'
-            style={{
-              backgroundColor:
-                alertMessage.status === 'danger'
-                  ? 'var(--danger-fade)'
-                  : 'var(--shade-3-fade)',
-            }}
-          >
-            <AlertMessage
-              message={alertMessage.message}
-              status={alertMessage.status}
-              removeAfter={10}
-            />
-          </div>
-        )}
+  return (
+    <AdjustToSideMenu ref={elementRef} isLoading={isLoading}>
+      <Content>
+        {error ? (
+          <h2 className='error'>{error?.message}</h2>
+        ) : (
+          <>
+            {alertMessage.message && (
+              <div
+                className='alert'
+                style={{
+                  backgroundColor:
+                    alertMessage.status === 'danger'
+                      ? 'var(--danger-fade)'
+                      : 'var(--shade-3-fade)',
+                }}
+              >
+                <AlertMessage
+                  message={alertMessage.message}
+                  status={alertMessage.status}
+                  removeAfter={10}
+                />
+              </div>
+            )}
 
-        {searchedGames.length > 0 && (
-          <Section className='searched'>
-            <h4 className='section-title'>Searched Games</h4>
-            <Games games={searchedGames} />
-          </Section>
+            {searchedGames.length > 0 && (
+              <Section className='searched'>
+                <h4 className='section-title'>Searched Games</h4>
+                <Games games={searchedGames} />
+              </Section>
+            )}
+            <Section className='upcoming'>
+              <h4 className='section-title'>UPCOMING GAMES</h4>
+              <Games games={games?.upcoming} />
+            </Section>
+            <Section className='popular'>
+              <h4 className='section-title'>POPULAR GAMES</h4>
+              <Games games={games?.popular} />
+            </Section>
+            <Section className='new'>
+              <h4 className='section-title'>NEW GAMES</h4>
+              <Games games={games?.newGames} />
+            </Section>
+            <h4 className='rawg-api'>API from RAWG.IO</h4>
+          </>
         )}
-        <Section className='upcoming'>
-          <h4 className='section-title'>UPCOMING GAMES</h4>
-          <Games games={games.upcoming} />
-        </Section>
-        <Section className='popular'>
-          <h4 className='section-title'>POPULAR GAMES</h4>
-          <Games games={games.popular} />
-        </Section>
-        <Section className='new'>
-          <h4 className='section-title'>NEW GAMES</h4>
-          <Games games={games.newGames} />
-        </Section>
-        <h4 className='rawg-api'>API from RAWG.IO</h4>
-      </AdjustToSideMenuContent>
+      </Content>
     </AdjustToSideMenu>
   );
 };
 
-const AdjustToSideMenuContent = styled.div`
+const Content = styled.div`
   position: relative;
 
   .alert {

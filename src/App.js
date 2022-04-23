@@ -16,7 +16,7 @@ import {
 //styles
 import './global.css';
 //Router
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { getAuthInfo } from './utils';
@@ -54,7 +54,7 @@ const App = () => {
           }
         />
 
-        <Route path={'/twitch-gaming/:another-id'} element={<TwitchGaming />} />
+        <Route path={'/twitch-gaming/'} element={<TwitchGaming />} />
         <Route path={'/youtube-gaming'} element={<YoutubeGaming />} />
         <Route path={'/login'} element={<Login />} />
         <Route path={'/register'} element={<Register />} />

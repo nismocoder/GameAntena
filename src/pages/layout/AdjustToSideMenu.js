@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { motion } from 'framer-motion';
 
-import { ScrollUp } from '../../components';
+import { Loader, ScrollUp } from '../../components';
 
 import { useSelector } from 'react-redux';
 
@@ -28,7 +28,7 @@ const getComponentVariant = (screenWidth) => {
   return variants.mobile;
 };
 
-const AdjustToSideMenu = React.forwardRef(({ children }, ref) => {
+const AdjustToSideMenu = React.forwardRef(({ children, isLoading }, ref) => {
   const { showSideMenu, screen } = useSelector((state) => state.ui);
 
   const { scrollY, element } = useGetRefElementScrollY(ref);
@@ -40,8 +40,16 @@ const AdjustToSideMenu = React.forwardRef(({ children }, ref) => {
       animate={showSideMenu ? 'open' : 'closed'}
       transition={{ duration: 0.4 }}
     >
-      {children}
-      <ScrollUp element={element} elementScrollY={scrollY} />
+      {isLoading ? (
+        <div className='loader'>
+          <Loader style={{ transform: 'scale(2)' }} />
+        </div>
+      ) : (
+        <>
+          {children}
+          <ScrollUp element={element} elementScrollY={scrollY} />
+        </>
+      )}
     </StyledAdjustToSideMenu>
   );
 });
@@ -51,10 +59,29 @@ const StyledAdjustToSideMenu = styled(motion.div)`
   height: calc(100vh - 56px);
   width: 100vw;
 
+  .loader {
+    flex: 1;
+    width: 100%;
+    height: calc(100vh - 56px);
+  }
+
+  .error {
+    text-align: center;
+    padding: 3rem 1rem;
+    font-family: var(--font-3);
+    letter-spacing: 0.2rem;
+    word-spacing: 1rem;
+    color: var(--danger);
+  }
+
   /* DESKTOP */
   @media (min-width: 768px) {
     width: 96.23vw;
     height: calc(100vh - 77px);
+
+    .loader {
+      height: calc(100vh - 77px);
+    }
   }
 `;
 
