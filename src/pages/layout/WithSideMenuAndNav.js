@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Nav, SideMenu } from '../../components';
+import { ModalLoader, Nav, SideMenu } from '../../components';
 
 const WithSideMenuAndNav = ({ children }) => {
   const dispatch = useDispatch();
+
+  const { isLoading } = useSelector((state) => state.auth);
 
   // Set screen after first render
   React.useEffect(() => {
@@ -23,6 +25,7 @@ const WithSideMenuAndNav = ({ children }) => {
       <Nav />
       <div style={{ position: 'relative', overflow: 'hidden' }}>
         <SideMenu />
+        {isLoading && <ModalLoader />}
         {children}
       </div>
     </>
