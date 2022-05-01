@@ -61,7 +61,11 @@ const SideMenu = () => {
           >
             <div className='icons'>
               <FontAwesomeIcon
-                className={`${pathname === '/' ? 'active' : ''}`}
+                className={`${
+                  pathname === '/' || pathname.includes('/games')
+                    ? 'active'
+                    : ''
+                }`}
                 icon={faHome}
               />
               <FontAwesomeIcon
