@@ -54,7 +54,7 @@ const App = () => {
           }
         />
 
-        <Route path={'/twitch-gaming/'} element={<TwitchGaming />} />
+        <Route path={'/twitch-gaming'} element={<TwitchGaming />} />
         <Route path={'/youtube-gaming'} element={<YoutubeGaming />} />
         <Route path={'/login'} element={<Login />} />
         <Route path={'/register'} element={<Register />} />
