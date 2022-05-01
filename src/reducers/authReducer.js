@@ -1,3 +1,5 @@
+import { createReducer } from '@reduxjs/toolkit';
+
 const initialState = {
   user: {
     id: '',
@@ -12,54 +14,26 @@ const initialState = {
   isLoading: false,
 };
 
-export const authReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'LOADING_AUTH': {
-      return {
-        ...state,
-        isLoading: true,
-      };
-    }
-
-    case 'LOADING_AUTH_FINISHED': {
-      return {
-        ...state,
-        isLoading: false,
-      };
-    }
-
-    case 'LOGOUT': {
+export const authReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase('LOADING_AUTH', (state, action) => {
+      state.isLoading = true;
+    })
+    .addCase('LOADING_AUTH_FINISHED', (state, action) => {
+      state.isLoading = false;
+    })
+    .addCase('LOGOUT', (state, action) => {
       return initialState;
-    }
+    })
+    .addCase('UPDATE_USER_INFO', (state, action) => {
+      const userData = action.payload;
 
-    case 'UPDATE_USER_INFO': {
-      const { id, email, role, displayName, profilePicture, isEmailConfirmed } =
-        action.payload;
-
-      return {
-        ...state,
-        user: {
-          id,
-          email,
-          role,
-          displayName,
-          profilePicture: profilePicture?.url,
-          isEmailConfirmed,
-        },
-      };
-    }
-
-    case 'UPDATE_AUTH_INFO': {
+      state.user = userData;
+    })
+    .addCase('UPDATE_AUTH_INFO', (state, action) => {
       const { isLoggedIn, accessToken } = action.payload;
 
-      return {
-        ...state,
-        isLoggedIn,
-        accessToken,
-      };
-    }
-
-    default:
-      return { ...state };
-  }
-};
+      state.isLoggedIn = isLoggedIn;
+      state.accessToken = accessToken;
+    });
+});
