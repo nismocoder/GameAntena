@@ -19,7 +19,7 @@ const LegalsLayout = ({ children }) => {
         <FontAwesomeIcon
           className='hoverable'
           icon={faChevronCircleLeft}
-          onClick={() => navigate.goBack()}
+          onClick={() => navigate(-1)}
         />
       </div>
 
