@@ -188,7 +188,7 @@ const SideMenu = () => {
                         <li>Privacy Policy</li>
                       </Link>
 
-                      <Link to='terms-and-conditions'>
+                      <Link to='/terms-and-conditions'>
                         <li>Terms and Conditions</li>
                       </Link>
                     </div>
