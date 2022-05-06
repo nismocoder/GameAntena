@@ -14,7 +14,7 @@ const getComponentVariant = (screenWidth) => {
   const variants = {
     desktop: {
       open: { translateX: '284px' },
-      closed: { translateX: '51px' },
+      closed: { translateX: '56px' },
     },
     mobile: {
       open: { translateX: '284px' },
@@ -39,6 +39,11 @@ const AdjustToSideMenu = React.forwardRef(({ children, isLoading }, ref) => {
       variants={getComponentVariant(screen.width)}
       animate={showSideMenu ? 'open' : 'closed'}
       transition={{ duration: 0.4 }}
+      style={{
+        width: `calc(100vw - ${
+          getComponentVariant(screen.width).closed.translateX
+        })`,
+      }}
     >
       {isLoading ? (
         <div className='loader'>
@@ -56,13 +61,12 @@ const AdjustToSideMenu = React.forwardRef(({ children, isLoading }, ref) => {
 
 const StyledAdjustToSideMenu = styled(motion.div)`
   overflow-y: auto;
-  height: calc(100vh - 56px);
-  width: 100vw;
+  height: calc(100vh - 60px); /* Minus the navbar's height */
 
   .loader {
     flex: 1;
     width: 100%;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 60px);
   }
 
   .error {
@@ -76,11 +80,10 @@ const StyledAdjustToSideMenu = styled(motion.div)`
 
   /* DESKTOP */
   @media (min-width: 768px) {
-    width: 96.23vw;
-    height: calc(100vh - 77px);
+    height: calc(100vh - 79px); /* Minus the navbar's height */
 
     .loader {
-      height: calc(100vh - 77px);
+      height: calc(100vh - 79px); /* Minus the navbar's height */
     }
   }
 `;
