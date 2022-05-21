@@ -40,7 +40,7 @@ const ChannelMenuCover = ({
     </StyledChannelMenuCover>
   ) : (
     <StyledChannelMenuCover>
-      <Link to={`login?p=${pathname}`}>
+      <Link to={`/login?p=${pathname}`}>
         <button
           style={{
             backgroundColor,
