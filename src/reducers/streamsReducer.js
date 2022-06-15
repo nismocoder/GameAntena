@@ -1,63 +1,49 @@
+import { createReducer } from '@reduxjs/toolkit';
+
 const initialState = {
   twitch: {
     searchQuery: '',
-    searchedStreams: [],
+    searchResult: {
+      channels: [],
+      streams: [],
+    },
   },
   youtube: {
     searchQuery: '',
-    searchedStreams: [],
+    searchResult: {
+      channels: [],
+      streams: [],
+    },
   },
   isLoading: false,
 };
 
-export const streamsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'LOADING_SEARCH_STREAMS': {
-      return {
-        ...state,
-        isLoading: true,
-      };
-    }
+export const streamsReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase('LOADING_SEARCH_RESULT', (state, action) => {
+      state.isLoading = true;
+    })
+    .addCase('LOADING_SEARCH_RESULT_FINISHED', (state, action) => {
+      state.isLoading = false;
+    })
+    .addCase('FETCH_TWITCH_SEARCH_RESULT', (state, action) => {
+      const { query, searchResult } = action.payload;
 
-    case 'LOADING_SEARCH_STREAMS_FINISHED': {
-      return {
-        ...state,
-        isLoading: false,
-      };
-    }
+      state.twitch.searchQuery = query;
+      state.twitch.searchResult = searchResult;
+    })
+    .addCase('REMOVE_TWITCH_SEARCH_RESULT', (state, action) => {
+      state.twitch.searchQuery = initialState.twitch.searchQuery;
+      state.twitch.searchResult = initialState.twitch.searchResult;
+    })
+    .addCase('FETCH_YOUTUBE_SEARCH_RESULT', (state, action) => {
+      const { query, searchResult } = action.payload;
 
-    case 'FETCH_SEARCHED_TWITCH_STREAMS': {
-      const { query, streams } = action.payload;
-      return {
-        ...state,
-        twitch: { searchQuery: query, searchedStreams: streams },
-      };
-    }
-
-    case 'REMOVE_SEARCHED_TWITCH_STREAMS': {
-      return {
-        ...state,
-        twitch: { searchQuery: '', searchedStreams: [] },
-      };
-    }
-
-    case 'FETCH_SEARCHED_YOUTUBE_STREAMS': {
-      const { query, streams } = action.payload;
-
-      return {
-        ...state,
-        youtube: { searchQuery: query, searchedStreams: streams },
-      };
-    }
-
-    case 'REMOVE_SEARCHED_YOUTUBE_STREAMS': {
-      return {
-        ...state,
-        youtube: { searchQuery: '', searchedStreams: [] },
-      };
-    }
-
-    default:
-      return state;
-  }
-};
+      state.youtube.searchQuery = query;
+      state.youtube.searchResult = searchResult;
+    })
+    .addCase('REMOVE_YOUTUBE_SEARCH_RESULT', (state, action) => {
+      state.youtube.searchQuery = initialState.youtube.searchQuery;
+      state.youtube.searchResult = initialState.youtube.searchResult;
+    });
+});

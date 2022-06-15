@@ -1,29 +1,12 @@
 import React, { useState } from 'react';
-
-import { motion } from 'framer-motion';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchedSearchGames } from '../actions/gamesAction';
-
-import {
-  faBars,
-  faSearch,
-  faTimes,
-  faUser,
-} from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-
-import Logo from './Logo';
-import { getSearchPlaceholder } from '../utils/basedOnPath';
 import { ProfilePicturePreview } from '.';
-import {
-  fetchSearchedTwitchStreams,
-  fetchSearchedYoutubeStreams,
-} from '../actions/streamsAction';
+import Logo from './Logo';
+import Search from './Search/Search';
 
 const Nav = ({
   showBars = true,
@@ -33,43 +16,16 @@ const Nav = ({
 }) => {
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
-
   const location = useLocation();
   const pathname = location.pathname;
 
   const [showSearch, setShowSearch] = useState(false);
-  const [textInput, setTextInput] = useState('');
+  const [textInput, setTextInput] = React.useState('');
 
   const ui = useSelector((state) => state.ui);
   const { user, isLoggedIn } = useSelector((state) => state.auth);
 
-  const inputHandler = (e) => {
-    setTextInput(e.target.value);
-  };
-
-  const submitSearch = React.useCallback(
-    (e) => {
-      e.preventDefault();
-      if (textInput) {
-        if (pathname === '/') dispatch(fetchedSearchGames(textInput));
-
-        if (pathname === '/twitch-gaming')
-          dispatch(fetchSearchedTwitchStreams(textInput));
-
-        if (pathname === '/youtube-gaming')
-          dispatch(fetchSearchedYoutubeStreams(textInput));
-
-        if (pathname === '/my-profile') {
-          dispatch(fetchedSearchGames(textInput));
-          navigate('/');
-        }
-      }
-    },
-    [dispatch, navigate, pathname, textInput],
-  );
-
-  const clearSearched = React.useCallback(() => {
+  const clearSearched = () => {
     setTextInput('');
     if (pathname === '/' || pathname === '/my-profile')
       dispatch({ type: 'REMOVE_SEARCHED_GAMES' });
@@ -79,11 +35,6 @@ const Nav = ({
 
     if (pathname === '/youtube-gaming')
       dispatch({ type: 'REMOVE_SEARCHED_YOUTUBE_STREAMS' });
-  }, [dispatch, pathname]);
-
-  const closeSearch = () => {
-    setTextInput('');
-    setShowSearch(false);
   };
 
   const toggleSideMenu = () => {
@@ -109,49 +60,13 @@ const Nav = ({
       )}
 
       {showNavSearch && (
-        <>
-          <div className='mobile search'>
-            {!showSearch ? (
-              <FontAwesomeIcon
-                icon={faSearch}
-                onClick={() => setShowSearch(true)}
-              />
-            ) : (
-              <StyledSearchMobile
-                onSubmit={submitSearch}
-                initial={{ width: '0%', opacity: 0 }}
-                animate={{ width: '90%', opacity: 1 }}
-                exit={{ width: '0%', opacity: 0.5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <FontAwesomeIcon
-                  className='close-icon'
-                  icon={faTimes}
-                  onClick={closeSearch}
-                />
-                <input
-                  placeholder={getSearchPlaceholder(pathname)}
-                  value={textInput}
-                  onChange={inputHandler}
-                  type='text'
-                />
-              </StyledSearchMobile>
-            )}
-          </div>
-          <StyledSearchDesktop onSubmit={submitSearch} className='desktop'>
-            <input
-              placeholder={getSearchPlaceholder(pathname)}
-              value={textInput}
-              onChange={inputHandler}
-              type='text'
-            />
-            <FontAwesomeIcon
-              className='search-icon hoverable'
-              icon={faSearch}
-              onClick={submitSearch}
-            />
-          </StyledSearchDesktop>
-        </>
+        <Search
+          showSearch={showSearch}
+          setShowSearch={setShowSearch}
+          textInput={textInput}
+          setTextInput={setTextInput}
+          pathname={pathname}
+        />
       )}
 
       <StyledAuthDesktop className={showAuthOnMobile ? '' : 'desktop'}>
@@ -187,7 +102,7 @@ const Nav = ({
   );
 };
 
-const StyledNav = styled(motion.nav)`
+const StyledNav = styled.nav`
   position: sticky;
   top: 0;
   display: flex;
@@ -221,62 +136,7 @@ const StyledNav = styled(motion.nav)`
   }
 `;
 
-const StyledSearchDesktop = styled(motion.form)`
-  position: relative;
-
-  .search-icon {
-    position: absolute;
-    right: 0%;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--light);
-    z-index: 5;
-    background-color: var(--shade-2);
-    height: 99%;
-    width: 1.5rem;
-    padding: 0 0.6rem;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-
-  input {
-    width: 100%;
-    font-size: 1.2rem;
-    border: 1px solid var(--primary);
-    background-color: var(--light);
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-  }
-`;
-
-const StyledSearchMobile = styled(motion.form)`
-  width: 90%;
-  text-align: left;
-  margin-left: auto;
-  position: relative;
-  border-radius: 50rem;
-  background-color: var(--light);
-  padding: 0.3rem 1rem;
-
-  .close-icon {
-    position: absolute;
-    right: 2%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--primary-light);
-    font-size: 1.5rem;
-  }
-
-  input {
-    width: 85%;
-    font-size: 1.2rem;
-    border: none;
-    outline: none;
-    background: none;
-  }
-`;
-
-const StyledAuthDesktop = styled(motion.div)`
+const StyledAuthDesktop = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
