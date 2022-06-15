@@ -5,6 +5,7 @@ export { twitchAuthForwardUrl } from './twitchAuthForwardUrl';
 export { youtubeAuthForwardUrl } from './youtubeAuthForwardUrl';
 export { getLocalStorageItem } from './getLocalStorageItem';
 export { setLocalStorageItem } from './setLocalStorageItem';
-export { kNUmberFormatter } from './kNUmberFormatter';
+export { numberFormatter } from './numberFormatter';
 export { getLastSegmentURL } from './getLastSegmentURL';
 export { getAuthInfo } from './getAuthInfo';
+export { setTwitchThumbnailUrlSize } from './setTwitchThumbnailUrlSize';

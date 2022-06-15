@@ -39,6 +39,10 @@ export const getChannelMenuBackground = (pathname = '/') => {
 export const getSearchPlaceholder = (path) => {
   if (path === '/' || path === '/my-profile' || path.includes('/games/'))
     return 'Search a game..';
-  if (path === '/twitch-gaming') return 'Search Twitch stream..';
-  if (path === '/youtube-gaming') return 'Search YouTube stream..';
+
+  if (path === '/twitch-gaming')
+    return 'Search a Twitch channel or live stream..';
+
+  if (path === '/youtube-gaming')
+    return 'Search a YouTube channel or live stream..';
 };

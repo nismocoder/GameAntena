@@ -65,8 +65,8 @@ export const topYoutubeGamingStreamsURL = () =>
   `${backend_url}/youtube/gaming-streams`;
 
 // BACKEND - Search streams
-export const searchTwitchStreamsURL = (query) =>
-  `${backend_url}/twitch/search-streams?query=${query}`;
+export const searchTwitchURL = (query) =>
+  `${backend_url}/twitch/search?query=${query}`;
 
-export const searchYoutubeStreamsURL = (query) =>
-  `${backend_url}/youtube/search-streams?query=${query}`;
+export const searchYoutubeURL = (query) =>
+  `${backend_url}/youtube/search?query=${query}`;
