@@ -1,49 +1,49 @@
-import React from 'react';
+import * as React from "react";
 
-import { createPortal } from 'react-dom';
+import { createPortal } from "react-dom";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ScrollUp = ({ element, elementScrollY = 0 }) => {
   const [windowScrollY, setWindowScrollY] = React.useState(0);
 
   const scrollElementToTop = React.useCallback(() => {
-    element.scrollTo({ top: 0, behavior: 'smooth' });
+    element.scrollTo({ top: 0, behavior: "smooth" });
   }, [element]);
 
-  React.useEffect(() => {
-    window.addEventListener('scroll', handleWindowScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleWindowScroll);
-    };
-  }, []);
-
   const scrollWindowToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleWindowScroll = () => {
     setWindowScrollY(window.scrollY);
   };
 
+  React.useEffect(() => {
+    window.addEventListener("scroll", handleWindowScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleWindowScroll);
+    };
+  }, []);
+
   return element
     ? elementScrollY > 1500 &&
         createPortal(
-          <StyledScrollUp className='hoverable' onClick={scrollElementToTop}>
+          <StyledScrollUp className="hoverable" onClick={scrollElementToTop}>
             <FontAwesomeIcon icon={faArrowUp} />
           </StyledScrollUp>,
-          document.getElementById('scrollup_root'),
+          document.getElementById("scrollup_root")
         )
     : windowScrollY > 1500 &&
         createPortal(
-          <StyledScrollUp className='hoverable' onClick={scrollWindowToTop}>
+          <StyledScrollUp className="hoverable" onClick={scrollWindowToTop}>
             <FontAwesomeIcon icon={faArrowUp} />
           </StyledScrollUp>,
-          document.getElementById('scrollup_root'),
+          document.getElementById("scrollup_root")
         );
 };
 

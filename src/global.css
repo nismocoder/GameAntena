@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Prompt:wght@200;300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Prompt:wght@200;300;400;500;600;700;800&display=swap");
 
 @font-face {
-  font-family: 'Kaufhalle';
-  src: url('./fonts/kaufhalle.ttf') format('truetype');
+  font-family: "Kaufhalle";
+  src: url("./fonts/kaufhalle.ttf") format("truetype");
 }
 
 * {
@@ -10,9 +10,9 @@
   padding: 0;
   box-sizing: border-box;
 
-  --font-1: 'Prompt', sans-serif;
-  --font-2: 'Orbitron', sans-serif;
-  --font-3: 'Kaufhalle', sans-serif;
+  --font-1: "Prompt", sans-serif;
+  --font-2: "Orbitron", sans-serif;
+  --font-3: "Kaufhalle", sans-serif;
 
   --light: #f5f5f7;
   --light-1: #d5d5e4;
@@ -32,7 +32,7 @@
   --shade-2-fade: rgba(77, 93, 236, 0.15);
 
   --shade-3: rgb(65, 201, 133);
-  --shade-3-fade: rgba(65, 201, 133, 0.15);
+  --shade-3-fade: rgba(64, 201, 133, 0.15);
 
   --shade-4: rgb(212, 107, 74);
   --shade-4-fade: rgba(212, 107, 74, 0.15);

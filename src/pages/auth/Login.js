@@ -1,73 +1,53 @@
-import React from 'react';
+import * as React from "react";
 
-import { useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import styled from 'styled-components';
-import axios from 'axios';
-
-import { updateAuthInfo, updateUserInfo } from '../../actions/authAction';
-
+import styled from "styled-components";
+import { ModalLoader } from "../../components";
 import {
   useHandleCredentialsInput,
-  useRedirectLoggedInUser,
-} from '../../hooks';
+  useRedirectLoggedInUser
+} from "../../hooks";
+import { loginUser } from "../../services/auth";
 
-import { setLocalStorageItem } from '../../utils';
+import { AuthLayout } from "../layout";
 
-import { AuthLayout } from '../layout';
+function Login() {
+  document.title = "Game-Antena | Login";
 
-const Login = () => {
-  document.title = 'Game-Antena | Login';
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { search } = useLocation();
-  const previous_page = new URLSearchParams(search).get('p');
+  const previousPage = new URLSearchParams(search).get("p");
 
   const { credentials, handleOnChange, setCredentials } =
     useHandleCredentialsInput();
 
   // redirect to previous page after (if there's any) after loggin in
-  useRedirectLoggedInUser(previous_page || '/');
+  useRedirectLoggedInUser(previousPage || "/");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    dispatch({ type: 'LOADING_AUTH' });
-
-    const baseUrl = process.env.REACT_APP_BACKEND_URL;
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+    setIsLoading(true);
 
     try {
-      const result = await axios.post(`${baseUrl}/login`, credentials, config);
+      await loginUser(credentials);
 
-      const { access_token: accessToken, userId } = result.data;
-
-      dispatch(updateAuthInfo(true, accessToken));
-      dispatch(updateUserInfo(userId, accessToken));
-
-      setLocalStorageItem('accessToken', accessToken, 30);
-      setLocalStorageItem('userId', userId, 30);
+      return navigate(previousPage || "/");
     } catch (error) {
-      if (error.response) {
-        alert(error.response.data.message);
-        return;
-      }
-      alert(error);
+      if (error.response) return alert(error.response.data.message);
+
+      return alert(error.message);
     } finally {
-      dispatch({ type: 'LOADING_AUTH_FINISHED' });
       setCredentials((state) => {
         return {
           ...state,
-          password: '',
+          password: ""
         };
       });
+      setIsLoading(false);
     }
   };
 
@@ -76,40 +56,45 @@ const Login = () => {
       linkToElement={
         <>
           New to Game-Antena?
-          <Link to='/register' className='hoverable'>
+          <Link to="/register" className="hoverable">
             Register here
           </Link>
         </>
       }
     >
+      {isLoading && <ModalLoader />}
+
       <h2>Welcome to Game-Antena</h2>
       <StyledForm onSubmit={handleLogin}>
-        <div className='form-group'>
+        <div className="form-group">
           <label>Email: </label>
           <input
-            name='email'
+            autoFocus
+            name="email"
             value={credentials.email}
-            type='email'
-            placeholder='my@email.com'
+            type="email"
+            placeholder="my@email.com"
             onChange={handleOnChange}
             required
           />
         </div>
-        <div className='form-group'>
+        <div className="form-group">
           <label>Password: </label>
           <input
-            name='password'
+            name="password"
             value={credentials.password}
-            type='password'
+            type="password"
             onChange={handleOnChange}
             required
           />
         </div>
-        <button className='submit-btn hoverable'>Login</button>
+        <button type="submit" className="submit-btn hoverable">
+          Login
+        </button>
       </StyledForm>
     </AuthLayout>
   );
-};
+}
 
 const StyledForm = styled.form`
   display: flex;

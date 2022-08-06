@@ -1,35 +1,28 @@
-import React from 'react';
+import * as React from "react";
 
 const useHandleCredentialsInput = () => {
+  const [credentials, setCredentials] = React.useState({
+    email: "",
+    password: ""
+  });
 
-  const [credentials, setCredentials] = React.useState({ email: "", password: "" });
+  const handleOnChange = (event) => {
+    const input = event.target.name;
+    const { value } = event.target;
 
-  const handleOnChange = (e) => {
-    const input = e.target.name;
-    const value = e.target.value;
-
-    if (input === 'email')
-      setCredentials((state) => {
-        return {
-          ...state,
-          email: value
-        }
-      })
-
-    if (input === 'password')
-      setCredentials((state) => {
-        return {
-          ...state,
-          password: value
-        }
-      })
-  }
+    setCredentials((state) => {
+      return {
+        ...state,
+        [input]: value
+      };
+    });
+  };
 
   return {
     credentials,
     setCredentials,
     handleOnChange
-  }
-}
+  };
+};
 
-export default useHandleCredentialsInput
+export default useHandleCredentialsInput;

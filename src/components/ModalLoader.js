@@ -1,13 +1,13 @@
-import React from 'react';
+import * as React from "react";
 
-import { Modal, Loader } from '../components';
+import { Modal, Loader } from ".";
 
-const ModalLoader = () => {
+function ModalLoader() {
   return (
-    <Modal show={true} alignV='center'>
+    <Modal show alignV="center">
       <Loader />
     </Modal>
   );
-};
+}
 
 export default ModalLoader;

@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import * as React from "react";
+import styled from "styled-components";
 
-const TextSection = ({ heading = 'Heading', children }) => {
+function TextSection({ heading = "Heading", children }) {
   return (
     <StyledSection>
-      <h2 className='heading'>
-        {heading} <div className='underline'></div>
+      <h2 className="heading">
+        {heading} <div className="underline" />
       </h2>
-      <div className='content'>{children}</div>
+      <div className="content">{children}</div>
     </StyledSection>
   );
-};
+}
 
 const StyledSection = styled.div`
   .heading {

@@ -1,16 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
+import * as React from "react";
+import styled from "styled-components";
 
-import { faCameraRetro, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCameraRetro, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { UploadPictureModal } from '.';
+import { UploadPictureModal } from ".";
 
-const ProfilePicturePreview = ({
-  image,
-  justPreview = false,
-  sizeInRem = 10,
-}) => {
+function ProfilePicturePreview({ image, justPreview = false, sizeInRem = 10 }) {
   const [showUploadModal, setShowUploadModal] = React.useState(false);
 
   const handleShowUploadModal = () => {
@@ -25,19 +21,19 @@ const ProfilePicturePreview = ({
     <StyledProfilePicturePreview
       style={{
         width: `${sizeInRem}rem`,
-        height: `${sizeInRem}rem`,
+        height: `${sizeInRem}rem`
       }}
     >
       {image ? (
-        <img src={`${image}`} alt='user-dp' />
+        <img src={image.url ? image.url : image} alt="user-dp" />
       ) : (
         <div
-          className='default-picture'
+          className="default-picture"
           style={{
-            fontSize: `${sizeInRem / 2}rem`,
+            fontSize: `${sizeInRem / 2}rem`
           }}
         >
-          <FontAwesomeIcon className='user' icon={faUser} />
+          <FontAwesomeIcon className="user" icon={faUser} />
         </div>
       )}
     </StyledProfilePicturePreview>
@@ -45,25 +41,31 @@ const ProfilePicturePreview = ({
     <StyledProfilePicturePreview
       style={{
         width: `${sizeInRem}rem`,
-        height: `${sizeInRem}rem`,
+        height: `${sizeInRem}rem`
       }}
     >
       {image ? (
-        <img src={`${image}`} alt='user-dp' />
+        <img src={image.url ? image.url : image} alt="user-dp" />
       ) : (
         <div
           style={{
             width: `${sizeInRem}rem`,
             height: `${sizeInRem}rem`,
-            fontSize: `${sizeInRem / 2}rem`,
+            fontSize: `${sizeInRem / 2}rem`
           }}
-          className='default-picture'
+          className="default-picture"
         >
-          <FontAwesomeIcon className='user' icon={faUser} />
+          <FontAwesomeIcon className="user" icon={faUser} />
         </div>
       )}
-      <div onClick={handleShowUploadModal} className='overlay hoverable'>
-        <FontAwesomeIcon className='camera-icon' icon={faCameraRetro} />
+      <div
+        role="button"
+        tabIndex={0}
+        aria-hidden="true"
+        onClick={handleShowUploadModal}
+        className="overlay hoverable"
+      >
+        <FontAwesomeIcon className="camera-icon" icon={faCameraRetro} />
       </div>
 
       <UploadPictureModal
@@ -72,7 +74,7 @@ const ProfilePicturePreview = ({
       />
     </StyledProfilePicturePreview>
   );
-};
+}
 
 const StyledProfilePicturePreview = styled.div`
   position: relative;

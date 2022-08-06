@@ -1,31 +1,27 @@
-import React from 'react';
+import * as React from "react";
 
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 
-import { Logo, ModalLoader } from '../../components';
+import styled from "styled-components";
+import { Logo } from "../../components";
 
-import styled from 'styled-components';
-import { useScrollableBody } from '../../hooks';
+import { useScrollableBody } from "../../hooks";
 
-const PageLayout = ({ children, linkToElement }) => {
+function AuthLayout({ children, linkToElement }) {
   useScrollableBody();
-
-  const { isLoading } = useSelector((state) => state.auth);
 
   return (
     <StyledPage>
-      {isLoading && <ModalLoader />}
-      <Link to='/'>
+      <Link to="/">
         <Logo />
       </Link>
       <main>
         {children}
-        <div className='link-to'>{linkToElement}</div>
+        <div className="link-to">{linkToElement}</div>
       </main>
     </StyledPage>
   );
-};
+}
 
 const StyledPage = styled.div`
   height: 100vh;
@@ -64,4 +60,4 @@ const StyledPage = styled.div`
   }
 `;
 
-export default PageLayout;
+export default AuthLayout;

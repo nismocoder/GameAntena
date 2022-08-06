@@ -1,18 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { Link } from "react-router-dom";
 
-import { PopupMessage } from '../../components';
-import LegalsLayout from '../layout/LegalsLayout';
+import { PopupMessage } from "../../components";
+import LegalsLayout from "../layout/LegalsLayout";
 
-const TermsAndConditions = () => {
-  document.title = 'Game-Antena | Terms & Conditions';
+function TermsAndConditions() {
+  document.title = "Game-Antena | Terms & Conditions";
 
   return (
     <>
       <PopupMessage>
-        By using Game-Antena's service you agree to our{' '}
-        <Link to='/privacy-policy'>Privacy policy</Link> and its{' '}
-        <Link to='/terms-and-conditions'>Terms</Link>. Game-Antena also uses
+        By using Game-Antena&apos;s service you agree to our{" "}
+        <Link to="/privacy-policy">Privacy policy</Link> and its{" "}
+        <Link to="/terms-and-conditions">Terms</Link>. Game-Antena also uses
         YouTube API Services to bring you gaming related experiences from
         YouTube
       </PopupMessage>
@@ -24,21 +24,21 @@ const TermsAndConditions = () => {
 
           <p>
             These terms and conditions outline the rules and regulations for the
-            use of Game-Antena's Website, located at{' '}
-            <Link to='/'>https://game-antena.com</Link>.
+            use of Game-Antena&apos;s Website, located at{" "}
+            <Link to="/">https://game-antena.com</Link>.
           </p>
 
           <p>
             <strong>
-              By accessing this website we assume you accept Game-Antena's terms
-              and conditions and{' '}
+              By accessing this website we assume you accept Game-Antena&apos;s
+              terms and conditions and{" "}
               <a
-                target={'_blank'}
-                href='https://www.youtube.com/t/terms'
-                rel='noreferrer'
+                target="_blank"
+                href="https://www.youtube.com/t/terms"
+                rel="noreferrer"
               >
-                YouTube's Terms of Service
-              </a>{' '}
+                YouTube&apos;s Terms of Service
+              </a>{" "}
             </strong>
             . Do not continue to use Game-Antena if you do not agree to take all
             of the terms and conditions stated on this page.
@@ -47,16 +47,18 @@ const TermsAndConditions = () => {
           <p>
             The following terminology applies to these Terms and Conditions,
             Privacy Statement and Disclaimer Notice and all Agreements:
-            "Client", "You" and "Your" refers to you, the person log on this
-            website and compliant to the Company's terms and conditions. "The
-            Company", "Ourselves", "We", "Our" and "Us", refers to our Company.
-            "Party", "Parties", or "Us", refers to both the Client and
-            ourselves. All terms refer to the offer, acceptance and
+            &quot;Client&quot;, &quot;You&quot; and &quot;Your&quot; refers to
+            you, the person log on this website and compliant to the
+            Company&apos;s terms and conditions. &quot;The Company&quot;,
+            &quot;Ourselves&quot;, &quot;We&quot;, &quot;Our&quot; and
+            &quot;Us&quot;, refers to our Company. &quot;Party&quot;,
+            &quot;Parties&quot;, or &quot;Us&quot;, refers to both the Client
+            and ourselves. All terms refer to the offer, acceptance and
             consideration of payment necessary to undertake the process of our
             assistance to the Client in the most appropriate manner for the
-            express purpose of meeting the Client's needs in respect of
-            provision of the Company's stated services, in accordance with and
-            subject to, prevailing law of Netherlands. Any use of the above
+            express purpose of meeting the Client&apos;s needs in respect of
+            provision of the Company&apos;s stated services, in accordance with
+            and subject to, prevailing law of Netherlands. Any use of the above
             terminology or other words in the singular, plural, capitalization
             and/or he/she or they, are taken as interchangeable and therefore as
             referring to same.
@@ -68,15 +70,16 @@ const TermsAndConditions = () => {
 
           <p>
             We employ the use of cookies. By accessing Game-Antena, you agreed
-            to use cookies in agreement with the Game-Antena's Privacy Policy.{' '}
+            to use cookies in agreement with the Game-Antena&apos;s Privacy
+            Policy.{" "}
           </p>
 
           <p>
-            Most interactive websites use cookies to let us retrieve the user's
-            details for each visit. Cookies are used by our website to enable
-            the functionality of certain areas to make it easier for people
-            visiting our website. Some of our affiliate/advertising partners may
-            also use cookies.
+            Most interactive websites use cookies to let us retrieve the
+            user&apos;s details for each visit. Cookies are used by our website
+            to enable the functionality of certain areas to make it easier for
+            people visiting our website. Some of our affiliate/advertising
+            partners may also use cookies.
           </p>
         </div>
 
@@ -101,8 +104,8 @@ const TermsAndConditions = () => {
 
           <p>
             This Agreement shall begin on the date hereof. Our Terms and
-            Conditions were created with the help of the{' '}
-            <a href='https://www.privacypolicies.com/blog/sample-terms-conditions-template/'>
+            Conditions were created with the help of the{" "}
+            <a href="https://www.privacypolicies.com/blog/sample-terms-conditions-template/">
               Terms And Conditions Template
             </a>
             .
@@ -187,7 +190,7 @@ const TermsAndConditions = () => {
             other Website information so long as the link: (a) is not in any way
             deceptive; (b) does not falsely imply sponsorship, endorsement or
             approval of the linking party and its products and/or services; and
-            (c) fits within the context of the linking party's site.
+            (c) fits within the context of the linking party&apos;s site.
           </p>
 
           <p>
@@ -221,7 +224,7 @@ const TermsAndConditions = () => {
             (a) is not in any way deceptive; (b) does not falsely imply
             sponsorship, endorsement or approval of the linking party and its
             products or services; and (c) fits within the context of the linking
-            party's site.
+            party&apos;s site.
           </p>
 
           <p>
@@ -242,13 +245,13 @@ const TermsAndConditions = () => {
             <li>
               By use of any other description of our Website being linked to
               that makes sense within the context and format of content on the
-              linking party's site.
+              linking party&apos;s site.
             </li>
           </ul>
 
           <p>
-            No use of Game-Antena's logo or other artwork will be allowed for
-            linking absent a trademark license agreement.
+            No use of Game-Antena&apos;s logo or other artwork will be allowed
+            for linking absent a trademark license agreement.
           </p>
         </div>
 
@@ -279,7 +282,7 @@ const TermsAndConditions = () => {
           <h2>Your Privacy</h2>
 
           <p>
-            Please read <Link to='/privacy-policy'>Privacy Policy</Link>
+            Please read <Link to="/privacy-policy">Privacy Policy</Link>
           </p>
         </div>
 
@@ -290,9 +293,9 @@ const TermsAndConditions = () => {
             We reserve the right to request that you remove all links or any
             particular link to our Website. You approve to immediately remove
             all links to our Website upon request. We also reserve the right to
-            amen these terms and conditions and it's linking policy at any time.
-            By continuously linking to our Website, you agree to be bound to and
-            follow these linking terms and conditions.
+            amen these terms and conditions and it&apos;s linking policy at any
+            time. By continuously linking to our Website, you agree to be bound
+            to and follow these linking terms and conditions.
           </p>
         </div>
 
@@ -359,6 +362,6 @@ const TermsAndConditions = () => {
       </LegalsLayout>
     </>
   );
-};
+}
 
 export default TermsAndConditions;
