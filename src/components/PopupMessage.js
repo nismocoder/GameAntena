@@ -1,35 +1,35 @@
-import React from 'react';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
-import { getLocalStorageItem, setLocalStorageItem } from '../utils';
+import * as React from "react";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
+import { getLocalStorageItem, setLocalStorageItem } from "../utils";
 
-const PopupMessage = ({ children }) => {
+function PopupMessage({ children }) {
   const [showPopup, setShowPopup] = React.useState(true);
 
   const hideShowPopup = () => {
     setShowPopup(false);
 
-    setLocalStorageItem('show-once', true);
+    setLocalStorageItem({ key: "show-once", value: true });
   };
 
   React.useEffect(() => {
-    if (getLocalStorageItem('show-once')) setShowPopup(false);
-  }, [showPopup]);
+    if (getLocalStorageItem("show-once")) setShowPopup(false);
+  }, []);
 
   return (
     showPopup && (
       <StyledPopupMessage>
         <FontAwesomeIcon
-          className='close-icon hoverable'
+          className="close-icon hoverable"
           icon={faXmark}
           onClick={hideShowPopup}
-        />{' '}
-        <div className='content'>{children}</div>
+        />{" "}
+        <div className="content">{children}</div>
       </StyledPopupMessage>
     )
   );
-};
+}
 
 const StyledPopupMessage = styled.div`
   position: fixed;

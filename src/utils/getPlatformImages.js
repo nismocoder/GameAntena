@@ -1,4 +1,4 @@
-//Icons_images
+// Icons_images
 import playstation from "../img/playstation.svg";
 import steam from "../img/steam.svg";
 import xbox from "../img/xbox.svg";
@@ -6,8 +6,7 @@ import nintendo from "../img/nintendo.svg";
 import apple from "../img/apple.svg";
 import gamepad from "../img/gamepad.svg";
 
-
-export const getPlatformImages = (platform) => {
+const getPlatformImages = (platform) => {
   return (
     {
       "PlayStation 4": playstation,
@@ -17,7 +16,9 @@ export const getPlatformImages = (platform) => {
       "Xbox One": xbox,
       "Nintendo Switch": nintendo,
       PC: steam,
-      iOS: apple,
+      iOS: apple
     }[platform] || gamepad
   );
 };
+
+export default getPlatformImages;

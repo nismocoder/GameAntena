@@ -1,40 +1,44 @@
-import axios from 'axios';
+import axios from "axios";
+import { configWithToken } from "../../utils";
 import {
+  unlinkTwitchAccountURL,
   userTwitchDataURL,
-  userTwitchSubscribersURL,
-} from '../../utils/apiUrls';
+  userTwitchSubscribersURL
+} from "../../utils/apiUrls";
 
-const fetchUserTwitchData = async (userId, accessToken) => {
-  const { data } = await axios.get(userTwitchDataURL(userId), {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+const fetchUserTwitchData = async (accessToken) => {
+  const { data } = await axios.get(
+    userTwitchDataURL(),
+    configWithToken(accessToken)
+  );
   return data;
 };
 
-const fetchUserTwitchSubscribers = async (userId, accessToken) => {
-  const { data } = await axios.get(userTwitchSubscribersURL(userId), {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+const fetchUserTwitchSubscribers = async (accessToken) => {
+  const { data } = await axios.get(
+    userTwitchSubscribersURL(),
+    configWithToken(accessToken)
+  );
   return data;
 };
 
-export const getUserTwitchData = async (userId, accessToken) => {
-  return new Promise(async (resolve, reject) => {
+export const getUserTwitchData = async (accessToken) => {
+  return new Promise((resolve, reject) => {
     try {
-      const twitchData = {
-        ...(await fetchUserTwitchData(userId, accessToken)),
-        subscribers: await fetchUserTwitchSubscribers(userId, accessToken),
+      const getTwitchData = async () => {
+        return {
+          ...(await fetchUserTwitchData(accessToken)),
+          subscribers: await fetchUserTwitchSubscribers(accessToken)
+        };
       };
 
-      resolve(twitchData);
+      resolve(getTwitchData());
     } catch (error) {
       reject(error);
     }
   });
+};
+
+export const unlinkTwitchAccount = async (accessToken) => {
+  await axios.get(unlinkTwitchAccountURL(), configWithToken(accessToken));
 };

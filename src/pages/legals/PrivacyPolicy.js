@@ -1,18 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { Link } from "react-router-dom";
 
-import { PopupMessage } from '../../components';
-import LegalsLayout from '../layout/LegalsLayout';
+import { PopupMessage } from "../../components";
+import LegalsLayout from "../layout/LegalsLayout";
 
-const PrivacyPolicy = () => {
-  document.title = 'Game-Antena | Privacy Policy';
+function PrivacyPolicy() {
+  document.title = "Game-Antena | Privacy Policy";
 
   return (
     <>
       <PopupMessage>
-        By using Game-Antena's service you agree to our{' '}
-        <Link to='/privacy-policy'>Privacy policy</Link> and its{' '}
-        <Link to='/terms-and-conditions'>Terms</Link>. Game-Antena also uses
+        By using Game-Antena&apos;s service you agree to our{" "}
+        <Link to="/privacy-policy">Privacy policy</Link> and its{" "}
+        <Link to="/terms-and-conditions">Terms</Link>. Game-Antena also uses
         YouTube API Services to bring you gaming related experiences from
         YouTube
       </PopupMessage>
@@ -21,8 +21,8 @@ const PrivacyPolicy = () => {
           <h1>Privacy Policy for Game-Antena</h1>
 
           <p>
-            At Game-Antena, accessible from{' '}
-            <Link to='/'>https://game-antena.com</Link>, one of our main
+            At Game-Antena, accessible from{" "}
+            <Link to="/">https://game-antena.com</Link>, one of our main
             priorities is the privacy of our visitors. This Privacy Policy
             document contains types of information that is collected and
             recorded by Game-Antena and how we use it.
@@ -40,8 +40,8 @@ const PrivacyPolicy = () => {
             that they shared and/or collect in Game-Antena. This policy is not
             applicable to any information collected offline or via channels
             other than this website. Our Privacy Policy was created with the
-            help of the{' '}
-            <a href='https://www.privacypolicygenerator.info'>
+            help of the{" "}
+            <a href="https://www.privacypolicygenerator.info">
               Free Privacy Policy Generator
             </a>
             .
@@ -53,12 +53,12 @@ const PrivacyPolicy = () => {
 
           <p>
             By using our website, you hereby consent to our Privacy Policy and
-            agree to its <Link to='/terms-and-conditions'>terms</Link>, you're
-            also trusting Google with your information learn more -{' '}
+            agree to its <Link to="/terms-and-conditions">terms</Link>,
+            you&apos;re also trusting Google with your information learn more -{" "}
             <a
-              target={'_blank'}
-              href='http://www.google.com/policies/privacy'
-              rel='noreferrer'
+              target="_blank"
+              href="http://www.google.com/policies/privacy"
+              rel="noreferrer"
             >
               Google Privacy Policy
             </a>
@@ -111,8 +111,8 @@ const PrivacyPolicy = () => {
 
         <div>
           <h2>
-            Deleting User's Stored Data Revoking Game-Antena's Access to Your
-            Data{' '}
+            Deleting User&apos;s Stored Data Revoking Game-Antena&apos;s Access
+            to Your Data{" "}
           </h2>
 
           <ul>
@@ -120,21 +120,21 @@ const PrivacyPolicy = () => {
               <strong>Account deletion</strong>
               <ol>
                 <li>
-                  Once logged in, go to your{' '}
-                  <Link to='/my-profile'>profile</Link> and click{' '}
+                  Once logged in, go to your{" "}
+                  <Link to="/my-profile">profile</Link> and click{" "}
                   <strong>Delete Account</strong> button
                 </li>
               </ol>
             </li>
 
             <li>
-              <strong>Unlinking 3rd parties' account</strong>
+              <strong>Unlinking 3rd parties&apos; account</strong>
 
               <ol>
                 <li>
-                  Once you link your 3rd parties' account, go to the dedicated
-                  page for that 3rd party platform (ex. YouTube -{' '}
-                  <Link to='/youtube-gaming'>YouTube Gaming Page</Link> )
+                  Once you link your 3rd parties&apos; account, go to the
+                  dedicated page for that 3rd party platform (ex. YouTube -{" "}
+                  <Link to="/youtube-gaming">YouTube Gaming Page</Link> )
                 </li>
                 <li>See the Channel Menu on the top right side of the page</li>
                 <li>
@@ -146,21 +146,21 @@ const PrivacyPolicy = () => {
         </div>
 
         <div>
-          <h2>Revoking Game-Antena's Access to Your Data</h2>
+          <h2>Revoking Game-Antena&apos;s Access to Your Data</h2>
 
           <ol>
             <li>
-              Go to{' '}
+              Go to{" "}
               <a
-                target={'_blank'}
-                href='https://myaccount.google.com/permissions'
-                rel='noreferrer'
+                target="_blank"
+                href="https://myaccount.google.com/permissions"
+                rel="noreferrer"
               >
                 Google Security Settings
               </a>
             </li>
             <li>
-              Select Game-Antena and click the <strong>REMOVE ACCESS</strong>{' '}
+              Select Game-Antena and click the <strong>REMOVE ACCESS</strong>{" "}
               button
             </li>
           </ol>
@@ -172,14 +172,14 @@ const PrivacyPolicy = () => {
           <p>
             Game-Antena follows a standard procedure of using log files. These
             files log visitors when they visit websites. All hosting companies
-            do this and a part of hosting services' analytics. The information
-            collected by log files include internet protocol (IP) addresses,
-            browser type, Internet Service Provider (ISP), date and time stamp,
-            referring/exit pages, and possibly the number of clicks. These are
-            not linked to any information that is personally identifiable. The
-            purpose of the information is for analyzing trends, administering
-            the site, tracking users' movement on the website, and gathering
-            demographic information.
+            do this and a part of hosting services&apos; analytics. The
+            information collected by log files include internet protocol (IP)
+            addresses, browser type, Internet Service Provider (ISP), date and
+            time stamp, referring/exit pages, and possibly the number of clicks.
+            These are not linked to any information that is personally
+            identifiable. The purpose of the information is for analyzing
+            trends, administering the site, tracking users&apos; movement on the
+            website, and gathering demographic information.
           </p>
         </div>
 
@@ -187,17 +187,17 @@ const PrivacyPolicy = () => {
           <h2>Cookies and Web Beacons</h2>
 
           <p>
-            Like any other website, Game-Antena uses 'cookies'. These cookies
-            are used to store information including visitors' preferences, and
-            the pages on the website that the visitor accessed or visited. The
-            information is used to optimize the users' experience by customizing
-            our web page content based on visitors' browser type and/or other
-            information.
+            Like any other website, Game-Antena uses &quot;cookies&quot;. These
+            cookies are used to store information including visitors&apos;
+            preferences, and the pages on the website that the visitor accessed
+            or visited. The information is used to optimize the users&apos;
+            experience by customizing our web page content based on
+            visitors&apos; browser type and/or other information.
           </p>
 
           <p>
-            For more general information on cookies, please read{' '}
-            <a href='https://www.generateprivacypolicy.com/#cookies'>
+            For more general information on cookies, please read{" "}
+            <a href="https://www.generateprivacypolicy.com/#cookies">
               the Cookies article on Generate Privacy Policy website
             </a>
             .
@@ -216,7 +216,7 @@ const PrivacyPolicy = () => {
             Third-party ad servers or ad networks uses technologies like
             cookies, JavaScript, or Web Beacons that are used in their
             respective advertisements and links that appear on Game-Antena,
-            which are sent directly to users' browser. They automatically
+            which are sent directly to users&apos; browser. They automatically
             receive your IP address when this occurs. These technologies are
             used to measure the effectiveness of their advertising campaigns
             and/or to personalize the advertising content that you see on
@@ -233,17 +233,17 @@ const PrivacyPolicy = () => {
           <h2>Third Party Privacy Policies</h2>
 
           <p>
-            Game-Antena's Privacy Policy does not apply to other advertisers or
-            websites. Thus, we are advising you to consult the respective
-            Privacy Policies of these third-party ad servers for more detailed
-            information. It may include their practices and instructions about
-            how to opt-out of certain options.{' '}
+            Game-Antena&apos;s Privacy Policy does not apply to other
+            advertisers or websites. Thus, we are advising you to consult the
+            respective Privacy Policies of these third-party ad servers for more
+            detailed information. It may include their practices and
+            instructions about how to opt-out of certain options.{" "}
           </p>
 
           <p>
             You can choose to disable cookies through your individual browser
             options. To know more detailed information about cookie management
-            with specific web browsers, it can be found at the browsers'
+            with specific web browsers, it can be found at the browsers&apos;
             respective websites.
           </p>
         </div>
@@ -256,17 +256,17 @@ const PrivacyPolicy = () => {
             right to:
           </p>
           <p>
-            Request that a business that collects a consumer's personal data
-            disclose the categories and specific pieces of personal data that a
-            business has collected about consumers.
+            Request that a business that collects a consumer&apos;s personal
+            data disclose the categories and specific pieces of personal data
+            that a business has collected about consumers.
           </p>
           <p>
             Request that a business delete any personal data about the consumer
             that a business has collected.
           </p>
           <p>
-            Request that a business that sells a consumer's personal data, not
-            sell the consumer's personal data.
+            Request that a business that sells a consumer&apos;s personal data,
+            not sell the consumer&apos;s personal data.
           </p>
           <p>
             If you make a request, we have one month to respond to you. If you
@@ -323,7 +323,7 @@ const PrivacyPolicy = () => {
         </div>
 
         <div>
-          <h2>Children's Information</h2>
+          <h2>Children&apos;s Information</h2>
 
           <p>
             Another part of our priority is adding protection for children while
@@ -342,6 +342,6 @@ const PrivacyPolicy = () => {
       </LegalsLayout>
     </>
   );
-};
+}
 
 export default PrivacyPolicy;

@@ -1,11 +1,11 @@
-import React from 'react';
+import * as React from "react";
 
 const useScrollableBody = () => {
   React.useEffect(() => {
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = "auto";
 
     return () => {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
       window.scrollTo({ top: 0 });
     };
   }, []);

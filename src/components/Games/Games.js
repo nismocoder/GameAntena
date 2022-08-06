@@ -1,16 +1,14 @@
-import React from 'react';
+import * as React from "react";
 
-import SingleGame from './SingleGame';
+import styled from "styled-components";
+import SingleGame from "./SingleGame";
 
-import styled from 'styled-components';
-
-const Games = ({ games = [] }) => {
+function Games({ games = [] }) {
   return (
     <StyledGames>
       {games.map((game) => (
         <SingleGame
           name={game.name}
-          released={game.released}
           id={game.id}
           image={game.background_image}
           key={game.id}
@@ -18,7 +16,7 @@ const Games = ({ games = [] }) => {
       ))}
     </StyledGames>
   );
-};
+}
 
 const StyledGames = styled.div`
   display: grid;

@@ -1,9 +1,9 @@
 export const createImage = (url) =>
   new Promise((resolve, reject) => {
     const image = new Image();
-    image.addEventListener('load', () => resolve(image));
-    image.addEventListener('error', (error) => reject(error));
-    image.setAttribute('crossOrigin', 'anonymous'); // needed to avoid cross-origin issues on CodeSandbox
+    image.addEventListener("load", () => resolve(image));
+    image.addEventListener("error", (error) => reject(error));
+    image.setAttribute("crossOrigin", "anonymous"); // needed to avoid cross-origin issues on CodeSandbox
     image.src = url;
   });
 
@@ -21,7 +21,7 @@ export function rotateSize(width, height, rotation) {
     width:
       Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
     height:
-      Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
+      Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height)
   };
 }
 
@@ -32,11 +32,11 @@ export async function getCroppedImg(
   imageSrc,
   pixelCrop,
   rotation = 0,
-  flip = { horizontal: false, vertical: false },
+  flip = { horizontal: false, vertical: false }
 ) {
   const image = await createImage(imageSrc);
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
 
   if (!ctx) {
     return null;
@@ -48,7 +48,7 @@ export async function getCroppedImg(
   const { width: bBoxWidth, height: bBoxHeight } = rotateSize(
     image.width,
     image.height,
-    rotation,
+    rotation
   );
 
   // set canvas size to match the bounding box
@@ -70,7 +70,7 @@ export async function getCroppedImg(
     pixelCrop.x,
     pixelCrop.y,
     pixelCrop.width,
-    pixelCrop.height,
+    pixelCrop.height
   );
 
   // set canvas width to final desired crop size - this will clear existing context
@@ -89,7 +89,7 @@ export async function getCroppedImg(
       canvas.toBlob(async (blob) => {
         const result = await fetch(URL.createObjectURL(blob));
         resolve(result.blob());
-      }, 'image/jpeg');
+      }, "image/jpeg");
     } catch (error) {
       reject(error);
     }
@@ -98,8 +98,8 @@ export async function getCroppedImg(
 
 export async function getRotatedImage(imageSrc, rotation = 0) {
   const image = await createImage(imageSrc);
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
 
   const orientationChanged =
     rotation === 90 ||
@@ -121,6 +121,6 @@ export async function getRotatedImage(imageSrc, rotation = 0) {
   return new Promise((resolve) => {
     canvas.toBlob((file) => {
       resolve(URL.createObjectURL(file));
-    }, 'image/png');
+    }, "image/png");
   });
 }

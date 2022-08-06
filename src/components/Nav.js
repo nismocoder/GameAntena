@@ -1,51 +1,49 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { faBars, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
-import { ProfilePicturePreview } from '.';
-import Logo from './Logo';
-import Search from './Search/Search';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { faBars, faTimes, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { ProfilePicturePreview } from ".";
+import Logo from "./Logo";
+import Search from "./Search/Search";
+import { uiActions } from "../redux/ui";
+import { getAuthInfo } from "../utils/auth";
+import { useGetUserData } from "../hooks/queries/userQueries";
 
-const Nav = ({
+function Nav({
   showBars = true,
   showNavLogoText = true,
   showNavSearch = true,
-  showAuthOnMobile = false,
-}) => {
+  showAuthOnMobile = false
+}) {
   const dispatch = useDispatch();
 
   const location = useLocation();
-  const pathname = location.pathname;
+  const { pathname } = location;
 
   const [showSearch, setShowSearch] = useState(false);
-  const [textInput, setTextInput] = React.useState('');
+  const [textInput, setTextInput] = React.useState("");
 
   const ui = useSelector((state) => state.ui);
-  const { user, isLoggedIn } = useSelector((state) => state.auth);
 
-  const clearSearched = () => {
-    setTextInput('');
-    if (pathname === '/' || pathname === '/my-profile')
-      dispatch({ type: 'REMOVE_SEARCHED_GAMES' });
+  const { isLoggedIn, accessToken } = getAuthInfo();
 
-    if (pathname === '/twitch-gaming')
-      dispatch({ type: 'REMOVE_SEARCHED_TWITCH_STREAMS' });
-
-    if (pathname === '/youtube-gaming')
-      dispatch({ type: 'REMOVE_SEARCHED_YOUTUBE_STREAMS' });
-  };
+  const {
+    userData: user,
+    userDataLoading,
+    userDataError
+  } = useGetUserData(accessToken);
 
   const toggleSideMenu = () => {
-    if (!ui.showSideMenu) return dispatch({ type: 'SHOW_SIDE_MENU' });
-    return dispatch({ type: 'HIDE_SIDE_MENU' });
+    if (ui.showSideMenu) return dispatch(uiActions.HIDE_SIDE_MENU());
+    return dispatch(uiActions.SHOW_SIDE_MENU());
   };
 
   return (
     <StyledNav>
       {showBars && (
-        <div className='mobile bars hoverable'>
+        <div className="mobile bars hoverable">
           <FontAwesomeIcon
             onClick={toggleSideMenu}
             icon={ui.showSideMenu ? faTimes : faBars}
@@ -54,8 +52,8 @@ const Nav = ({
       )}
 
       {!showSearch && (
-        <Link to='/'>
-          <Logo onClick={clearSearched} showText={showNavLogoText} />
+        <Link to="/">
+          <Logo showText={showNavLogoText} />
         </Link>
       )}
 
@@ -69,30 +67,38 @@ const Nav = ({
         />
       )}
 
-      <StyledAuthDesktop className={showAuthOnMobile ? '' : 'desktop'}>
+      <StyledAuthDesktop className={showAuthOnMobile ? "" : "desktop"}>
         {!isLoggedIn ? (
           <>
-            <Link to='/login'>
-              <button className='rounded hoverable'>Login</button>
+            <Link to="/login">
+              <button type="button" className="rounded hoverable">
+                Login
+              </button>
             </Link>
-            <Link to='/register'>
-              <button className='outline-light rounded hoverable'>
+            <Link to="/register">
+              <button type="button" className="outline-light rounded hoverable">
                 Register
               </button>
             </Link>
           </>
         ) : (
-          <Link to='/my-profile' className='hoverable'>
-            <button className='my-profile'>
-              {user.displayName || 'My Profile'}
-              {user.profilePicture ? (
-                <ProfilePicturePreview
-                  image={user.profilePicture}
-                  justPreview={true}
-                  sizeInRem={1.2}
-                />
+          <Link to="/my-profile" className="hoverable">
+            <button type="button" className="my-profile">
+              {userDataLoading || userDataError ? (
+                "..."
               ) : (
-                <FontAwesomeIcon className='icon' icon={faUser} />
+                <>
+                  <p>{user.displayName || "My Profile"}</p>
+                  {user.profilePicture ? (
+                    <ProfilePicturePreview
+                      image={user.profilePicture}
+                      justPreview
+                      sizeInRem={1.2}
+                    />
+                  ) : (
+                    <FontAwesomeIcon className="icon" icon={faUser} />
+                  )}
+                </>
               )}
             </button>
           </Link>
@@ -100,7 +106,7 @@ const Nav = ({
       </StyledAuthDesktop>
     </StyledNav>
   );
-};
+}
 
 const StyledNav = styled.nav`
   position: sticky;
@@ -112,7 +118,7 @@ const StyledNav = styled.nav`
   text-align: center;
   background-color: var(--primary);
   color: var(--light-1);
-  z-index: 4;
+  z-index: 6;
 
   .desktop {
     display: none;
@@ -157,6 +163,14 @@ const StyledAuthDesktop = styled.div`
     gap: 0.5rem;
     background-color: var(--primary);
     border: 2px solid var(--light);
+
+    p {
+      color: var(--light);
+      max-width: 10rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 `;
 

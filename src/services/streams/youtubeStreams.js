@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 import {
   searchYoutubeURL,
-  topYoutubeGamingStreamsURL,
-} from '../../utils/apiUrls';
+  topYoutubeGamingStreamsURL
+} from "../../utils/apiUrls";
 
 export const getYoutubeTopGamingStreams = async () => {
   const { data } = await axios.get(topYoutubeGamingStreamsURL());

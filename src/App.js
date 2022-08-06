@@ -1,5 +1,10 @@
-import React from 'react';
-//Component and pages
+import * as React from "react";
+// styles
+import "./global.css";
+// Router
+import { Routes, Route } from "react-router-dom";
+
+// Component and pages
 import {
   Home,
   EmailConfirm,
@@ -10,43 +15,23 @@ import {
   PrivacyPolicy,
   TermsAndConditions,
   MyProfile,
-  AboutUs,
-} from './pages';
+  AboutUs
+} from "./pages";
 
-//styles
-import './global.css';
-//Router
-import { Routes, Route } from 'react-router-dom';
+import ProtectedRoute from "./ProtectedRoute";
+import { GameDetails } from "./components";
 
-import { useDispatch } from 'react-redux';
-import { getAuthInfo } from './utils';
-import { updateAuthInfo, updateUserInfo } from './actions/authAction';
-
-import ProtectedRoute from './ProtectedRoute';
-import { GameDetails } from './components';
-
-const App = () => {
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const { userId, accessToken, isLoggedIn } = getAuthInfo();
-      dispatch(updateAuthInfo(isLoggedIn, accessToken));
-
-      if (userId && accessToken) dispatch(updateUserInfo(userId, accessToken));
-    }
-  }, [dispatch]);
-
+function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
-        <Route path={'/'} element={<Home />} />
-        <Route path={'/games'} element={<Home />}>
-          <Route path={':id'} element={<GameDetails />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/games" element={<Home />}>
+          <Route path=":id" element={<GameDetails />} />
         </Route>
 
         <Route
-          path='/my-profile'
+          path="/my-profile"
           element={
             <ProtectedRoute>
               <MyProfile />
@@ -54,27 +39,20 @@ const App = () => {
           }
         />
 
-        <Route path={'/twitch-gaming'} element={<TwitchGaming />} />
-        <Route path={'/youtube-gaming'} element={<YoutubeGaming />} />
-        <Route path={'/login'} element={<Login />} />
-        <Route path={'/register'} element={<Register />} />
-        <Route path={'/about-us'} element={<AboutUs />} />
-        <Route path={'/email-confirm'} element={<EmailConfirm />} />
-        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-        <Route path='/terms-and-conditions' element={<TermsAndConditions />} />
+        <Route path="/twitch-gaming" element={<TwitchGaming />} />
+        <Route path="/youtube-gaming" element={<YoutubeGaming />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/email-confirm" element={<EmailConfirm />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
 
         {/* Fallback route */}
-        <Route
-          path='*'
-          element={
-            <>
-              <h2>Page doesn't exist</h2>
-            </>
-          }
-        />
+        <Route path="*" element={<h2>Page doesn&apos;t exist</h2>} />
       </Routes>
     </div>
   );
-};
+}
 
 export default App;
