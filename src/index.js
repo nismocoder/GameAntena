@@ -1,14 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-//Redux setup
-import { Provider } from 'react-redux';
-import store from './store';
-
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import * as React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+// Redux setup
+import store from "./redux/store";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +22,7 @@ ReactDOM.render(
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

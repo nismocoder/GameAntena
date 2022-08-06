@@ -1,33 +1,33 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ScrollUp } from '../../components';
-import { useScrollableBody } from '../../hooks';
+import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ScrollUp } from "../../components";
+import { useScrollableBody } from "../../hooks";
 
-const LegalsLayout = ({ children }) => {
+function LegalsLayout({ children }) {
   const navigate = useNavigate();
 
   useScrollableBody();
 
   return (
     <StyledPage>
-      <div className='back-icon'>
+      <div className="back-icon">
         <FontAwesomeIcon
-          className='hoverable'
+          className="hoverable"
           icon={faChevronCircleLeft}
           onClick={() => navigate(-1)}
         />
       </div>
 
-      <div className='content'>{children}</div>
+      <div className="content">{children}</div>
       <ScrollUp />
     </StyledPage>
   );
-};
+}
 
 const StyledPage = styled.div`
   .back-icon {

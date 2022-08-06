@@ -1,22 +1,14 @@
-import React from 'react';
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { getAuthInfo } from "../utils/auth";
 
-import { useNavigate } from 'react-router-dom';
-
-import { useSelector } from 'react-redux';
-
-const useRedirectLoggedInUser = (to = '/') => {
+const useRedirectLoggedInUser = (to = "/") => {
   const navigate = useNavigate();
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn } = getAuthInfo();
 
   React.useEffect(() => {
-    let isMounted = true;
-
-    if (isLoggedIn && isMounted) navigate(to);
-
-    return () => {
-      isMounted = false;
-    };
+    if (isLoggedIn) navigate(to);
   }, [navigate, isLoggedIn, to]);
 };
 

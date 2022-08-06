@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { searchTwitchURL } from '../../utils/apiUrls';
-
-import { topTwitchGamingStreamsURL } from '../../utils/apiUrls';
+import {
+  searchTwitchURL,
+  topTwitchGamingStreamsURL
+} from "../../utils/apiUrls";
 
 export const getTwitchTopGamingStreams = async () => {
   const { data } = await axios.get(topTwitchGamingStreamsURL());

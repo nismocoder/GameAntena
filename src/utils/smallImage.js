@@ -4,7 +4,7 @@
 //     : imageUrl;
 // };
 
-export const smallImage = (imagePath, size) => {
+const smallImage = (imagePath, size) => {
   if (imagePath) {
     const image = imagePath.match(/media\/screenshots/)
       ? imagePath.replace(
@@ -16,3 +16,5 @@ export const smallImage = (imagePath, size) => {
   }
   return imagePath;
 };
+
+export default smallImage;

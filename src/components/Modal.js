@@ -1,7 +1,7 @@
-import React from 'react';
-import { createPortal } from 'react-dom';
+import * as React from "react";
+import { createPortal } from "react-dom";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Modal = ({
   show = false,
@@ -9,12 +9,12 @@ const Modal = ({
   children,
   clickOutsideCallback = () => {},
   className,
-  alignV = 'flex-start',
+  alignV = "flex-start"
 }) => {
   const handleClick = (e) => {
     const element = e.target;
-    if (element.classList.contains('modal-wrapper')) {
-      if (typeof clickOutsideCallback === 'function') clickOutsideCallback();
+    if (element.classList.contains("modal-wrapper")) {
+      if (typeof clickOutsideCallback === "function") clickOutsideCallback();
     }
   };
 
@@ -47,7 +47,7 @@ const Modal = ({
         </StyledModal>
       )
     ),
-    document.getElementById('modal_root'),
+    document.getElementById("modal_root")
   );
 };
 
@@ -60,7 +60,7 @@ const StyledModal = styled.div`
   display: flex;
   align-items: ${(props) => props.alignV};
   justify-content: center;
-  z-index: 5;
+  z-index: 7;
   top: 0;
   left: 0;
   &::-webkit-scrollbar {

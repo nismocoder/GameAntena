@@ -1,28 +1,32 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { gameDetailsURL, gameScreenshotURL } from '../../utils/apiUrls';
+import { gameDetailsURL, gameScreenshotURL } from "../../utils/apiUrls";
 
-const fetchGameDetails = async (game_id) => {
-  const { data } = await axios.get(gameDetailsURL(game_id));
+const fetchGameDetails = async (gameId) => {
+  const { data } = await axios.get(gameDetailsURL(gameId));
   return data;
 };
 
-const fetchGameScreenshots = async (game_id) => {
-  const { data } = await axios.get(gameScreenshotURL(game_id));
+const fetchGameScreenshots = async (gameId) => {
+  const { data } = await axios.get(gameScreenshotURL(gameId));
   return data.results;
 };
 
-export const getGameDetails = async (game_id) => {
-  return new Promise(async (resolve, reject) => {
+const getGameDetails = async (gameId) => {
+  return new Promise((resolve, reject) => {
     try {
-      const details = {
-        ...(await fetchGameDetails(game_id)),
-        screens: await fetchGameScreenshots(game_id),
+      const getDetails = async () => {
+        return {
+          ...(await fetchGameDetails(gameId)),
+          screens: await fetchGameScreenshots(gameId)
+        };
       };
 
-      resolve(details);
+      resolve(getDetails());
     } catch (error) {
       reject(error);
     }
   });
 };
+
+export default getGameDetails;

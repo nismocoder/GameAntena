@@ -1,28 +1,35 @@
-import { getOrientation } from 'get-orientation';
-import React from 'react';
+import { getOrientation } from "get-orientation";
+import * as React from "react";
 
-import { ImageCropper } from '.';
+import { ImageCropper } from ".";
 
-import { getRotatedImage } from '../utils/canvasUtils';
-import { readFile } from '../utils/file';
+import { getRotatedImage } from "../utils/canvasUtils";
+import { readFile } from "../utils/file";
 
 const ORIENTATION_TO_ANGLE = {
   3: 180,
   6: 90,
-  8: -90,
+  8: -90
 };
 
-const FileUploader = ({ children, handleUploadedFile = () => {} }) => {
+function FileUploader({
+  children,
+  isUploading = false,
+  showImageCropper = () => {},
+  hideImageCropper = () => {},
+  handleUploadedFile = () => {}
+}) {
   const [uploadedImage, setUploadedImage] = React.useState({
-    source: '',
-    name: '',
-    type: '',
+    source: "",
+    name: "",
+    type: ""
   });
 
   const hiddenFileInput = React.useRef(null);
 
   const handleClick = (element) => {
     element.current.click();
+    showImageCropper();
   };
 
   const handleChange = async (event) => {
@@ -43,7 +50,7 @@ const FileUploader = ({ children, handleUploadedFile = () => {} }) => {
       setUploadedImage({
         source: imageDataUrl,
         name: file.name,
-        type: file.type,
+        type: file.type
       });
     }
   };
@@ -52,29 +59,36 @@ const FileUploader = ({ children, handleUploadedFile = () => {} }) => {
     (croppedImage) => {
       handleUploadedFile(croppedImage);
     },
-    [handleUploadedFile],
+    [handleUploadedFile]
   );
 
   return (
     <>
       <div
+        role="button"
+        tabIndex={0}
+        aria-hidden="true"
         onClick={() => handleClick(hiddenFileInput)}
-        className='upload-button'
+        className="upload-button"
       >
         {children}
       </div>
-      {uploadedImage.source && (
-        <ImageCropper image={uploadedImage} result={handleCroppedImage} />
+      {uploadedImage.source && isUploading && (
+        <ImageCropper
+          image={uploadedImage}
+          hideImageCropper={hideImageCropper}
+          result={handleCroppedImage}
+        />
       )}
       <input
         onChange={handleChange}
         ref={hiddenFileInput}
-        type='file'
-        style={{ display: 'none' }}
-        accept='image/png, image/gif, image/jpeg'
+        type="file"
+        style={{ display: "none" }}
+        accept="image/png, image/gif, image/jpeg"
       />
     </>
   );
-};
+}
 
 export default FileUploader;

@@ -1,21 +1,23 @@
-import React from 'react';
+import * as React from "react";
 // styling and animation
-import styled from 'styled-components';
+import styled from "styled-components";
 // REDUX
-import { Link } from 'react-router-dom';
-import { smallImage } from '../../utils';
+import { Link } from "react-router-dom";
+import { smallImage } from "../../utils";
 
-const Game = ({ name, released, image, id }) => {
+function SingleGame({ name, image, id }) {
   return (
-    <StyledGame className='hoverable'>
+    <StyledGame className="hoverable">
       <Link to={`/games/${id}`}>
-        <p className='title'>{name}</p>
+        <p className="title">{name}</p>
         {/* <p>{released}</p> */}
         <img src={smallImage(image, 640)} alt={name} />
       </Link>
     </StyledGame>
   );
-};
+}
+
+export default SingleGame;
 
 const StyledGame = styled.div`
   position: relative;
@@ -44,5 +46,3 @@ const StyledGame = styled.div`
     object-fit: cover;
   }
 `;
-
-export default Game;

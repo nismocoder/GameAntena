@@ -1,26 +1,26 @@
-import React from 'react';
+import * as React from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
-import logo from '../img/logo/ga-logo.svg';
+import logo from "../img/logo/ga-logo.svg";
 
-const Logo = ({ onClick = () => {}, showText = true }) => {
+function Logo({ onClick = () => {}, showText = true }) {
   return (
     <StyledLogo
-      className='hoverable'
+      className="hoverable"
       onClick={onClick}
       // initial={{ scale: 0.2, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.2, opacity: 0.5 }}
       transition={{ duration: 1 }}
     >
-      <img src={logo} alt='logo' />
-      {showText && <h1 className='logo-text'>Game-Antena</h1>}
+      <img src={logo} alt="logo" />
+      {showText && <h1 className="logo-text">Game-Antena</h1>}
     </StyledLogo>
   );
-};
+}
 
 const StyledLogo = styled(motion.div)`
   display: flex;

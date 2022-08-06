@@ -1,72 +1,71 @@
-import { lastYear, currentDate, nextYear } from './dates';
+import { lastYear, currentDate, nextYear } from "./dates";
 
-// URLS
-const base_url = 'https://api.rawg.io/api';
-const backend_url = process.env.REACT_APP_BACKEND_URL;
+// CONSTANTS
+const RAWG_API_URL = "https://api.rawg.io/api";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-// API KEY
-const key = `${process.env.REACT_APP_GAME_API}`; // YOUR KEY GOES HERE
+// API KEYS
+const rawgAPIKey = process.env.REACT_APP_GAME_API; // YOUR KEY GOES HERE
 
-const popular_games = `games?key=${key}&dates${lastYear},${currentDate}&ordering=-rating&page_size=10`;
-const upcoming_games = `games?key=${key}&dates=${currentDate},${nextYear}&ordering=-added&page_size=10`;
-const new_games = `games?key=${key}&dates=${lastYear},${currentDate}&ordering=-released&page_size=10`;
+// Filters
+const popularGames = `games?key=${rawgAPIKey}&dates${lastYear},${currentDate}&ordering=-rating&page_size=10`;
+const upcomingGames = `games?key=${rawgAPIKey}&dates=${currentDate},${nextYear}&ordering=-added&page_size=10`;
+const newGames = `games?key=${rawgAPIKey}&dates=${lastYear},${currentDate}&ordering=-released&page_size=10`;
 
 // GAME CATEGORIES
-export const popularGamesURL = () => `${base_url}/${popular_games}`;
-export const upcomingGamesURL = () => `${base_url}/${upcoming_games}`;
-export const newGamesURL = () => `${base_url}/${new_games}`;
+export const popularGamesURL = () => `${RAWG_API_URL}/${popularGames}`;
+export const upcomingGamesURL = () => `${RAWG_API_URL}/${upcomingGames}`;
+export const newGamesURL = () => `${RAWG_API_URL}/${newGames}`;
 
 // GAME DETAILS
-export const gameDetailsURL = (game_id) =>
-  `${base_url}/games/${game_id}.json?&key=${key}`;
+export const gameDetailsURL = (gameId) =>
+  `${RAWG_API_URL}/games/${gameId}.json?&key=${rawgAPIKey}`;
+export const gameScreenshotURL = (gameId) =>
+  `${RAWG_API_URL}/games/${gameId}/screenshots?&.json?&key=${rawgAPIKey}`;
 
-export const gameScreenshotURL = (game_id) =>
-  `${base_url}/games/${game_id}/screenshots?&.json?&key=${key}`;
+// SEARCH GAMES
+export const searchGamesURL = (gameName) =>
+  `${RAWG_API_URL}/games?search=${gameName}&page_size=12&key=${rawgAPIKey}`;
 
-// SEARCHED GAMES
-export const searchGameURL = (game_name) =>
-  `${base_url}/games?search=${game_name}&page_size=12&key=${key}`;
+// BACKEND - Auth
+export const loginUserURL = () => `${BACKEND_URL}/login`;
+export const registerUserURL = () => `${BACKEND_URL}/register`;
+export const emailConfirmURL = () => `${BACKEND_URL}/email/confirm`;
 
 // BACKEND - Users
-export const userDataURL = (userId) => `${backend_url}/users/${userId}`;
+export const userDataURL = () => `${BACKEND_URL}/users/me`;
+export const userUpdateInfoURL = () => `${BACKEND_URL}/users/me/update-info`;
+export const uploadProfilePictureURL = () =>
+  `${BACKEND_URL}/users/me/upload-profile-picture`;
+export const deleteProfilePictureURL = () =>
+  `${BACKEND_URL}/users/me/delete-profile-picture`;
 
-export const deleteUserAccountURL = (userId) =>
-  `${backend_url}/users/delete/${userId}`;
+export const deleteUserAccountURL = () =>
+  `${BACKEND_URL}/users/me/delete-account`;
 
-export const userTwitchDataURL = (userId) =>
-  `${backend_url}/users/twitch-data/${userId}`;
+// BACKEND - User's  Twitch
+export const userTwitchDataURL = () => `${BACKEND_URL}/users/me/twitch-data`;
+export const userTwitchSubscribersURL = () =>
+  `${BACKEND_URL}/users/me/twitch-subscribers`;
+export const unlinkTwitchAccountURL = () =>
+  `${BACKEND_URL}/users/me/unlink-twitch/`;
 
-export const userTwitchVideosURL = (userId) =>
-  `${backend_url}/users/twitch-videos/${userId}`;
-
-export const userTwitchSubscribersURL = (userId) =>
-  `${backend_url}/users/twitch-subscribers/${userId}`;
-
-export const unlinkTwitchAccountURL = (userId) =>
-  `${backend_url}/users/unlink-twitch/${userId}`;
-
-export const userYoutubeDataURL = (userId) =>
-  `${backend_url}/users/youtube-data/${userId}`;
-
-export const userYoutubeVideosURL = (userId) =>
-  `${backend_url}/users/youtube-videos/${userId}`;
-
-export const userYoutubeSubscribersURL = (userId) =>
-  `${backend_url}/users/youtube-subscribers/${userId}`;
-
-export const unlinkYoutubeAccountURL = (userId) =>
-  `${backend_url}/users/unlink-youtube/${userId}`;
+// BACKEND - Users's YouTube
+export const userYoutubeDataURL = () => `${BACKEND_URL}/users/me/youtube-data`;
+export const userYoutubeSubscribersURL = () =>
+  `${BACKEND_URL}/users/me/youtube-subscribers`;
+export const unlinkYoutubeAccountURL = () =>
+  `${BACKEND_URL}/users/me/unlink-youtube`;
 
 // BACKEND - Streams
 export const topTwitchGamingStreamsURL = () =>
-  `${backend_url}/twitch/gaming-streams`;
-
+  `${BACKEND_URL}/twitch/gaming-streams`;
 export const topYoutubeGamingStreamsURL = () =>
-  `${backend_url}/youtube/gaming-streams`;
+  `${BACKEND_URL}/youtube/gaming-streams`;
 
 // BACKEND - Search streams
 export const searchTwitchURL = (query) =>
-  `${backend_url}/twitch/search?query=${query}`;
+  `${BACKEND_URL}/twitch/search?query=${query}`;
 
 export const searchYoutubeURL = (query) =>
-  `${backend_url}/youtube/search?query=${query}`;
+  `${BACKEND_URL}/youtube/search?query=${query}`;

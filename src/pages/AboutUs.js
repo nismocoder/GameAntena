@@ -1,35 +1,35 @@
-import React from 'react';
+import * as React from "react";
 
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
+import { faTwitch, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import {
   Nav,
   Card,
   TextSection,
   Footer,
   ScrollUp,
-  PopupMessage,
-} from '../components';
+  PopupMessage
+} from "../components";
 
-import headerBG from '../img/header-bg.webp';
-import antenaIcon from '../img/logo/antena-icon.webp';
+import headerBG from "../img/header-bg.webp";
+import antenaIcon from "../img/logo/antena-icon.webp";
 
-import { faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { useScrollableBody } from '../hooks';
+import { useScrollableBody } from "../hooks";
 
-const AboutUs = () => {
-  document.title = 'Game-Antena | About Us';
+function AboutUs() {
+  document.title = "Game-Antena | About Us";
 
   useScrollableBody();
 
   return (
     <>
       <PopupMessage>
-        By using Game-Antena's service you agree to our{' '}
-        <Link to='/privacy-policy'>Privacy policy</Link> and its{' '}
-        <Link to='/terms-and-conditions'>Terms</Link>. Game-Antena also uses
+        By using Game-Antena&apos;s service you agree to our{" "}
+        <Link to="/privacy-policy">Privacy policy</Link> and its{" "}
+        <Link to="/terms-and-conditions">Terms</Link>. Game-Antena also uses
         YouTube API Services to bring you gaming related experiences from
         YouTube
       </PopupMessage>
@@ -37,53 +37,53 @@ const AboutUs = () => {
         showBars={false}
         showNavLogoText={false}
         showNavSearch={false}
-        showAuthOnMobile={true}
+        showAuthOnMobile
       />
       <AboutUsContent>
         <Header>
-          <div style={{ backgroundImage: `url(${headerBG})` }} className='text'>
+          <div style={{ backgroundImage: `url(${headerBG})` }} className="text">
             GAME ANTENA
-            <img className='antena' src={antenaIcon} alt='antena-icon' />
+            <img className="antena" src={antenaIcon} alt="antena-icon" />
           </div>
         </Header>
         <Cards>
           <Card
             icons={[faSearch]}
-            description={
-              'Browse Top Games & Gaming Streams or search your favorite ones!'
-            }
-            buttonText={'Show me!'}
-            redirectTo='/'
+            description="Browse Top Games & Gaming Streams or search your favorite ones!"
+            buttonText="Show me!"
+            redirectTo="/"
           />
           <Card
             icons={[faYoutube, faTwitch]}
-            description={`Easily view your YouTube/Twitch channel's subscribers`}
-            buttonText={'View mine!'}
-            redirectTo='/twitch-gaming'
+            description={
+              "Easily view your YouTube/Twitch channel's subscribers"
+            }
+            buttonText="View mine!"
+            redirectTo="/twitch-gaming"
           />
         </Cards>
         <AboutText>
-          <TextSection heading='Our Purpose'>
-            At Game-Antena, we want to provide an{' '}
+          <TextSection heading="Our Purpose">
+            At Game-Antena, we want to provide an{" "}
             <strong>all inclusive environment to gaming.</strong> We want our
             users to consider the application as a part of their gaming space.
             Here at Game-Antena, we realize how important gaming culture is, and
-            we want to keep you connected with everything in gaming, from{' '}
-            <strong>following your favorite streamers</strong> to{' '}
+            we want to keep you connected with everything in gaming, from{" "}
+            <strong>following your favorite streamers</strong> to{" "}
             <strong>checking your stats</strong>. Game-Antena is right there
             with you along every step, providing the signal.
           </TextSection>
-          <TextSection heading='Contact Information'>
+          <TextSection heading="Contact Information">
             Any questions or complaints can be directly sent to our support
             email - <strong>gameantenallc@gmail.com</strong>
           </TextSection>
         </AboutText>
       </AboutUsContent>
-      <Footer background={'var(--primary)'} textAlign='center' />
+      <Footer background="var(--primary)" textAlign="center" />
       <ScrollUp />
     </>
   );
-};
+}
 
 const AboutUsContent = styled.div`
   display: flex;

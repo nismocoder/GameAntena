@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import * as React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import styled from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
 
-import { faTwitch, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faTwitch, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import {
   faChevronLeft,
   faHome,
@@ -13,39 +13,40 @@ import {
   faGamepad,
   faAngleDown,
   faAngleRight,
-  faUser,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  faUser
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { logoutUser } from '../actions/authAction';
+import { Collapsible, ToolTip } from "./Radix";
 
-import { Collapsible, ToolTip } from './Radix';
+import Footer from "./Footer";
+import { uiActions } from "../redux/ui";
+import { getAuthInfo, removeAccessToken } from "../utils/auth";
 
-import Footer from './Footer';
-
-const SideMenu = () => {
-  const navigate = useNavigate();
-
-  const location = useLocation();
-  const pathname = location.pathname;
+function SideMenu() {
+  const [showSubLinks, setShowSubLinks] = React.useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { pathname } = location;
 
   const ui = useSelector((state) => state.ui);
-  const { isLoggedIn } = useSelector((state) => state.auth);
 
-  const [showSubLinks, setShowSubLinks] = React.useState(true);
+  const { isLoggedIn } = getAuthInfo();
 
   const hideSideMenu = () => {
-    dispatch({ type: 'HIDE_SIDE_MENU' });
+    dispatch(uiActions.HIDE_SIDE_MENU());
   };
 
   const showSideMenu = () => {
-    dispatch({ type: 'SHOW_SIDE_MENU' });
+    dispatch(uiActions.SHOW_SIDE_MENU());
   };
 
-  const handleLogout = () => {
-    dispatch(logoutUser(navigate));
+  const logoutUser = () => {
+    removeAccessToken();
+    navigate("/");
   };
 
   return (
@@ -54,30 +55,36 @@ const SideMenu = () => {
         {!ui.showSideMenu && (
           <StyledMenuDrawer
             onMouseEnter={showSideMenu}
-            initial={{ translateX: '-55px' }}
-            animate={{ translateX: '0px' }}
-            exit={{ translateX: '-55px' }}
+            initial={{ translateX: "-55px" }}
+            animate={{ translateX: "0px" }}
+            exit={{ translateX: "-55px" }}
             transition={{ duration: 0.3 }}
           >
-            <div className='icons'>
+            <div className="icons">
               <FontAwesomeIcon
                 className={`${
-                  pathname === '/' || pathname.includes('/games')
-                    ? 'active'
-                    : ''
+                  pathname === "/" || pathname.includes("/games")
+                    ? "active"
+                    : ""
                 }`}
                 icon={faHome}
               />
               <FontAwesomeIcon
-                className={`${pathname === '/twitch-gaming' ? 'active' : ''}`}
+                className={`${pathname === "/twitch-gaming" ? "active" : ""}`}
                 icon={faTwitch}
               />
               <FontAwesomeIcon
-                className={`${pathname === '/youtube-gaming' ? 'active' : ''}`}
+                className={`${pathname === "/youtube-gaming" ? "active" : ""}`}
                 icon={faYoutube}
               />
+              {isLoggedIn && (
+                <FontAwesomeIcon
+                  className={`${pathname === "/my-profile" ? "active" : ""}`}
+                  icon={faUser}
+                />
+              )}
             </div>
-            <div className='logout-icon'>
+            <div className="logout-icon">
               <FontAwesomeIcon icon={faSignOutAlt} />
             </div>
           </StyledMenuDrawer>
@@ -87,12 +94,18 @@ const SideMenu = () => {
       <AnimatePresence>
         {ui.showSideMenu && (
           <StyledSideMenu
-            initial={{ translateX: '-288px' }}
-            animate={{ translateX: '0px' }}
-            exit={{ translateX: '-288px' }}
+            initial={{ translateX: "-288px" }}
+            animate={{ translateX: "0px" }}
+            exit={{ translateX: "-288px" }}
             transition={{ duration: 0.4 }}
           >
-            <div onClick={hideSideMenu} className='hide-icon hoverable'>
+            <div
+              role="button"
+              tabIndex={0}
+              aria-hidden="true"
+              onClick={hideSideMenu}
+              className="hide-icon hoverable"
+            >
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <MenuLinks
@@ -101,94 +114,99 @@ const SideMenu = () => {
               exit={{ opacity: 0.0 }}
               transition={{ duration: 0.4 }}
             >
-              <div className='main-links'>
-                <Link to='/'>
+              <div className="main-links">
+                <Link to="/">
                   <ToolTip
                     trigger={
-                      <li className={`${pathname === '/' ? 'active' : ''}`}>
+                      <li className={`${pathname === "/" ? "active" : ""}`}>
                         Browse games
-                        <FontAwesomeIcon className='icon' icon={faGamepad} />
+                        <FontAwesomeIcon className="icon" icon={faGamepad} />
                       </li>
                     }
                     content={<p>Games from RAWG.IO</p>}
                   />
                 </Link>
-                <Link to='/twitch-gaming'>
+                <Link to="/twitch-gaming">
                   <ToolTip
                     trigger={
                       <li
                         className={`${
-                          pathname === '/twitch-gaming' ? 'active' : ''
+                          pathname === "/twitch-gaming" ? "active" : ""
                         }`}
                       >
                         Twitch Gaming
-                        <FontAwesomeIcon className='icon' icon={faTwitch} />
+                        <FontAwesomeIcon className="icon" icon={faTwitch} />
                       </li>
                     }
                     content={<p>Twitch Gaming Streams</p>}
                   />
                 </Link>
-                <Link to='/youtube-gaming'>
+                <Link to="/youtube-gaming">
                   <ToolTip
                     trigger={
                       <li
                         className={`${
-                          pathname === '/youtube-gaming' ? 'active' : ''
+                          pathname === "/youtube-gaming" ? "active" : ""
                         }`}
                       >
                         YouTube Gaming
-                        <FontAwesomeIcon className='icon' icon={faYoutube} />
+                        <FontAwesomeIcon className="icon" icon={faYoutube} />
                       </li>
                     }
                     content={<p>YouTube Gaming Streams</p>}
                   />
                 </Link>
                 {isLoggedIn && (
-                  <Link to='/my-profile'>
+                  <Link to="/my-profile">
                     <li
                       className={`${
-                        pathname === '/my-profile' ? 'active' : ''
+                        pathname === "/my-profile" ? "active" : ""
                       }`}
                     >
                       My Profile
-                      <FontAwesomeIcon className='icon' icon={faUser} />
+                      <FontAwesomeIcon className="icon" icon={faUser} />
                     </li>
                   </Link>
                 )}
               </div>
 
-              <SubLinks className='sub-links'>
+              <SubLinks className="sub-links">
                 <Collapsible
                   open={showSubLinks}
                   trigger={
-                    <li
-                      className='collapsible-trigger'
-                      onClick={() => setShowSubLinks((state) => !state)}
-                    >
-                      More{' '}
-                      <FontAwesomeIcon
-                        className='icon'
-                        icon={showSubLinks ? faAngleDown : faAngleRight}
-                      />
+                    <li>
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        aria-hidden="true"
+                        className="collapsible-trigger"
+                        onClick={() => setShowSubLinks((state) => !state)}
+                      >
+                        More{" "}
+                        <FontAwesomeIcon
+                          className="icon"
+                          icon={showSubLinks ? faAngleDown : faAngleRight}
+                        />
+                      </div>
                     </li>
                   }
                   content={
-                    <div className='collapsible-content'>
-                      <Link to='/about-us'>
+                    <div className="collapsible-content">
+                      <Link to="/about-us">
                         <li
                           className={`${
-                            pathname === '/about-us' ? 'active' : ''
+                            pathname === "/about-us" ? "active" : ""
                           }`}
                         >
                           About Us
                         </li>
                       </Link>
 
-                      <Link to='/privacy-policy'>
+                      <Link to="/privacy-policy">
                         <li>Privacy Policy</li>
                       </Link>
 
-                      <Link to='/terms-and-conditions'>
+                      <Link to="/terms-and-conditions">
                         <li>Terms and Conditions</li>
                       </Link>
                     </div>
@@ -197,17 +215,30 @@ const SideMenu = () => {
               </SubLinks>
 
               {isLoggedIn ? (
-                <li className='logout' onClick={handleLogout}>
-                  Logout
-                  <FontAwesomeIcon className='icon' icon={faSignOutAlt} />
+                <li>
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    aria-hidden="true"
+                    className="logout"
+                    onClick={logoutUser}
+                  >
+                    Logout
+                    <FontAwesomeIcon className="icon" icon={faSignOutAlt} />
+                  </div>
                 </li>
               ) : (
-                <div className='auth'>
-                  <Link to='/login'>
-                    <button className='login rounded'>Login</button>
+                <div className="auth">
+                  <Link to="/login">
+                    <button type="button" className="login rounded">
+                      Login
+                    </button>
                   </Link>
-                  <Link to='/register'>
-                    <button className='register rounded outline-light'>
+                  <Link to="/register">
+                    <button
+                      type="button"
+                      className="register rounded outline-light"
+                    >
                       Register
                     </button>
                   </Link>
@@ -220,7 +251,7 @@ const SideMenu = () => {
       </AnimatePresence>
     </>
   );
-};
+}
 
 const SideMenuElement = styled(motion.div)`
   position: absolute;
@@ -357,9 +388,6 @@ const StyledMenuDrawer = styled(SideMenuElement)`
 
   .icons > *.active {
     color: var(--shade-4);
-  }
-
-  .logout-icon {
   }
 
   @media (min-width: 768px) {

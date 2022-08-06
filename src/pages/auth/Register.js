@@ -1,84 +1,71 @@
-import React from 'react';
+import * as React from "react";
 
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import styled from 'styled-components';
-import axios from 'axios';
+import styled from "styled-components";
 
 import {
   useHandleCredentialsInput,
-  useRedirectLoggedInUser,
-} from '../../hooks';
+  useRedirectLoggedInUser
+} from "../../hooks";
 
-import { Modal } from '../../components';
-import { AuthLayout } from '../layout';
+import { Modal, ModalLoader } from "../../components";
+import { AuthLayout } from "../layout";
+import { registerUser } from "../../services/auth";
 
-const Register = () => {
-  document.title = 'Game-Antena | Register';
+function Register() {
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const dispatch = useDispatch();
+  document.title = "Game-Antena | Register";
 
   const [showModal, setShowModal] = React.useState(false);
   const { credentials, handleOnChange, setCredentials } =
     useHandleCredentialsInput();
 
   // redirect to '/' - homepage if logged in
-  useRedirectLoggedInUser('/');
+  useRedirectLoggedInUser("/");
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
-    dispatch({ type: 'LOADING_AUTH' });
-
-    const baseUrl = process.env.REACT_APP_BACKEND_URL;
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+    setIsLoading(true);
 
     try {
-      await axios.post(`${baseUrl}/register`, credentials, config);
+      await registerUser(credentials);
 
       // show modal pointing to email confirmaton link
-      setShowModal(true);
+      return setShowModal(true);
     } catch (error) {
-      if (error.response) {
-        alert(error.response.data.message);
-        return;
-      }
-      alert(error);
-    } finally {
-      dispatch({ type: 'LOADING_AUTH_FINISHED' });
+      if (error.response) return alert(error.response.data.message);
 
+      return alert(error.message);
+    } finally {
       setCredentials((state) => {
         return {
           ...state,
-          password: '',
+          password: ""
         };
       });
+      setIsLoading(false);
     }
   };
 
   return (
     <AuthLayout
       linkToElement={
-        <Link to='/login' className='hoverable'>
+        <Link to="/login" className="hoverable">
           Go back to Login Page
         </Link>
       }
     >
+      {isLoading && <ModalLoader />}
+
       {showModal && (
-        <Modal show={true} alignV={'center'}>
+        <Modal show alignV="center">
           <StyledModalContent>
-            <div>
-              Check your email, and{' '}
-              <strong>click the confirmation link to login</strong>
-            </div>
-            <div className='spam'>
-              Don't see any email? <strong>Please check your spam</strong>
+            <p>Click the confirmation link we sent to your email to login</p>
+            <div className="spam">
+              Can&apos;t found the email?{" "}
+              <strong>Please check your spam</strong>
             </div>
           </StyledModalContent>
         </Modal>
@@ -86,33 +73,35 @@ const Register = () => {
 
       <h2>Register</h2>
       <StyledForm onSubmit={handleRegister}>
-        <div className='form-group'>
+        <div className="form-group">
           <label>Email: </label>
           <input
-            name='email'
+            name="email"
             value={credentials.email}
-            type='email'
-            placeholder='my@email.com'
+            type="email"
+            placeholder="my@email.com"
             onChange={handleOnChange}
             required
           />
         </div>
-        <div className='form-group'>
+        <div className="form-group">
           <label>Password: </label>
           <input
-            name='password'
+            name="password"
             value={credentials.password}
-            type='password'
-            placeholder='MyStrongPassword123'
+            type="password"
+            placeholder="MyStrongPassword123"
             onChange={handleOnChange}
             required
           />
         </div>
-        <button className='submit-btn hoverable'>Register</button>
+        <button type="submit" className="submit-btn hoverable">
+          Register
+        </button>
       </StyledForm>
     </AuthLayout>
   );
-};
+}
 
 const StyledForm = styled.form`
   display: flex;
@@ -158,6 +147,10 @@ const StyledModalContent = styled.div`
   display: flex;
   flex-flow: column;
   gap: 2rem;
+
+  p {
+    color: var(--primary);
+  }
 
   .spam {
     color: var(--shade-2);

@@ -1,25 +1,25 @@
-import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
 
 // components
-import { Modal, Loader } from '.';
 
-//styling and animation
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+// styling and animation
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import { Modal, Loader } from ".";
 
-import { getPlatformImages } from '../utils';
+import { getPlatformImages } from "../utils";
 
-import { getGameDetails } from '../services/games/gameDetailsAPI';
+import getGameDetails from "../services/games/gameDetailsAPI";
 
-const Gamedetails = () => {
+function Gamedetails() {
   const navigate = useNavigate();
 
   const { id: gameId } = useParams();
 
   const exitModal = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const { data: details, isLoading } = useQuery(
@@ -27,8 +27,8 @@ const Gamedetails = () => {
     () => getGameDetails(gameId),
     {
       enabled: !!gameId,
-      refetchOnWindowFocus: false,
-    },
+      refetchOnWindowFocus: false
+    }
   );
 
   return (
@@ -37,26 +37,26 @@ const Gamedetails = () => {
         initial={{ scale: 0.2, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.2, opacity: 0.5 }}
-        transition={{ duration: 0.7, type: 'spring' }}
+        transition={{ duration: 0.7, type: "spring" }}
       >
         {isLoading ? (
-          <Loader style={{ transform: 'scale(1.5)' }} />
+          <Loader style={{ transform: "scale(1.5)" }} />
         ) : (
           <>
             <Stats>
               <div>
-                <motion.h3 className='title'>{details.name}</motion.h3>
-                <p className='rating'>Rating: {details.rating}</p>
+                <motion.h3 className="title">{details.name}</motion.h3>
+                <p className="rating">Rating: {details.rating}</p>
               </div>
               <div>
                 <h3>Platforms</h3>
                 <Platforms>
                   {details.platforms.map((data) => (
                     <img
-                      alt='platform-icon'
+                      alt="platform-icon"
                       key={data.platform.id}
                       src={getPlatformImages(data.platform.name)}
-                    ></img>
+                    />
                   ))}
                 </Platforms>
               </div>
@@ -71,7 +71,7 @@ const Gamedetails = () => {
             <Description>
               <p>{details.description_raw}</p>
             </Description>
-            <div className='gallery'>
+            <div className="gallery">
               {details.screens.map((screen) => (
                 <img src={screen.image} key={screen.id} alt={screen.image} />
               ))}
@@ -81,7 +81,7 @@ const Gamedetails = () => {
       </Detail>
     </Modal>
   );
-};
+}
 
 const Detail = styled(motion.div)`
   width: 85%;

@@ -1,33 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { Link } from "react-router-dom";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Card = ({ icons = [], description, buttonText, redirectTo = '/' }) => {
+function Card({ icons = [], description, buttonText, redirectTo = "/" }) {
   return (
-    <StyledCard className='card'>
+    <StyledCard className="card">
       {icons.length > 1 ? (
-        <div className='icons'>
+        <div className="icons">
           {icons.map((icon, index) => (
-            <React.Fragment key={index}>
+            <React.Fragment key={icon}>
               <FontAwesomeIcon icon={icon} />
-              {index !== icons.length - 1 && '|'}
+              {index !== icons.length - 1 && "|"}
             </React.Fragment>
           ))}
         </div>
       ) : (
-        <FontAwesomeIcon className='icon' icon={icons[0]} />
+        <FontAwesomeIcon className="icon" icon={icons[0]} />
       )}
 
-      <div className='description'>{description}</div>
+      <div className="description">{description}</div>
       <Link to={redirectTo}>
-        <button className='light'>{buttonText}</button>
+        <button type="button" className="light">
+          {buttonText}
+        </button>
       </Link>
     </StyledCard>
   );
-};
+}
 
 const StyledCard = styled.div`
   display: flex;

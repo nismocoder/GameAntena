@@ -1,149 +1,109 @@
-import React from 'react';
+import * as React from "react";
 
-import styled from 'styled-components';
+import styled from "styled-components";
 
 import {
   faTimes,
   faTrashAlt,
-  faUpload,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  faUpload
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { useSelector } from "react-redux";
 
 import {
   AlertMessage,
   FileUploader,
   Modal,
   ModalLoader,
-  ProfilePicturePreview,
-} from '.';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import { updateUserInfo } from '../actions/authAction';
-import { setAlertMessage } from '../actions/uiAction';
+  ProfilePicturePreview
+} from ".";
+import { getAuthInfo } from "../utils/auth";
+import { useGetUserData } from "../hooks/queries/userQueries";
+import {
+  useDeleteProfilePicture,
+  useUploadProfilePicture
+} from "../hooks/mutations/userMutations";
 
-const UploadPictureModal = ({ show = false, exitModal = () => {} }) => {
-  const dispatch = useDispatch();
+function UploadPictureModal({ show = false, exitModal = () => {} }) {
+  const [isUploading, setIsUploading] = React.useState();
 
   const { alertMessage } = useSelector((state) => state.ui);
-  const { user, accessToken, isLoading } = useSelector((state) => state.auth);
+
+  const { accessToken } = getAuthInfo();
+
+  const {
+    userData: user,
+    userDataLoading,
+    userDataError
+  } = useGetUserData(accessToken);
+
+  const { mutateUploadProfilePicture, mutateUploadProfilePictureLoading } =
+    useUploadProfilePicture(accessToken);
+
+  const { mutateDeleteProfilePicture } = useDeleteProfilePicture(accessToken);
 
   const uploadProfilePicture = React.useCallback(
     async (image) => {
-      try {
-        const formData = new FormData();
-        formData.append('file', image);
+      const formData = new FormData();
+      formData.append("file", image);
 
-        dispatch({ type: 'LOADING_AUTH' });
-
-        const uploadedImage = await axios.post(
-          `${process.env.REACT_APP_BACKEND_URL}/users/upload-profile-picture/${user.id}`,
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        );
-
-        if (uploadedImage.status === 201) {
-          dispatch(
-            setAlertMessage({
-              status: 'success',
-              message: 'Profile picture updated!',
-            }),
-          );
-        }
-
-        dispatch(updateUserInfo(user.id, accessToken));
-      } catch (error) {
-        console.log(error.response);
-        if (error.response.status === 422)
-          dispatch(
-            setAlertMessage({
-              status: 'danger',
-              message: `Please upload a valid image`,
-            }),
-          );
-
-        dispatch(
-          setAlertMessage({
-            status: 'danger',
-            message: `Can't update profile picture right now`,
-          }),
-        );
-      } finally {
-        dispatch({ type: 'LOADING_AUTH_FINISHED' });
-      }
+      mutateUploadProfilePicture(formData);
     },
-    [accessToken, dispatch, user.id],
+    [mutateUploadProfilePicture]
   );
 
   const removeProfilePicture = async () => {
-    try {
-      dispatch({ type: 'LOADING_AUTH' });
-
-      const result = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/users/delete-profile-picture/${user.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-
-      if (result.status === 200)
-        dispatch(
-          setAlertMessage({
-            status: 'danger',
-            message: `Profile picture removed!`,
-          }),
-        );
-
-      dispatch(updateUserInfo(user.id, accessToken));
-    } catch (error) {
-      if (error.response.status === 422)
-        dispatch(
-          setAlertMessage({
-            status: 'danger',
-            message: `Upload a profile picture first!`,
-          }),
-        );
-    } finally {
-      dispatch({ type: 'LOADING_AUTH_FINISHED' });
-    }
+    mutateDeleteProfilePicture();
   };
 
-  return isLoading ? (
+  const showImageCropper = () => {
+    setIsUploading(true);
+  };
+
+  const hideImageCropper = () => {
+    setIsUploading(false);
+  };
+
+  return userDataLoading ||
+    userDataError ||
+    mutateUploadProfilePictureLoading ? (
     <ModalLoader />
   ) : (
-    <Modal show={show} alignV='center' clickOutsideCallback={exitModal}>
+    <Modal show={show} alignV="center" clickOutsideCallback={exitModal}>
       <ModalContent>
         <FontAwesomeIcon
           onClick={exitModal}
-          className='close-icon hoverable'
+          className="close-icon hoverable"
           icon={faTimes}
         />
-        <div className='title'>Profile picture</div>
-        <ProfilePicturePreview image={user.profilePicture} justPreview={true} />
+        <div className="title">Profile picture</div>
+        <ProfilePicturePreview image={user.profilePicture} justPreview />
         <AlertMessage
           message={alertMessage.message}
           status={alertMessage.status}
-          removeAfter={7}
         />
-        <div className='buttons'>
+        <div className="buttons">
           <FileUploader
+            isUploading={isUploading}
+            showImageCropper={showImageCropper}
+            hideImageCropper={hideImageCropper}
             handleUploadedFile={(file) => {
               uploadProfilePicture(file);
             }}
           >
-            <button className='primary secondary rounded hoverable-bright'>
+            <button
+              type="button"
+              className="primary secondary rounded hoverable-bright"
+            >
               <FontAwesomeIcon icon={faUpload} /> Upload
             </button>
           </FileUploader>
 
           <button
+            type="button"
             onClick={removeProfilePicture}
-            className='outline-danger rounded'
+            className="outline-danger rounded"
           >
             <FontAwesomeIcon icon={faTrashAlt} /> Remove
           </button>
@@ -151,7 +111,7 @@ const UploadPictureModal = ({ show = false, exitModal = () => {} }) => {
       </ModalContent>
     </Modal>
   );
-};
+}
 
 const ModalContent = styled.div`
   display: flex;

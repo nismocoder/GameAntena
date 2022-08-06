@@ -1,36 +1,35 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { fetchedSearchGames } from '../../actions/gamesAction';
+import * as React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import { useDebouncedCallback } from "use-debounce";
+import { fetchSearchGames } from "../../redux/games/thunks";
 import {
   fetchSearchTwitch,
-  fetchSearchYoutube,
-} from '../../actions/streamsAction';
-import { getSearchPlaceholder } from '../../utils/basedOnPath';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { getSearchTwitch } from '../../services/streams/twitchStreams';
-import { useDebouncedCallback } from 'use-debounce';
-import Suggestions from './Suggestions';
-import { getSearchYoutube } from '../../services/streams/youtubeStreams';
+  fetchSearchYoutube
+} from "../../redux/seachStreams/thunks";
+import { getSearchPlaceholder } from "../../utils/basedOnPath";
+import Suggestions from "./Suggestions";
+import { useUpdateSearchSuggestions } from "./SearchLogic";
 
 const suggestionsInitialState = {
   notLive: [],
-  live: [],
+  live: []
 };
 
-const Search = ({
+function Search({
   showSearch,
   setShowSearch,
   pathname,
   textInput,
-  setTextInput,
-}) => {
+  setTextInput
+}) {
   const [searchSuggestions, setSearchSuggestions] = React.useState({
     isLoading: false,
-    suggestions: suggestionsInitialState,
+    suggestions: suggestionsInitialState
   });
 
   const [isFocusedOnInput, setIsFocusedOnInput] = React.useState(false);
@@ -45,7 +44,7 @@ const Search = ({
     setSearchSuggestions((state) => {
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       };
     });
   };
@@ -59,7 +58,7 @@ const Search = ({
   }, 180);
 
   const closeSearch = () => {
-    setTextInput('');
+    setTextInput("");
     setShowSearch(false);
   };
 
@@ -67,74 +66,37 @@ const Search = ({
     e.preventDefault();
 
     if (textInput) {
-      if (pathname === '/') dispatch(fetchedSearchGames(textInput));
+      if (pathname === "/") dispatch(fetchSearchGames(textInput));
 
-      if (pathname === '/twitch-gaming') dispatch(fetchSearchTwitch(textInput));
+      if (pathname === "/twitch-gaming") dispatch(fetchSearchTwitch(textInput));
 
-      if (pathname === '/youtube-gaming')
+      if (pathname === "/youtube-gaming")
         dispatch(fetchSearchYoutube(textInput));
 
-      if (pathname === '/my-profile') {
-        dispatch(fetchedSearchGames(textInput));
-        navigate('/');
+      if (pathname === "/my-profile") {
+        dispatch(fetchSearchGames(textInput));
+        navigate("/");
       }
     }
   };
 
-  const updateSearchSuggestionState = (live = [], notLive = []) => {
-    setSearchSuggestions((state) => {
-      return {
-        ...state,
-        isLoading: false,
-        suggestions: {
-          live,
-          notLive,
-        },
-      };
-    });
-  };
-
-  const updateSuggestions = useDebouncedCallback(async () => {
-    if (pathname === '/twitch-gaming') {
-      try {
-        const { suggestions } = await getSearchTwitch(textInput);
-
-        updateSearchSuggestionState(suggestions.live, suggestions.not_live);
-      } catch (error) {
-        setSearchSuggestions((state) => {
-          return {
-            ...state,
-            isLoading: false,
-          };
-        });
-      }
-    }
-
-    if (pathname === '/youtube-gaming') {
-      try {
-        const { suggestions } = await getSearchYoutube(textInput);
-
-        updateSearchSuggestionState(suggestions.live, suggestions.not_live);
-      } catch (error) {
-        setSearchSuggestions((state) => {
-          return {
-            ...state,
-            isLoading: false,
-          };
-        });
-      }
-    }
-  }, 150);
+  const { updateSuggestions } = useUpdateSearchSuggestions({
+    setSearchSuggestions,
+    pathname,
+    textInput
+  });
 
   React.useEffect(() => {
-    if (textInput === '') return setSearchSuggestions(suggestionsInitialState);
+    if (textInput === "") return setSearchSuggestions(suggestionsInitialState);
 
     updateSuggestions();
+
+    return () => {};
   }, [textInput, updateSuggestions]);
 
   return (
     <>
-      <div className='mobile search'>
+      <div className="mobile search">
         {!showSearch ? (
           <FontAwesomeIcon
             icon={faSearch}
@@ -143,13 +105,13 @@ const Search = ({
         ) : (
           <StyledSearchMobile
             onSubmit={submitSearch}
-            initial={{ width: '0%', opacity: 0 }}
-            animate={{ width: '90%', opacity: 1 }}
-            exit={{ width: '0%', opacity: 0.5 }}
+            initial={{ width: "0%", opacity: 0 }}
+            animate={{ width: "90%", opacity: 1 }}
+            exit={{ width: "0%", opacity: 0.5 }}
             transition={{ duration: 0.3 }}
           >
             <FontAwesomeIcon
-              className='close-icon'
+              className="close-icon"
               icon={faTimes}
               onClick={closeSearch}
             />
@@ -157,7 +119,7 @@ const Search = ({
               placeholder={getSearchPlaceholder(pathname)}
               value={textInput}
               onChange={handleInputChange}
-              type='text'
+              type="text"
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
             />
@@ -173,17 +135,17 @@ const Search = ({
           </StyledSearchMobile>
         )}
       </div>
-      <StyledSearchDesktop onSubmit={submitSearch} className='desktop'>
+      <StyledSearchDesktop onSubmit={submitSearch} className="desktop">
         <input
           placeholder={getSearchPlaceholder(pathname)}
           value={textInput}
           onChange={handleInputChange}
-          type='text'
+          type="text"
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
         />
         <FontAwesomeIcon
-          className='search-icon hoverable'
+          className="search-icon hoverable"
           icon={faSearch}
           onClick={submitSearch}
         />
@@ -200,7 +162,7 @@ const Search = ({
       </StyledSearchDesktop>
     </>
   );
-};
+}
 
 const StyledSearchDesktop = styled(motion.form)`
   position: relative;
