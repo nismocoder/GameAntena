@@ -1,17 +1,22 @@
 import * as React from "react";
+import { GameQuery } from "src/services/games/interfaces";
 
 import styled from "styled-components";
 import SingleGame from "./SingleGame";
 
-function Games({ games = [] }) {
+interface GamesProps {
+  games: GameQuery[] | undefined;
+}
+
+function Games({ games = [] }: GamesProps) {
   return (
     <StyledGames>
-      {games.map((game) => (
+      {games.map(({ id, name, background_image: backgroundImage }) => (
         <SingleGame
-          name={game.name}
-          id={game.id}
-          image={game.background_image}
-          key={game.id}
+          key={id}
+          name={name}
+          id={String(id)}
+          image={backgroundImage}
         />
       ))}
     </StyledGames>

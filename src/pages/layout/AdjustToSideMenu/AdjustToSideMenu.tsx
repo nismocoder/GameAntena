@@ -1,4 +1,5 @@
 import * as React from "react";
+import { RootState } from "src/redux/store";
 
 import styled from "styled-components";
 
@@ -9,7 +10,7 @@ import { ScrollUp } from "../../../components";
 
 import { useGetRefElementScrollY } from "../../../hooks";
 
-const getComponentVariant = (screenWidth) => {
+const getComponentVariant = (screenWidth: number) => {
   const variants = {
     desktop: {
       open: { translateX: "284px" },
@@ -27,30 +28,34 @@ const getComponentVariant = (screenWidth) => {
   return variants.mobile;
 };
 
-const AdjustToSideMenu = React.forwardRef(({ children }, ref) => {
-  const { showSideMenu, screenSize } = useSelector((state) => state.ui);
+const AdjustToSideMenu = React.forwardRef(
+  ({ children }: { children: React.ReactElement }, ref) => {
+    const { showSideMenu, screenSize } = useSelector(
+      (state: RootState) => state.ui
+    );
 
-  const { scrollY, element } = useGetRefElementScrollY(ref);
+    const { scrollY, element } = useGetRefElementScrollY(ref);
 
-  return (
-    <StyledAdjustToSideMenu
-      ref={ref}
-      variants={getComponentVariant(screenSize.width)}
-      animate={showSideMenu ? "open" : "closed"}
-      transition={{ duration: 0.4 }}
-      style={{
-        width: `calc(100vw - ${
-          getComponentVariant(screenSize.width).closed.translateX
-        })`
-      }}
-    >
-      <>
-        {children}
-        <ScrollUp element={element} elementScrollY={scrollY} />
-      </>
-    </StyledAdjustToSideMenu>
-  );
-});
+    return (
+      <StyledAdjustToSideMenu
+        ref={ref as React.Ref<HTMLDivElement>}
+        variants={getComponentVariant(screenSize.width)}
+        animate={showSideMenu ? "open" : "closed"}
+        transition={{ duration: 0.4 }}
+        style={{
+          width: `calc(100vw - ${
+            getComponentVariant(screenSize.width).closed.translateX
+          })`
+        }}
+      >
+        <>
+          {children}
+          <ScrollUp element={element} elementScrollY={scrollY} />
+        </>
+      </StyledAdjustToSideMenu>
+    );
+  }
+);
 
 const StyledAdjustToSideMenu = styled(motion.div)`
   overflow-y: auto;

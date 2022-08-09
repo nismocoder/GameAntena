@@ -5,7 +5,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { smallImage } from "../../utils";
 
-function SingleGame({ name, image, id }) {
+interface SingleGameProps {
+  name: string;
+  image: string;
+  id: string;
+}
+
+function SingleGame({ name, image, id }: SingleGameProps) {
   return (
     <StyledGame className="hoverable">
       <Link to={`/games/${id}`}>

@@ -7,7 +7,13 @@ import styled from "styled-components";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ScrollUp = ({ element, elementScrollY = 0 }) => {
+function ScrollUp({
+  element,
+  elementScrollY = 0
+}: {
+  element: any;
+  elementScrollY: number;
+}) {
   const [windowScrollY, setWindowScrollY] = React.useState(0);
 
   const scrollElementToTop = React.useCallback(() => {
@@ -30,22 +36,26 @@ const ScrollUp = ({ element, elementScrollY = 0 }) => {
     };
   }, []);
 
-  return element
-    ? elementScrollY > 1500 &&
-        createPortal(
-          <StyledScrollUp className="hoverable" onClick={scrollElementToTop}>
-            <FontAwesomeIcon icon={faArrowUp} />
-          </StyledScrollUp>,
-          document.getElementById("scrollup_root")
-        )
-    : windowScrollY > 1500 &&
-        createPortal(
-          <StyledScrollUp className="hoverable" onClick={scrollWindowToTop}>
-            <FontAwesomeIcon icon={faArrowUp} />
-          </StyledScrollUp>,
-          document.getElementById("scrollup_root")
-        );
-};
+  return (
+    <div>
+      {element
+        ? elementScrollY > 1500 &&
+          createPortal(
+            <StyledScrollUp className="hoverable" onClick={scrollElementToTop}>
+              <FontAwesomeIcon icon={faArrowUp} />
+            </StyledScrollUp>,
+            document.getElementById("scrollup_root") as HTMLElement
+          )
+        : windowScrollY > 1500 &&
+          createPortal(
+            <StyledScrollUp className="hoverable" onClick={scrollWindowToTop}>
+              <FontAwesomeIcon icon={faArrowUp} />
+            </StyledScrollUp>,
+            document.getElementById("scrollup_root") as HTMLElement
+          )}
+    </div>
+  );
+}
 
 const StyledScrollUp = styled.div`
   position: fixed;

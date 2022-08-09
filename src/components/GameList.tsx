@@ -1,30 +1,33 @@
 import * as React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { useQuery } from "react-query";
-
 import styled from "styled-components";
+
+import { RootState } from "src/redux/store";
+
+import { useGetGames } from "../hooks/queries/gameQueries";
+import { gamesActions } from "../redux/games";
 
 import { Games } from ".";
 import { AdjustToSideMenu, AdjustToSideMenuLoader } from "../pages/layout";
 
-import { getGames } from "../services/games/gamesAPI";
-import { gamesActions } from "../redux/games";
-
 function GameList() {
   const dispatch = useDispatch();
-  const { searchGames, isLoading } = useSelector((state) => state.games);
 
-  const {
-    data: games,
-    isLoading: loadingGames,
-    error
-  } = useQuery("games", getGames);
+  const { searchGames, isLoading } = useSelector(
+    (state: RootState) => state.games
+  );
+
+  const { games, gamesLoading, gamesError } = useGetGames();
 
   React.useEffect(() => {
-    if (loadingGames) return dispatch(gamesActions.LOADING_SEARCH_GAMES());
-    return dispatch(gamesActions.LOADING_SEARCH_GAMES_FINISHED());
-  }, [dispatch, loadingGames]);
+    if (gamesLoading) {
+      dispatch(gamesActions.LOADING_SEARCH_GAMES());
+      return;
+    }
+
+    dispatch(gamesActions.LOADING_SEARCH_GAMES_FINISHED());
+  }, [dispatch, gamesLoading]);
 
   const elementRef = React.createRef();
 
@@ -34,8 +37,8 @@ function GameList() {
         <AdjustToSideMenuLoader />
       ) : (
         <Content>
-          {error ? (
-            <h2 className="error">{error?.message}</h2>
+          {gamesError ? (
+            <h2 className="error">{gamesError?.message}</h2>
           ) : (
             <>
               {searchGames.length > 0 && (

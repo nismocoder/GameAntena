@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
+import * as React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import AlertMessage from "./AlertMessage";
 
 function Alert() {
-  const { alertMessage } = useSelector((state) => state.ui);
+  const { alertMessage } = useSelector((state: RootState) => state.ui);
 
   return (
     alertMessage.message && (
